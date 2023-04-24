@@ -6,7 +6,8 @@ import angularimage from "../images/angular.png"
 import kotlinimage from "../images/kotlin.png"
 import pythonimage from "../images/python.png"
 import nextjsimage from "../images/nextjs.webp"
-
+import Example from "./Carousel";
+ 
 
 const Home = () => {
     const homeCards = [
@@ -15,7 +16,7 @@ const Home = () => {
             imageAlt: 'FLutter',
         },
         {
-            imageUrl:  `${kotlinimage}`,
+            imageUrl: `${kotlinimage}`,
             imageAlt: 'Next.js',
         },
         {
@@ -34,24 +35,27 @@ const Home = () => {
             imageUrl: `${angularimage}`,
             imageAlt: 'Kotlin',
         },
-       
-       
+
+
     ]
 
 
     return (
-        <div className="homeGrid">
-            <div className="cardGrid">
-                {homeCards.map((homeCard, index) => (
-                    <HomeCard
-                        key={index}
-                        imageUrl={homeCard.imageUrl}
-                        imageAlt={homeCard.imageAlt}
-                    />
-                ))}
+        <>
+            <Example />
+            <div className="homeGrid">
+                <div className="cardGrid">
+                    {homeCards.map((homeCard, index) => (
+                        <HomeCard
+                            key={index}
+                            imageUrl={homeCard.imageUrl}
+                            imageAlt={homeCard.imageAlt}
+                        />
+                    ))}
 
+                </div>
             </div>
-        </div>
+        </>
 
     )
 }

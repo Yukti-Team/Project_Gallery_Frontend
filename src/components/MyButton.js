@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 
 const MyButton= ({text, color, onClick})=>{
@@ -6,7 +5,7 @@ const MyButton= ({text, color, onClick})=>{
        if(onClick)
        onClick();
     }
-
+ 
     return (
            <Button 
            variant="contained"
