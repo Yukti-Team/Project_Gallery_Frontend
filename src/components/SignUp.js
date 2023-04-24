@@ -43,13 +43,13 @@ const SignUp = () => {
             <div className="register">
                 <h2 align="center" >Register</h2>
                 <input className="inputBox" type="text"
-                    value={username} onChange={(e) => setName(e.target.value)} placeholder="Enter Username" />
+                    value={username} onChange={(e) => setName(e.target.value)} placeholder="Enter Username*" />
 
                 <input className="inputBox" type="text"
-                    value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email" />
+                    value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email*" />
 
                 <input className="inputBox" type="password" style={{ marginBottom: "2rem" }}
-                    value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password" />
+                    value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password*" />
 
                 <MyButton color='rgb(2, 1, 1)' text="Sign Up" onClick={collectData} />
             </div>

@@ -66,7 +66,7 @@
   height: 1.4rem;
   border: 1px solid black;
   border-radius: 4px;
-  background-color:  rgb(245, 249, 254);
+  background-color:  rgb(254, 254, 254);
 }
 
 
@@ -98,25 +98,77 @@
 }
 
 
+.form{
+  border-radius: 10px;
+  background-color: rgba(251, 243, 236, 0.88);
+  display: flex;
+  align-self:center;
+  justify-content: center;
+  padding: 50px;
+  margin: 50px;
+}
+
+
+.formBox{
+  margin: 0.5rem;
+  padding: 5px;
+  width: 34rem;
+  height: 2rem;
+  border: 1px solid #ccc;
+  background-color:  rgb(255, 255, 255);
+}
+
+.formBox:hover{
+  border-color: #005eff;
+  color: rgb(25, 24, 24);
+}
+
+.formBox[type="text"]:focus{
+  border-color: #005eff;
+}
+
+.formBox::placeholder{
+ font-size: 15px;
+ color: rgb(178, 178, 180);
+ font-weight: lighter;
+}
+
+.formgrid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem; 
+}
+
+/* check this later */
+/* label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  color: #aaa;
+  font-size: 16px;
+  font-weight: normal;
+  pointer-events: none;
+  transition: 0.2s;
+}
+
+
+.formBox:focus + label,
+.formBox:not(:placeholder-shown) + label {
+  top: -20px;
+  left: 0;
+  font-size: 14px;
+  color: #00bfff;
+  font-weight: bold;
+  transition: 0.2s;
+  position: absolute;
+} */
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* 
 
 .footer {
   position: absolute;
@@ -125,7 +177,7 @@
   width: 100%;
   background-color: rgb(242, 167, 29);
 }
-
+ */
 
 .App {
   text-align: center;

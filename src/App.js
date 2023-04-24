@@ -6,6 +6,7 @@ import SignUp from './components/SignUp';
 import PrivateComp from './components/PrivateComp';
 import Login from './components/Login';
 import Home from './components/Home';
+import AddProject from './components/AddProject';
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
         <Route element={<PrivateComp />} >
         <Route path='/' element={<Home />} />
         <Route path='/allprojects' element={<h1>All projects</h1>} />
-        <Route path='/addprojects' element={<h1>Add project</h1>} />
+        <Route path='/addprojects' element={<AddProject />} />
         <Route path='/updateproject' element={<h1>Update Project</h1>} />
         <Route path='/logout' element={<h1>Logout</h1>} />
         <Route path='/profile' element={<h1>Profile</h1>} />

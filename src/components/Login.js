@@ -41,10 +41,10 @@ const Login = ()=>{
             <h2 align="center" >Login</h2>
         
             <input className="inputBox" type="text"
-                value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Enter Email" />
+                value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Enter Email*" />
 
             <input className="inputBox" type="password" style={{ marginBottom: "2rem" }}
-                value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password" />
+                value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password*" />
 
             <MyButton color='rgb(2, 1, 1)' text="Login" onClick={handleLogin} />
         </div>
