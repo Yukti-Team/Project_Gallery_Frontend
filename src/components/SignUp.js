@@ -1,6 +1,7 @@
-import React, { useState , useEffect} from "react";
-import { useNavigate} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import MyButton from "./MyButton";
+import ApiURL from './GetUrl'
 
 const SignUp = () => {
     const [username, setName] = useState("");
@@ -8,12 +9,9 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-
-
-    useEffect(()=>{
-        const auth= localStorage.getItem('user');
-        if(auth)
-        {
+    useEffect(() => {
+        const auth = localStorage.getItem('user');
+        if (auth) {
             navigate('/')
         }
     })
@@ -21,18 +19,17 @@ const SignUp = () => {
 
     const collectData = async () => {
         console.log(username, email, password);
-        let result = await fetch('http://localhost:5000/user/signup', {
+        let result = await fetch(`${ApiURL}/user/signup`, {
             method: 'post',
             body: JSON.stringify({ username, email, password }),
             headers: {
                 'Content-Type': 'application/json'
             },
-        }) 
+        })
         result = await result.json()
         console.log(result);
         localStorage.setItem("user", JSON.stringify(result));
-        if(result)
-        {
+        if (result) {
             navigate('/')
         }
     }

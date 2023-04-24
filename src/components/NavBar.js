@@ -14,8 +14,7 @@ const NavBar = () => {
         localStorage.clear();
         navigate('/signup');
     }
-
-
+ 
     return (
         <div>
             <img className="logo" src={image} alt="logo"/>            
