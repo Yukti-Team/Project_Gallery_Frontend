@@ -143,9 +143,9 @@ const SignUp = () => {
         } else if (/\s/.test(usernameValue)) {
             setUsernameError("Username should not contain spaces");
         }
-        else if (/[^\u0000-\u007F]+/.test(usernameValue)) {
-            setUsernameError("Username should not contain emojis");
-        }
+        // else if (/[^\u0000-\u007F]+/.test(usernameValue)) {
+        //     setUsernameError("Username should not contain emojis");
+        // }
         else {
             setUsernameError("");
         }
