@@ -20,7 +20,7 @@ const NavBar = () => {
             {
                 auth ?
                     <ul className="navbar-ul">
-                        <li><Link to="/">Home Page</Link> </li>
+                        <li><Link to="/">Home</Link> </li>
                         <li><Link to="/allprojects">All Projects</Link> </li>
                         <li><Link to="/addprojects">Add Projects</Link> </li>
                         <li><Link to="/updateproject">Update Projects</Link> </li>
