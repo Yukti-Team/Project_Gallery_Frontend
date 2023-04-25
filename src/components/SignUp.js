@@ -1,12 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import MyButton from "./MyButton";
 import ApiURL from './GetUrl'
 
+import {
+    Snackbar,
+    Alert,
+    Avatar,
+    Button,
+    Container,
+    CssBaseline,
+    Typography,
+    CircularProgress,
+} from '@mui/material';
+
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import CustomTextField from "./CustomTextField";
+
+const styles = {
+    paper: {
+        marginTop: '8px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: '4px',
+        backgroundColor: '#000',
+    },
+    form: {
+        width: '100%',
+        marginTop: '4px',
+    },
+    submit: {
+        marginTop: "20px",
+        backgroundColor: "black"
+
+    },
+};
+
+
+
 const SignUp = () => {
-    const [username, setName] = useState("");
+
+    const [username, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const [usernameError, setUsernameError] = useState('');
+    const [emailError, setEmailError] = useState("");
+
+    const [errorMessage, setErrorMessage] = useState('');
+
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,41 +62,170 @@ const SignUp = () => {
         }
     })
 
+    const handleSignUp = async (event) => {
+        event.preventDefault();
 
-    const collectData = async () => {
-        console.log(username, email, password);
-        let result = await fetch(`${ApiURL}/user/signup`, {
-            method: 'post',
-            body: JSON.stringify({ username, email, password }),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        result = await result.json()
-        console.log(result);
-        localStorage.setItem("user", JSON.stringify(result));
-        if (result) {
-            navigate('/')
+        if (username === '') {
+            setErrorMessage("Username is required");
+            return;
+        }
+        if (email === '') {
+            setErrorMessage("Email is required");
+            return;
+        }
+        if (password === '') {
+            setErrorMessage("Password is required");
+            return;
+        }
+
+        setLoading(true);
+        try {
+            let result = await fetch(`${ApiURL}/user/check-username`, {
+                method: 'post',
+                body: JSON.stringify({ username: username }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+
+            result = await result.json()
+
+
+
+            if (result.success === false) {
+                setLoading(false);
+
+                setUsernameError(result.message);
+            } else {
+                setUsernameError("");
+
+                let signUpResult = await fetch(`${ApiURL}/user/signup`, {
+                    method: 'post',
+                    body: JSON.stringify({ username, email, password }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+
+                signUpResult = await signUpResult.json()
+                const statusCode = signUpResult.statusCode;
+
+                if (statusCode === 401) {
+                    setLoading(false);
+
+                    setErrorMessage(signUpResult.message);
+                }
+                else if (statusCode === 200) {
+                    setLoading(false);
+
+                    localStorage.setItem("user", JSON.stringify(signUpResult));
+                    if (signUpResult) {
+                        // navigate('/')
+                    }
+                }
+            }
+        } catch (error) {
+            setLoading(false);
+
+            console.log(error.message);
         }
     }
 
 
+    const validateUsername = (e) => {
+        const usernameValue = e.target.value;
+        setUserName(usernameValue);
+
+        if (usernameValue.length < 4) {
+            setUsernameError("Username should be at least 4 characters long");
+        } else if (/[A-Z]/.test(usernameValue)) {
+            setUsernameError("Username should not contain capital letters");
+        } else if (/\s/.test(usernameValue)) {
+            setUsernameError("Username should not contain spaces");
+        }
+        else if (/[^\u0000-\u007F]+/.test(usernameValue)) {
+            setUsernameError("Username should not contain emojis");
+        }
+        else {
+            setUsernameError("");
+        }
+
+    }
+
+    const validateEmail = (e) => {
+        setEmail(e.target.value);
+
+        if (email === "") {
+            setEmailError("Email is required.");
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            setEmailError("Invalid email address.");
+        } else {
+            setEmailError("");
+        }
+    };
+
     return (
-        <div className="register-outer-div">
-            <div className="register">
-                <h2 align="center" >Register</h2>
-                <input className="inputBox" type="text"
-                    value={username} onChange={(e) => setName(e.target.value)} placeholder="Enter Username" />
 
-                <input className="inputBox" type="text"
-                    value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email" />
+        <>
+            <Snackbar
+                open={errorMessage !== ''}
+                autoHideDuration={2000}
+                onClose={() => setErrorMessage('')}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
+                <Alert
+                    elevation={6}
+                    variant="filled"
+                    onClose={() => setErrorMessage('')}
+                    severity="error"
+                >
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
 
-                <input className="inputBox" type="password" style={{ marginBottom: "2rem" }}
-                    value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password" />
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div style={styles.paper}>
+                    <Avatar style={styles.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign up
+                    </Typography>
+                    <form style={styles.form} noValidate onSubmit={handleSignUp}>
+                        <CustomTextField
+                            label="Username"
+                            value={username}
+                            isReuired={true}
+                            errorMesssage={usernameError}
+                            onChange={validateUsername}
+                        />
+                        <CustomTextField
+                            label="Email Address"
+                            value={email}
+                            errorMesssage={emailError}
+                            onChange={validateEmail}
+                        />
+                        <CustomTextField
+                            label="Password"
+                            value={password}
+                            onChange={(e) => { setPassword(e.target.value); }}
+                        />
 
-                <MyButton color='rgb(2, 1, 1)' text="Sign Up" onClick={collectData} />
-            </div>
-        </div>
+
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            style={styles.submit}
+                        >
+                            {loading && <CircularProgress style={{ color: "white" }} size={24} />}
+                            {!loading && 'Sign Up'}
+                        </Button>
+                    </form>
+                </div>
+            </Container>
+        </>
     )
 }
 

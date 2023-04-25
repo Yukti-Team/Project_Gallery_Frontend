@@ -1,56 +1,155 @@
+import {
+    Snackbar,
+    Alert,
+    Avatar,
+    Button,
+    Container,
+    CssBaseline,
+    Typography,
+    CircularProgress,
+} from '@mui/material';
+
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CustomTextField from "./CustomTextField";
 import ApiURL from "./GetUrl";
-import MyButton from "./MyButton";
 
 
 
-const Login = ()=>{
+const styles = {
+    paper: {
+        marginTop: '8px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: '4px',
+        backgroundColor: '#000',
+    },
+    form: {
+        width: '100%',
+        marginTop: '4px',
+    },
+    submit: {
+        marginTop: "20px",
+        backgroundColor: "black"
+
+    },
+};
+
+
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const [errorMessage, setErrorMessage] = useState('');
+
     const navigate = useNavigate();
-     
-    useEffect(()=>{
+
+    useEffect(() => {
         const auth = localStorage.getItem("user");
-        if(auth){
+        if (auth) {
             navigate('/')
         }
     })
-    
-    const handleLogin= async ()=>{
+
+    const handleLogin = async (event) => {
+        event.preventDefault();
+
+        setLoading(true);
+
         console.log(email, password);
-        let result= await fetch(`${ApiURL}/user/login`, {
-            method:'post',
-            body: JSON.stringify({email, password}),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        });
-        result = await result.json();
-        console.log(result);
-        if(result.username)
-        {
-            localStorage.setItem("user", JSON.stringify(result));
-            navigate('/')
-        }else{
-            alert("please enter valid details")
+
+        try {
+            let result = await fetch(`${ApiURL}/user/login`, {
+                method: 'post',
+                body: JSON.stringify({ email, password }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            result = await result.json();
+            console.log(result);
+            if (result.statusCode === 400) {
+
+                setLoading(false);
+                setErrorMessage(result.message);
+
+                return;
+            }
+            
+            
+            if (result.user.username) {
+                setLoading(false);
+                localStorage.setItem("user", JSON.stringify(result));
+                navigate('/')
+            } else {
+                setLoading(false);
+                setErrorMessage("Something went wrong")
+            }
+        } catch (error) {
+            console.log(error.message);
         }
+
     }
 
-    return(
-        <div className="login-outer">
-        <div className="login">
-            <h2 align="center" >Login</h2>
-        
-            <input className="inputBox" type="text"
-                value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Enter Email" />
 
-            <input className="inputBox" type="password" style={{ marginBottom: "2rem" }}
-                value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password" />
+    return (
+        <>
+            <Snackbar
+                open={errorMessage !== ''}
+                autoHideDuration={2000}
+                onClose={() => setErrorMessage('')}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
+                <Alert
+                    elevation={6}
+                    variant="filled"
+                    onClose={() => setErrorMessage('')}
+                    severity="error"
+                >
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
 
-            <MyButton color='rgb(2, 1, 1)' text="Login" onClick={handleLogin} />
-        </div>
-    </div>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div style={styles.paper}>
+                    <Avatar style={styles.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Login
+                    </Typography>
+                    <form style={styles.form} noValidate onSubmit={handleLogin}>
+                        <CustomTextField
+                            label="Email Address/Username"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <CustomTextField
+                            label="Password"
+                            value={password}
+                            onChange={(e) => { setPassword(e.target.value); }}
+                        />
+
+
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            style={styles.submit}
+                        >
+                            {loading && <CircularProgress style={{ color: "white" }} size={24} />}
+                            {!loading && 'Login'}
+                        </Button>
+                    </form>
+                </div>
+            </Container>
+        </>
     )
 }
 
