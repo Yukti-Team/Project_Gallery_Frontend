@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { Button, Box } from '@mui/material';
 import PgLogo from "../../images/pglogo.jpg"
 
-const LogoUploader = () => { 
-    const [logo, setLogo] = useState(null);
+const LogoUploader = (plogo, setPlogo) => {
 
     const handleLogoChange = (event) => {
-        setLogo(URL.createObjectURL(event.target.files[0]));
+        setPlogo(URL.createObjectURL(event.target.files[0]));
     };
 
     return (
@@ -30,7 +29,7 @@ const LogoUploader = () => {
             </label>
 
             <Box mt={2}>
-                <img src={logo == null ? PgLogo : logo} alt="logo preview" width="200" height="200" />
+                <img src={plogo == null ? PgLogo : plogo} alt="logo preview" width="200" height="200" />
 
             </Box>
 

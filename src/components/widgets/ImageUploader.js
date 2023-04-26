@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { Button, IconButton, Typography } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 
-const ImageUploader = () => {
-    const [images, setImages] = useState([]);
+const ImageUploader = ({pimage, setPimage}) => {
 
     const handleFileChange = (event) => {
         const selectedFiles = Array.from(event.target.files);
-        setImages(selectedFiles);
+        setPimage(selectedFiles);
     };
 
     return (
@@ -32,7 +31,7 @@ const ImageUploader = () => {
             </label>
 
             <div style={{ marginTop: '10px' }}>
-                {images.map((image, index) => (
+                {pimage.map((image, index) => (
                     <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                         <IconButton size="small">
                             <img

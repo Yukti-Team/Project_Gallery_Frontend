@@ -18,8 +18,7 @@ const randomColors = [
     "#8D99AE"
 ];
 
-const TagTextField = () => {
-    const [tags, setTags] = useState([]);
+const TagTextField = (tags, setTags) => {
     const [tagInput, setTagInput] = useState('');
 
     const handleTagInputChange = (e) => {
