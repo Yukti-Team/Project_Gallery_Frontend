@@ -18,12 +18,12 @@ const NavBar = () => {
     }
 
     return (
-        <div>
+        <div className="navbar-ul"> 
             <img className="logo" src={image} alt="logo" style={{ marginTop: '1vh' }} />
 
             {
                 auth ?
-                    <ul className="navbar-ul">
+                    <ul>
                         <li><Link to="/">Home</Link> </li>
                         <li><Link to="/allprojects">All Projects</Link> </li>
                         <li><Link to="/addprojects">Add Projects</Link> </li>

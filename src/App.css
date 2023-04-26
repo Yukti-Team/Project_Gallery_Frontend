@@ -2,7 +2,7 @@
   width: 2.5rem;
   float: left;
   border-radius: 50%;
-  margin-top: 3px;
+  /* margin-top: 3px; */
   margin-left: 10px;
 }
 
@@ -10,12 +10,16 @@
   margin: 0;
   background-color: rgb(2, 1, 1);
   text-align: left;
-  padding: 1.2vh;
+  /* padding: 1vh; */
+  position: fixed;
+  width: 100vw;
+  z-index: 10;
+  top: 0px;
 }
 
 .navbar-ul li{
   display: inline-block;
-  padding: 15px;
+  padding: 6px 15px;
 }
 
 .navbar-ul li a{
@@ -356,7 +360,10 @@
 
 
 
-
+body{
+  margin:0;
+  padding: 0;
+}
 
 
 /* 
@@ -372,6 +379,8 @@
 
 .App {
   text-align: center;
+  padding: 0px;
+  margin: 0px;
 }
 
 .App-logo {

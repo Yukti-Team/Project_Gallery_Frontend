@@ -9,9 +9,9 @@ import BirdImage from "../../images/bird.jpg"
 const styles = {
     image: {
         width: '100%',
-        height: '90vh',
+        height: '98vh',
         objectFit: 'cover',
-        filter: 'blur(0px)'
+        filter: 'blur(0px)',
     },
     overlay: {
         position: "absolute",
@@ -26,7 +26,7 @@ const styles = {
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         color: "#fff",
         zIndex: 1,
-        padding: '0 16px'
+        padding: '0px 16px'
     },
     button: {
         margin: '1rem',
@@ -72,7 +72,7 @@ function Item(props) {
         <Box position="relative">
             <img src={props.item.image} alt={props.item.name} style={styles.image} />
             <Box style={styles.overlay}>
-                <Typography variant="h2" component="h2" align="center" sx={{ marginBottom: '1rem' }}>
+                <Typography variant="h2" component="h2" align="center" sx={{ marginBottom: '1rem'}}>
                     {props.item.name}
                 </Typography>
                 <Typography variant="body1" align="center" sx={{ marginBottom: '1rem' }}>

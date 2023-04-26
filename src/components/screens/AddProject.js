@@ -56,25 +56,6 @@ const AddProject = () => {
     // }, [branch, domain, year, status])
 
 
-    // const createInputFields = (size) => {
-    //     const inputs = [];
-    //     let newGroupArray = [ownname];
-    //     for (let i = 1; i < size; i++) {
-    //         inputs.push(
-    //             <input
-    //                 key={i}
-    //                 type="text"
-    //                 placeholder={`Team member ${i + 1}`}
-    //                 onChange={(e) => {
-    //                     newGroupArray = [...groupArray];
-    //                     newGroupArray[i] = e.target.value;
-    //                     setGroupArray(newGroupArray);
-    //                 }}
-    //             />
-    //         );
-    //     }
-    //     return inputs;
-    // };
 
     const handleCheckbox = () => {
 
