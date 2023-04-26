@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import NavBar from './components/NavBar';
+import NavBar from './components/widgets/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SignUp from './components/SignUp';
+import SignUp from './components/screens/SignUp';
 import PrivateComp from './components/PrivateComp';
-import Login from './components/Login';
-import Home from './components/Home';
-import AllProject from './components/AllProjects';
-import ApiURL from './components/GetUrl';
-import ImagePicker from './components/ImageUploader';
+
+import Login from './components/screens/Login';
+import Home from './components/screens/Home';
+import AddProject from './components/screens/AddProject';
+import AllProject from './components/screens/AllProjects';
+import ApiURL from './components/GetUrl'
+
+
+
 
 function App() {
 
@@ -38,11 +42,12 @@ function App() {
           <Route element={<PrivateComp />} >
             <Route path='/' element={<Home />} />
             <Route path='/allprojects' element={<AllProject />} />
-            <Route path='/addprojects' element={<h1>Add project</h1>} />
-            <Route path='/updateproject' element={<h1>Update</h1>} />
+            <Route path='/addprojects' element={<AddProject />} />
+            <Route path='/updateproject' element={<h1>Update Project</h1>} />
             <Route path='/logout' element={<h1>Logout</h1>} />
             <Route path='/profile' element={<h1>Profile</h1>} />
           </Route >
+
 
 
           <Route path='/signup' element={<SignUp />} />

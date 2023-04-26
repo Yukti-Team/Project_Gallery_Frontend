@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ApiURL from './GetUrl'
+import ApiURL from '../GetUrl'
+
 
 import {
     Snackbar,
@@ -14,7 +15,7 @@ import {
 } from '@mui/material';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import CustomTextField from "./CustomTextField";
+import CustomTextField from "../CustomTextField";
 
 const styles = {
     paper: {
@@ -211,6 +212,7 @@ const SignUp = () => {
                             value={password}
                             onChange={(e) => { setPassword(e.target.value); }}
                         />
+
 
 
                         <Button

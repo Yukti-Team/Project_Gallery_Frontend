@@ -1,10 +1,10 @@
 import React from "react";
-import { StyledTextField } from "../styles/StyledTextField";
+import { StyledTextField } from "../../styles/StyledTextField";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Grid, Typography } from "@mui/material";
-import FilterRow from "./FilterRow";
-import ProjectCard from "./ProjectCard";
-import ProjectData from "./ProjectData";
+import FilterRow from "../widgets/FilterRow";
+import ProjectCard from "../widgets/ProjectCard";
+import ProjectData from "../widgets/ProjectData";
 
 
 const AllProject = () => {

@@ -1,7 +1,11 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import image from '../images/logo.jpg';
+import image from '../../images/logo.png';
+
+//route: its the page that we want to show on a link
+//link: the url or endpoint on which we want to render our page is a link 
+
 
 
 const NavBar = () => {

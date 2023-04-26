@@ -12,8 +12,11 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CustomTextField from "./CustomTextField";
-import ApiURL from "./GetUrl";
+
+
+import CustomTextField from "../CustomTextField";
+import ApiURL from '../GetUrl'
+
 
 
 
@@ -135,6 +138,7 @@ const Login = () => {
                             value={password}
                             onChange={(e) => { setPassword(e.target.value); }}
                         />
+
 
 
                         <Button

@@ -3,7 +3,8 @@ import { Button, Menu, MenuItem } from '@mui/material';
 
 const filterOptions = [
     {
-        label: 'Branch', options: ['CSE', 'IT', 'Entc', 'Mech', 'Civil', 'Electrical'],
+        label: 'Branch', 
+        options: ['CSE', 'IT', 'Entc', 'Mech', 'Civil', 'Electrical'],
     },
     { 
         label: 'Domain',

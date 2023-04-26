@@ -1,14 +1,11 @@
 import React from "react";
-import HomeCard from "./HomeCard";
-import flutterimage from "../images/flutter.png"
-import reactimage from "../images/react.png"
-import angularimage from "../images/angular.png"
-import kotlinimage from "../images/kotlin.png"
-import pythonimage from "../images/python.png"
-import nextjsimage from "../images/nextjs.webp"
-import CustomCarousel from "./Carousel";
-import ImageUploader from "./ImageUploader";
-
+import HomeCard from "../widgets/HomeCard";
+import flutterimage from "../../images/flutter.png"
+import reactimage from "../../images/react.png"
+import angularimage from "../../images/angular.png"
+import kotlinimage from "../../images/kotlin.png"
+import pythonimage from "../../images/python.png"
+import nextjsimage from "../../images/nextjs.webp" 
 
 const Home = () => {
     const homeCards = [
