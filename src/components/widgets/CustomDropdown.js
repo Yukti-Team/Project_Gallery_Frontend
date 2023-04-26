@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 
 const CustomDropdown = ({ value, setValue, options, width}) => {
