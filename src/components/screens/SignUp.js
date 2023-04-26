@@ -117,7 +117,7 @@ const SignUp = () => {
                     setErrorMessage(signUpResult.message);
                 }
                 else if (statusCode === 200) {
-                    setLoading(false);
+                    setLoading(false); 
 
                     localStorage.setItem("user", JSON.stringify(signUpResult.user));
                     if (signUpResult) {

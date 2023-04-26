@@ -49,7 +49,7 @@ const AllProject = () => {
                               statusLabel={project.statusLabel}
                               statusColor={project.statusColor}
                            />
-
+ 
                         </Grid>
 
                         {index % 2 !== 0 && (

@@ -48,8 +48,6 @@ function App() {
             <Route path='/profile' element={<h1>Profile</h1>} />
           </Route >
 
-
-
           <Route path='/signup' element={<SignUp />} />
           <Route path='/login' element={<Login />} />
 

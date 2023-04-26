@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Button } from '@mui/material';
 import CustomDropDown2 from './CustomDropdown2';
 
 const filterOptions = [
@@ -96,25 +96,7 @@ function FilterRow() {
                     setAnchorEl={setAnchorEl}
                 />
             ))}
-
-            {/* {filterOptions.map(({ label, options }) => (
-                <div key={label} style={styles.lableRowStyle}>
-                    <Button style={styles.buttonStyle} variant="outlined" onClick={(event) => handleFilterClick(event, label)}>
-                        {selectedFilters[label] ? selectedFilters[label] : label}
-                    </Button>
-                    <Menu
-                        anchorEl={anchorEl[label]}
-                        open={Boolean(anchorEl[label])}
-                        onClose={() => setAnchorEl(prevState => ({ ...prevState, [label]: null }))}
-                    >
-                        {options.map(option => (
-                            <MenuItem key={option} onClick={() => handleFilterClose(label, option)}>
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </Menu>
-                </div>
-            ))} */}
+ 
             {
                 (selectedFilters && Object.keys(selectedFilters).length > 0) ? (
                     <Button style={styles.clearButtonStyle} variant="outlined" onClick={handleClearFilters}>

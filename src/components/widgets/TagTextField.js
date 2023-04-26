@@ -62,7 +62,7 @@ const TagTextField = () => {
             </div>
             <div style={{ marginTop: '10px' }}>
                 {tags.map((tag, index) => (
-                    <Chip
+                    <Chip 
                         key={tag}
                         label={tag}
                         onDelete={() => handleDeleteTag(tag)}

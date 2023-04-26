@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 
-
+ 
 const MyButton = ({ text, color, onClick }) => {
     function handleClick() {
         if (onClick)

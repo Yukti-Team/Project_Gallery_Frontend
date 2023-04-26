@@ -37,8 +37,8 @@ const ImageUploader = () => {
                         <IconButton size="small">
                             <img
                                 src={URL.createObjectURL(image)}
-                                alt={`Uploaded image ${index}`}
-                                style={{ height: '30px', marginRight: '10px' }}
+                                alt={`Upload ${index}`}
+                                 style={{ height: '30px', marginRight: '10px' }}
                             />
                         </IconButton>
                         <Typography variant="body2" noWrap>

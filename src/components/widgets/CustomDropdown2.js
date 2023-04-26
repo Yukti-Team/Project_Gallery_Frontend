@@ -14,7 +14,7 @@ const CustomDropDown2 = ({
     color,
     marginLeft = "20px",
     marginRight = "20px",
-}) => {
+}) => { 
 
     const styles = {
         buttonStyle: {

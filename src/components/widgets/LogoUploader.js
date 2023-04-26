@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Box } from '@mui/material';
 import PgLogo from "../../images/pglogo.jpg"
 
-const LogoUploader = () => {
+const LogoUploader = () => { 
     const [logo, setLogo] = useState(null);
 
     const handleLogoChange = (event) => {
