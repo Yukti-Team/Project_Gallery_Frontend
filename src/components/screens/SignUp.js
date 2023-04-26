@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import CustomTextField from "../CustomTextField";
+import CustomTextField from "../widgets/CustomTextField";
 
 const styles = {
     paper: {
@@ -117,9 +117,9 @@ const SignUp = () => {
                     setErrorMessage(signUpResult.message);
                 }
                 else if (statusCode === 200) {
-                    setLoading(false);
+                    setLoading(false); 
 
-                    localStorage.setItem("user", JSON.stringify(signUpResult));
+                    localStorage.setItem("user", JSON.stringify(signUpResult.user));
                     if (signUpResult) {
                         // navigate('/')
                     }

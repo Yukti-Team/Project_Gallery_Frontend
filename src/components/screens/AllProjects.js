@@ -39,7 +39,7 @@ const AllProject = () => {
                {
                   ProjectData.map((project, index) => (
                      <React.Fragment key={project.projectName}>
-                        <Grid item xs={4} md={4}>
+                        <Grid item xs={6} md={4} sm={12}>
                            <ProjectCard
                               logoSrc={project.logoSrc}
                               projectName={project.projectName}
@@ -49,11 +49,11 @@ const AllProject = () => {
                               statusLabel={project.statusLabel}
                               statusColor={project.statusColor}
                            />
-
+ 
                         </Grid>
 
                         {index % 2 !== 0 && (
-                           <Grid item xs={4} md={4}>
+                           <Grid item xs={6} md={4} sm={12}>
                               <ProjectCard
                                  logoSrc={ProjectData[index - 1].logoSrc}
                                  projectName={ProjectData[index - 1].projectName}

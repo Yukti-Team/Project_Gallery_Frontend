@@ -6,13 +6,12 @@ import angularimage from "../../images/angular.png"
 import kotlinimage from "../../images/kotlin.png"
 import pythonimage from "../../images/python.png"
 import nextjsimage from "../../images/nextjs.webp"
-
-import Example from "../widgets/Carousel";
- 
+import CustomCarousel from "../widgets/Carousel";
+import ImageUploader from "../widgets/ImageUploader";
 
 const Home = () => {
     const homeCards = [
-        {
+        {  
             imageUrl: `${flutterimage}`,
             imageAlt: 'FLutter',
         },
@@ -40,10 +39,9 @@ const Home = () => {
 
     ]
 
-
     return (
         <>
-            <Example />
+            <CustomCarousel />
             <div className="homeGrid">
                 <div className="cardGrid">
                     {homeCards.map((homeCard, index) => (
@@ -56,6 +54,7 @@ const Home = () => {
 
                 </div>
             </div>
+            <ImageUploader />
         </>
 
     )

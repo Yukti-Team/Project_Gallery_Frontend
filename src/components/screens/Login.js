@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-import CustomTextField from "../CustomTextField";
+import CustomTextField from "../widgets/CustomTextField";
 import ApiURL from '../GetUrl'
 
 
@@ -83,11 +83,11 @@ const Login = () => {
 
                 return;
             }
-            
-            
+
+
             if (result.user.username) {
                 setLoading(false);
-                localStorage.setItem("user", JSON.stringify(result));
+                localStorage.setItem("user", JSON.stringify(result.user));
                 navigate('/')
             } else {
                 setLoading(false);

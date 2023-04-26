@@ -39,7 +39,7 @@ const styles = {
 }
 
 
-function Example() {
+function CustomCarousel() {
     var items = [
         {
             name: "Great Car",
@@ -87,4 +87,4 @@ function Item(props) {
     )
 }
 
-export default Example
+export default CustomCarousel

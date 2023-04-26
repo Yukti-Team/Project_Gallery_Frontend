@@ -1,9 +1,10 @@
 import { TextField, Typography } from '@mui/material';
 
-function CustomTextField({ label, value, onChange, errorMesssage = "", isReuired = false }) {
+function CustomTextField({ key, label, value, onChange, readOnly = false, errorMesssage = "", isReuired = false }) {
     return (
         <>
             <TextField
+                key={key} 
                 variant="outlined"
                 margin="normal"
                 required
@@ -16,8 +17,9 @@ function CustomTextField({ label, value, onChange, errorMesssage = "", isReuired
                 onChange={onChange}
                 InputProps={{
                     startAdornment: isReuired ? <Typography>@</Typography> : null,
+                    readOnly: readOnly,
                 }}
-            />  
+            />
             <span style={{ display: 'block', color: 'red', textAlign: 'left', fontSize: "14px" }}>
                 {errorMesssage === '' ? null : errorMesssage}
             </span>
