@@ -10,6 +10,7 @@
   margin: 0;
   background-color: rgb(2, 1, 1);
   text-align: left;
+  padding: 1.2vh;
 }
 
 .navbar-ul li{
@@ -157,13 +158,13 @@
 .formgrid{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 1vw; 
+  grid-gap: 2vw; 
 }
 
 .uploadGrid{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 1vw; 
+  grid-gap: 2.5vw; 
 
 }
 /* check this later */
@@ -225,7 +226,7 @@
   align-items: center;
   margin-top: 0.5rem;
   padding: 5px;
-  width: 41vw;
+  width: 40.4vw;
   height: 2rem;
   border: 1px solid #ccc;
   background-color:  rgb(255, 255, 255);
