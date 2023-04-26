@@ -15,7 +15,7 @@ const NavBar = () => {
 
     return (
         <div>
-            <img className="logo" src={image} alt="logo" style={{ marginTop: '10px' }} />
+            <img className="logo" src={image} alt="logo" style={{ marginTop: '1vh' }} />
 
             {
                 auth ?
