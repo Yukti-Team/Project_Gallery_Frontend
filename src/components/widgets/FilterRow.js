@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
+import CustomDropDown2 from './CustomDropdown2';
 
 const filterOptions = [
     {
-        label: 'Branch', 
+        label: 'Branch',
         options: ['CSE', 'IT', 'Entc', 'Mech', 'Civil', 'Electrical'],
     },
-    { 
+    {
         label: 'Domain',
         options: ['Web Dev', 'Android Dev', 'ML', 'AI'],
     },
@@ -84,6 +85,19 @@ function FilterRow() {
     return (
         <div style={styles.divStyle}>
             {filterOptions.map(({ label, options }) => (
+                <CustomDropDown2
+                    key={label}
+                    label={label}
+                    options={options}
+                    selectedFilters={selectedFilters}
+                    handleFilterClick={handleFilterClick}
+                    handleFilterClose={handleFilterClose}
+                    anchorEl={anchorEl}
+                    setAnchorEl={setAnchorEl}
+                />
+            ))}
+
+            {/* {filterOptions.map(({ label, options }) => (
                 <div key={label} style={styles.lableRowStyle}>
                     <Button style={styles.buttonStyle} variant="outlined" onClick={(event) => handleFilterClick(event, label)}>
                         {selectedFilters[label] ? selectedFilters[label] : label}
@@ -100,7 +114,7 @@ function FilterRow() {
                         ))}
                     </Menu>
                 </div>
-            ))}
+            ))} */}
             {
                 (selectedFilters && Object.keys(selectedFilters).length > 0) ? (
                     <Button style={styles.clearButtonStyle} variant="outlined" onClick={handleClearFilters}>

@@ -87,7 +87,7 @@ const Login = () => {
 
             if (result.user.username) {
                 setLoading(false);
-                localStorage.setItem("user", JSON.stringify(result));
+                localStorage.setItem("user", JSON.stringify(result.user));
                 navigate('/')
             } else {
                 setLoading(false);

@@ -119,7 +119,7 @@ const SignUp = () => {
                 else if (statusCode === 200) {
                     setLoading(false);
 
-                    localStorage.setItem("user", JSON.stringify(signUpResult));
+                    localStorage.setItem("user", JSON.stringify(signUpResult.user));
                     if (signUpResult) {
                         // navigate('/')
                     }
