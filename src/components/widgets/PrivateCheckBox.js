@@ -12,8 +12,7 @@ const styles = {
     },
 };
 
-const PrivateCheckbox = () => {
-    const [isPrivate, setIsPrivate] = useState(false);
+const PrivateCheckbox = (isPrivate, setIsPrivate) => {
 
     const handlePrivateChange = (e) => {
         setIsPrivate(e.target.checked);
@@ -36,4 +35,3 @@ const PrivateCheckbox = () => {
 };
 
 export default PrivateCheckbox;
- 
