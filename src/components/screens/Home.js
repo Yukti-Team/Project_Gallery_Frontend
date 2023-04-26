@@ -5,11 +5,13 @@ import reactimage from "../../images/react.png"
 import angularimage from "../../images/angular.png"
 import kotlinimage from "../../images/kotlin.png"
 import pythonimage from "../../images/python.png"
-import nextjsimage from "../../images/nextjs.webp" 
+import nextjsimage from "../../images/nextjs.webp"
+import CustomCarousel from "../widgets/Carousel";
+import ImageUploader from "../widgets/ImageUploader";
 
 const Home = () => {
     const homeCards = [
-        {
+        {  
             imageUrl: `${flutterimage}`,
             imageAlt: 'FLutter',
         },
@@ -36,7 +38,6 @@ const Home = () => {
 
 
     ]
-
 
     return (
         <>

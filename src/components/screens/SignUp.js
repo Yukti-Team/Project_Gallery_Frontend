@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import CustomTextField from "../CustomTextField";
+import CustomTextField from "../widgets/CustomTextField";
 
 const styles = {
     paper: {

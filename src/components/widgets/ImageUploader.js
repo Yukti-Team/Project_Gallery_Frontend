@@ -19,7 +19,7 @@ const styles = {
     previewContainer: {
         width: '100%',
         height: '0',
-        paddingTop: '56.25%', 
+        paddingTop: '56.25%',
         position: 'relative',
         marginBottom: '20px',
     },
@@ -37,7 +37,7 @@ const ImageUploader = () => {
     const [file, setFile] = useState(null);
     const [aspectRatioError, setAspectRatioError] = useState('');
     const [crop, setCrop] = useState({ aspect: 16 / 9 });
-
+  
     const handleImageUpload = (file) => {
         const img = new Image();
         img.src = file.base64;
@@ -53,6 +53,7 @@ const ImageUploader = () => {
     };
 
     const handleAspectRatioChange = (event) => {
+        setAspectRatioError("");
         const value = event.target.value;
         let aspectRatio = 1;
         switch (value) {

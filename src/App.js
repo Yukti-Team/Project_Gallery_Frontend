@@ -3,7 +3,7 @@ import './App.css';
 import NavBar from './components/widgets/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignUp from './components/screens/SignUp';
-import PrivateComp from './components/PrivateComp';
+import PrivateComp from './components/widgets/PrivateComp';
 
 import Login from './components/screens/Login';
 import Home from './components/screens/Home';
