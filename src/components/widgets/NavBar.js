@@ -27,7 +27,7 @@ const NavBar = () => {
                         <li><Link to="/">Home</Link> </li>
                         <li><Link to="/allprojects">All Projects</Link> </li>
                         <li><Link to="/addprojects">Add Projects</Link> </li>
-                        <li><Link to="/updateproject">Update Projects</Link> </li>
+                        <li><Link to="/updateproject">My Projects</Link> </li>
                         <li><Link to="/profile">Profile</Link> </li>
                         <li><Link onClick={logout} to="/signup">Logout</Link> </li>
                     </ul>

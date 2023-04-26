@@ -1,4 +1,4 @@
-.logo{
+.logo {
   width: 2.5rem;
   float: left;
   border-radius: 50%;
@@ -6,30 +6,32 @@
   margin-left: 10px;
 }
 
-.navbar-ul{
+.navbar-ul {
   margin: 0;
   background-color: rgb(2, 1, 1);
   text-align: left;
   padding: 1.2vh;
 }
 
-.navbar-ul li{
+.navbar-ul li {
   display: inline-block;
   padding: 15px;
 }
 
-.navbar-ul li a{
+.navbar-ul li a {
   color: #fff;
   text-decoration: none;
   padding: 0.6 rem;
 
 }
-.register-outer-div{
+
+.register-outer-div {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.register{
+
+.register {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,14 +42,14 @@
   box-shadow: 2px 4px 6px rgb(184, 184, 184);
   background-color: rgb(240, 240, 236);
 }
-  
-.login-outer{
+
+.login-outer {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.login{
+.login {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,21 +62,21 @@
 }
 
 
-.inputBox{
+.inputBox {
   margin: 0.5rem;
   padding: 5px;
   width: 20rem;
   height: 1.4rem;
   border: 1px solid black;
   border-radius: 4px;
-  background-color:  rgb(254, 254, 254);
+  background-color: rgb(254, 254, 254);
 }
 
 
-.homeCard{
+.homeCard {
   width: 20vw;
   border-radius: 5px;
-  border:  1px solid  rgb(242, 167, 29);
+  border: 1px solid rgb(242, 167, 29);
   height: 20vh;
   background-color: #fff;
   box-shadow: 4px 8px 10px rgba(0, 0, 0, 0.1);
@@ -85,14 +87,14 @@
 }
 
 
-.cardGrid{
+.cardGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 40px;
   width: 66vw;
 }
 
-.homeGrid{
+.homeGrid {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,11 +103,11 @@
 }
 
 
-.form{
+.form {
   border-radius: 10px;
   background-color: rgba(250, 227, 207, 0.88);
   display: flex;
-  align-self:center;
+  align-self: center;
   justify-content: center;
   padding: 2vw;
   margin: 4vw;
@@ -113,59 +115,82 @@
 }
 
 
-.formBox{
+.formBox {
   margin: 0.5rem;
   padding: 5px;
   width: 40.5vw;
   height: 2rem;
   border: 1px solid #ccc;
-  background-color:  rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
   position: relative;
 }
 
-.formBox2{
+.formBox2 {
   margin-top: 0.5rem;
   padding: 5px;
   width: 100%;
   height: 2rem;
   border: 1px solid #ccc;
-  background-color:  rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
   position: relative;
 }
 
-.formBox2[type="text"]:focus{
+.formBox2[type="text"]:focus {
   border-color: #005eff;
 }
 
 
 
-.formBox:hover{
+.formBox:hover {
   border-color: #005eff;
   color: rgb(25, 24, 24);
 }
 
-.formBox[type="text"]:focus{
+.formBox[type="text"]:focus {
   border-color: #005eff;
 }
 
-.formBox::placeholder{
- font-size: 15px;
- color: rgb(178, 178, 180);
- font-weight: lighter;
+.formBox::placeholder {
+  font-size: 15px;
+  color: rgb(178, 178, 180);
+  font-weight: lighter;
 }
 
-.formgrid{
+.input-file input[type="file" i]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.input-file input[type="file" i]::before {
+  content: 'Upload Logo';
+  display: inline-block;
+  background-color: black;
+  color: white;
+  padding: 6px 12px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-file input[type="file" i]:hover::before {
+  background-color: gray;
+}
+
+
+
+.formgrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 2vw; 
+  grid-gap: 2vw;
 }
 
-.uploadGrid{
+.uploadGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 2.5vw; 
+  grid-gap: 2.5vw;
 
 }
+
 /* check this later */
 /* label {
   position: absolute;
@@ -189,11 +214,11 @@
   transition: 0.2s;
   position: absolute;
 } */
-.form2{
+.form2 {
   margin: 4vw;
   padding: 3.6vw;
   border-radius: 10px;
-  background-color:  rgba(250, 227, 207, 0.88);
+  background-color: rgba(250, 227, 207, 0.88);
 
 
 }
@@ -210,7 +235,7 @@
 
 }
 
-.labeledBox{
+.labeledBox {
   display: flex;
   flex-direction: column;
   /* border: #005eff 1px solid; */
@@ -218,9 +243,9 @@
   margin: 0;
   padding: 5px;
   height: 5rem;
-} 
+}
 
-.uploadDiv{
+.uploadDiv {
   display: flex;
   align-items: center;
   margin-top: 0.5rem;
@@ -228,17 +253,17 @@
   width: 40.4vw;
   height: 2rem;
   border: 1px solid #ccc;
-  background-color:  rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
 
 }
 
 
 
-.formLabels{
+.formLabels {
   /* position: absolute; */
   text-align-last: left;
   font-size: 1.1vw;
-  color:  #005eff ;
+  color: #005eff;
   /* border: red 1px solid; */
   margin-left: 0.2vw;
 }
@@ -258,14 +283,14 @@
   /* padding: ; */
 }
 
-.select-css{
+.select-css {
   /* border:pink 1px solid;
    */
-   width: 100% !important;
-   height: 100%;
-   padding: 0.9rem;
+  width: 100% !important;
+  height: 100%;
+  padding: 0.9rem;
 
-   /* padding: auto; */
+  /* padding: auto; */
 }
 
 
@@ -328,7 +353,7 @@
 } */
 
 
-.full-width{
+.full-width {
   width: 100%;
   /* display: flex; */
 }
@@ -404,6 +429,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

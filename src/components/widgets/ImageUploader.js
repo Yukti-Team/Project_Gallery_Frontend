@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Button, IconButton, Typography } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 
-const ImageUploader = ({pimage, setPimage}) => {
+const ImageUploader = ({ pimages, setPimages }) => {
 
     const handleFileChange = (event) => {
         const selectedFiles = Array.from(event.target.files);
-        setPimage(selectedFiles);
+        setPimages(selectedFiles);
     };
 
     return (
@@ -23,21 +23,22 @@ const ImageUploader = ({pimage, setPimage}) => {
                 <Button
                     variant="contained"
                     component="span"
-                    style={{ backgroundColor: "black" }}
                     startIcon={<AddIcon />}
+                    style={{ backgroundColor: "black" }}
+
                 >
                     Upload Images
                 </Button>
             </label>
 
             <div style={{ marginTop: '10px' }}>
-                {pimage.map((image, index) => (
+                {pimages.map((image, index) => (
                     <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                         <IconButton size="small">
                             <img
                                 src={URL.createObjectURL(image)}
-                                alt={`Upload ${index}`}
-                                 style={{ height: '30px', marginRight: '10px' }}
+                                alt={`Uploaded image ${index}`}
+                                style={{ height: '30px', marginRight: '10px' }}
                             />
                         </IconButton>
                         <Typography variant="body2" noWrap>

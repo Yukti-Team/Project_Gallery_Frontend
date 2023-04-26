@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { Grid, Paper, Typography } from '@mui/material'
-import MyButton from "../widgets/MyButton";
+import { Button, CircularProgress, Grid, Paper, Typography } from '@mui/material'
+import { useNavigate } from "react-router-dom";
+
+import { storage } from "../FirebaseConfig.js"; // import your Firebase configuration here
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import imageCompression from "browser-image-compression";
 
 import CustomTextField from "../widgets/CustomTextField";
 import CustomDropDown2 from "../widgets/CustomDropdown2";
@@ -8,6 +12,8 @@ import LogoUploader from "../widgets/LogoUploader";
 import ImageUploader from "../widgets/ImageUploader";
 import TagTextField from "../widgets/TagTextField";
 import PrivateCheckbox from "../widgets/PrivateCheckBox";
+import ApiURL from "../GetUrl";
+import Popup from "../widgets/Popup.js";
 
 
 const styles = {
@@ -55,30 +61,35 @@ const filterOptions = [
 
 
 const AddProject = () => {
+    const navigate = useNavigate();
 
     const auth = JSON.parse(localStorage.getItem("user"));
     const userName = auth && auth.username;
+    const ownerId = auth && auth._id;
 
     //extra details
-    const [pimage, setPimage] = useState([]);
+    const [pimagesFile, setPimagesFile] = useState([]);
+    const [pimages, setPimages] = useState([]);
+    const [plogoFile, setPlogoFile] = useState(null);
     const [plogo, setPlogo] = useState(null);
     const [tags, setTags] = useState([]);
     const [isPrivate, setIsPrivate] = useState(false);
+    const [groupArray, setGroupArray] = useState(Array(4).fill(''));
 
-    const [values, setValues] = useState(Array(4).fill(''));
-    const [phoneno, setPhoneNo] = useState("");
+    const [phoneno, setPhoneNo] = useState("8326468462");
     const [teamsize, setTeamsize] = useState(1);
-    const [guide, setGuide] = useState("");
-    const [guideemail, setGuideEmail] = useState("");
-    const [sponsor, setSponsor] = useState("");
-    const [sponsorEmail, setSponsorEmail] = useState("");
-    const [pname, setPname] = useState("");
-    const [pdesc, setPdesc] = useState("");
-    const [gitHubLink, setGithubLink] = useState("");
-    const [pUrl, setPurl] = useState("");
+    const [guide, setGuide] = useState("DBK");
+    const [guideEmail, setGuideEmail] = useState("dbk@gmail.com");
+    const [sponsor, setSponsor] = useState("Rathi");
+    const [sponsorEmail, setSponsorEmail] = useState("rathi@gmail.com");
+    const [pname, setPname] = useState("Notice Board");
+    const [pdesc, setPdesc] = useState("Greate Project");
+    const [gitHubLink, setGithubLink] = useState("https://github.com/suyog73");
+    const [pUrl, setPurl] = useState("https://github.com/suyog73");
     const [selectedFilters, setSelectedFilters] = useState({});
     const [anchorEl, setAnchorEl] = useState({});
 
+    const [loading, setLoading] = useState(false);
 
     const handleFilterClick = (event, label) => {
         setAnchorEl((prevState) => ({ ...prevState, [label]: event.currentTarget }));
@@ -92,20 +103,132 @@ const AddProject = () => {
 
     // Team members list
     const handleChange = (index, value) => {
-        const newValues = [...values];
-        newValues[index] = value;
-        setValues(newValues);
+        const newgroupArray = [...groupArray];
+        newgroupArray[index] = value;
+        setGroupArray(newgroupArray);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
+
         event.preventDefault();
-        console.log(selectedFilters);
+        // console.log("plogo");
+        // console.log(plogoFile);
+
+        let img;
+
+        const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true,
+        };
+
+        try {
+
+            setLoading(true);
+            img = await imageCompression(plogoFile, options);
+
+            // Upload images to Firebase Storage
+            const storageRef = ref(
+                storage,
+                `logo/${Date.now().toString()}`
+            );
+            const metadata = { contentType: img.type };
+            await uploadBytesResumable(storageRef, img, metadata);
+            const urlC = await getDownloadURL(storageRef);
+
+            setPlogo(urlC);
+
+            // console.log(urlC);
+        } catch (error) {
+            setLoading(false);
+            console.log(error);
+        }
+
+
+        try {
+            setLoading(true);
+            const compressedImages = await Promise.all(
+                pimagesFile.map((image) => imageCompression(image, options))
+            );
+
+            const storagePromises = compressedImages.map(async (image) => {
+                const storageRef = ref(
+                    storage,
+                    `appImages/${Date.now().toString()}`
+                );
+                const metadata = { contentType: image.type };
+
+                await uploadBytesResumable(storageRef, image, metadata);
+
+                return await getDownloadURL(storageRef);
+            });
+
+            const urls = await Promise.all(storagePromises);
+            setPimages(urls);
+
+            // console.log(pimagesFile);
+            // console.log(urls);
+
+        } catch (error) {
+            setLoading(false);
+
+            console.log(error);
+        }
+
+
+
+        const projectToUpload = {
+            pname,
+            pimages,
+            plogo,
+            pdesc,
+            tags,
+            gitHubLink,
+            pUrl,
+            ownerId,
+            isPrivate,
+            groupArray: (groupArray[0] !== '') ? groupArray : [],
+            branch: selectedFilters[filterOptions[0]["label"]],
+            domain: selectedFilters[filterOptions[1]["label"]],
+            year: selectedFilters[filterOptions[2]["label"]],
+            status: selectedFilters[filterOptions[3]["label"]],
+            sponsor,
+            sponsorEmail,
+            guide,
+            guideEmail,
+        };
+
+        try {
+            setLoading(true);
+            let result = await fetch(`${ApiURL}/project/create`, {
+                method: 'post',
+                body: JSON.stringify(projectToUpload),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+
+            result = await result.json();
+            const statusCode = result.statusCode;
+
+            if (statusCode === 200) {
+                setLoading(false);
+                navigate("/allprojects")
+            }
+
+        } catch (error) {
+            setLoading(false);
+            console.log(error.message);
+        }
+        setLoading(false);
+
     };
+
 
 
     return (
-
-        <>
+        <> 
+            {loading && <Popup isLoading={loading} />}
             <Typography variant="h5" align="center" style={{ marginTop: "2%" }}>
                 Let your creativity shine and inspire others to embark their journey of innovation
             </Typography>
@@ -145,7 +268,7 @@ const AddProject = () => {
                     <Grid item xs={12} sm={6}>
                         <CustomTextField
                             label="Guide Email"
-                            value={guideemail}
+                            value={guideEmail}
                             onChange={(e) => setGuideEmail(e.target.value)}
                         />
                     </Grid>
@@ -226,32 +349,41 @@ const AddProject = () => {
                     onChange={(e) => setPurl(e.target.value)}
                 />
 
-                <TagTextField
-                    tags={tags}
-                    setTags={setTags}
-                />
+                <TagTextField tags={tags} setTags={setTags} />
+
 
                 <div style={styles.uploadImage}>
                     <LogoUploader
-                        plogo={plogo}
-                        setPlogo={setPlogo}
+                        plogo={plogoFile}
+                        setPlogo={setPlogoFile}
                     />
+
                     <ImageUploader
-                        pimage={pimage}
-                        setPimage={setPimage}
+                        pimages={pimagesFile}
+                        setPimages={setPimagesFile}
                     />
                 </div>
 
 
             </Paper>
-            <MyButton
-                text="Submit"
-                color="black"
+
+            <Button
+                type="submit"
+                variant="contained"
+                style={{
+                    marginTop: "20px", backgroundColor: "black", marginBottom: "30px"
+                }}
+
                 onClick={handleSubmit}
-            />
+            >
+                {loading && <CircularProgress style={{ color: "white" }} size={24} />}
+                {!loading && 'Submit'}
+
+            </Button>
+
+
 
         </>
-
     )
 }
 

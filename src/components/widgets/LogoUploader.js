@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Button, Box } from '@mui/material';
+import React from 'react';
+import { Button, Box  } from '@mui/material';
 import PgLogo from "../../images/pglogo.jpg"
 
-const LogoUploader = (plogo, setPlogo) => {
+
+const LogoUploader = ({ plogo, setPlogo }) => {
 
     const handleLogoChange = (event) => {
-        setPlogo(URL.createObjectURL(event.target.files[0]));
+        setPlogo(event.target.files[0]);
     };
 
     return (
@@ -16,7 +17,6 @@ const LogoUploader = (plogo, setPlogo) => {
                 id="logo-uploader"
                 type="file"
                 onChange={handleLogoChange}
-
             />
             <label htmlFor="logo-uploader">
                 <Button
@@ -29,8 +29,12 @@ const LogoUploader = (plogo, setPlogo) => {
             </label>
 
             <Box mt={2}>
-                <img src={plogo == null ? PgLogo : plogo} alt="logo preview" width="200" height="200" />
-
+                <img
+                    src={plogo === null ? PgLogo : URL.createObjectURL(plogo)}
+                    alt="plogo preview"
+                    width="200"
+                    height="200"
+                />
             </Box>
 
         </Box>

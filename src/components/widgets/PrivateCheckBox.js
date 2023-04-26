@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FormControlLabel, Checkbox } from '@mui/material';
 
 
@@ -12,7 +11,7 @@ const styles = {
     },
 };
 
-const PrivateCheckbox = (isPrivate, setIsPrivate) => {
+const PrivateCheckbox = ({ isPrivate, setIsPrivate }) => {
 
     const handlePrivateChange = (e) => {
         setIsPrivate(e.target.checked);

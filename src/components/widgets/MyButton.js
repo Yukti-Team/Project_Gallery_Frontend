@@ -1,11 +1,8 @@
 import Button from '@mui/material/Button';
 
- 
+
 const MyButton = ({ text, color, onClick }) => {
-    function handleClick() {
-        if (onClick)
-            onClick();
-    }
+
     const styles = {
         button: {
             backgroundColor: color,
@@ -18,7 +15,8 @@ const MyButton = ({ text, color, onClick }) => {
             variant="contained"
             component="span"
             style={styles.button}
-            onClick={handleClick}
+            type="submit"
+            onClick={onClick}
         >
             {text}
         </Button>
