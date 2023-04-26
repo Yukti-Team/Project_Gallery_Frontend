@@ -84,6 +84,7 @@
   margin-bottom: 100px;
 }
 
+
 .cardGrid{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -102,15 +103,13 @@
 
 .form{
   border-radius: 10px;
-  background-color: rgba(251, 243, 236, 0.88);
+  background-color: rgba(250, 227, 207, 0.88);
   display: flex;
   align-self:center;
   justify-content: center;
   padding: 2vw;
   margin: 4vw;
-
-
-
+  margin-top: 5vh;
 }
 
 
@@ -194,7 +193,7 @@
   margin: 4vw;
   padding: 3.6vw;
   border-radius: 10px;
-  background-color: rgba(251, 243, 236, 0.88);
+  background-color:  rgba(250, 227, 207, 0.88);
 
 
 }
@@ -329,7 +328,10 @@
 } */
 
 
-
+.full-width{
+  width: 100%;
+  /* display: flex; */
+}
 
 
 

@@ -6,6 +6,7 @@ import MyButton from "../widgets/MyButton";
 
 
 
+
 const AddProject = () => {
 
     //extra details
@@ -16,6 +17,7 @@ const AddProject = () => {
     const [guideemail, setGuideEmail] = useState("");
     const [sponsor, setSponsor] = useState("");
     const [sponsoremail, setSponsorEmail] = useState("");
+    const [teammem, setTeamMem] = useState("");
 
 
 
@@ -29,11 +31,11 @@ const AddProject = () => {
     // const [ownerId, setOwnerid] = useState("");
 
     //create a checkbox for this
-    const [isPrivate, setIsprivate] = useState("");
+    const [isPrivate, setIsprivate] = useState(true);
 
     //check how to set isGroup value    
     let [isGroup, setIsgroup] = useState(false);
-    // const [groupArray, setGroupArray] = useState([]);
+    const [groupArray, setGroupArray] = useState([]);
     const [branch, setBranch] = useState("");
     const [domain, setDomain] = useState("");
     const [year, setYear] = useState("");
@@ -52,9 +54,6 @@ const AddProject = () => {
     //     console.log(year)
     //     console.log(status)
     // }, [branch, domain, year, status])
-
-
-
 
 
     // const createInputFields = (size) => {
@@ -79,24 +78,34 @@ const AddProject = () => {
 
     const handleCheckbox = () => {
 
-        setIsprivate((prevState) => !prevState);
+        setIsprivate((prevState) => (!prevState));
         console.log(isPrivate);
     }
 
     useEffect(() => {
         if (teamsize > 1) {
-          setIsgroup(true);
-          console.log(isGroup);
+            setIsgroup(true);
+            console.log(isGroup);
         } else {
-          setIsgroup(false);
-          console.log(isGroup);
+            setIsgroup(false);
+            console.log(isGroup);
         }
-      }, [teamsize, isGroup]);
-  
+    }, [teamsize, isGroup]);
 
-    useEffect(()=>{
+
+    useEffect(() => {
         console.log(stack);
-    },[stack])
+    }, [stack])
+
+
+    useEffect(() => {
+        if (teammem !== "") {
+          const array = teammem.split(",");
+          setGroupArray(array);
+          console.log(groupArray);
+        }
+      }, [teammem, groupArray]);
+      
 
 
     return (
@@ -104,8 +113,10 @@ const AddProject = () => {
         <div >
 
             <div >
-                <h1 style={{ "font-weight": "500" }}>Add Project</h1>
-                <h2 style={{ "font-weight": "200" }}>Let your creativity shine and inspire others to embark their journey of innovation</h2>
+                {/* add an image */}
+                {/* <img src={ProjectBg} alt={'hello'} style={{ width: "50vw", height: "40vh", marginTop: "2vh" }} /> */}
+                <h1>Add Project</h1>
+                <h2 style={{ "font-weight": "400" }}>Let your creativity shine and inspire others to embark their journey of innovation</h2>
                 <div className="form">
                     <form >
                         {/* <label for="pname">Project Name</label> */}
@@ -193,7 +204,7 @@ const AddProject = () => {
                                 value={sponsor}
                                 onChange={(e) => setSponsor(e.target.value)}
                                 InputProps={{
-                                    style: { backgroundColor: 'white'},
+                                    style: { backgroundColor: 'white' },
                                 }}
                                 InputLabelProps={{
                                     style: { color: 'grey' },
@@ -259,6 +270,8 @@ const AddProject = () => {
                                 />
                             </div>
 
+                            
+
                         </div>
 
                     </form>
@@ -275,6 +288,11 @@ const AddProject = () => {
                 </div>
 
                 <div className="labeledDiv">
+                    <label className="formLabels">Team Members (incase of team project)</label>
+                    <input className="formBox2" type="text" value={teammem} onChange={(e) => setTeamMem(e.target.value)} required />
+                </div>
+
+                <div className="labeledDiv">
                     <label className="formLabels">Source Code Link</label>
                     <input className="formBox2" type="text" value={gitHub} onChange={(e) => setGithub(e.target.value)} required />
                 </div>
@@ -284,6 +302,7 @@ const AddProject = () => {
                     <input className="formBox2" type="text" value={pUrl} onChange={(e) => setPurl(e.target.value)} required />
                 </div>
 
+           
 
                 <div className="uploadGrid">
                     <div className="labeledDiv">
@@ -315,7 +334,7 @@ const AddProject = () => {
 
 
                 <div style={{ marginLeft: "-0.5vw", border: "grey" }}>
-                    <StackList stack={stack} setStack={setStack}/>
+                    <StackList stack={stack} setStack={setStack} />
                 </div>
 
 
@@ -323,7 +342,7 @@ const AddProject = () => {
                     <Box>
                         <FormControlLabel
                             label='Do you want this project to remain private'
-                            control={<Checkbox checked={isPrivate} onChange={handleCheckbox} />}
+                            control={<Checkbox checked={!isPrivate} onChange={handleCheckbox} />}
                         />
                     </Box>
                 </Box>
