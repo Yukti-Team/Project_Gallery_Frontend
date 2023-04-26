@@ -6,8 +6,9 @@ import angularimage from "../images/angular.png"
 import kotlinimage from "../images/kotlin.png"
 import pythonimage from "../images/python.png"
 import nextjsimage from "../images/nextjs.webp"
-import Example from "./Carousel";
- 
+import CustomCarousel from "./Carousel";
+import ImageUploader from "./ImageUploader";
+
 
 const Home = () => {
     const homeCards = [
@@ -42,7 +43,7 @@ const Home = () => {
 
     return (
         <>
-            <Example />
+            <CustomCarousel />
             <div className="homeGrid">
                 <div className="cardGrid">
                     {homeCards.map((homeCard, index) => (
@@ -55,6 +56,7 @@ const Home = () => {
 
                 </div>
             </div>
+            <ImageUploader />
         </>
 
     )

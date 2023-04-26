@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import AllProject from './components/AllProjects';
 import ApiURL from './components/GetUrl';
+import ImagePicker from './components/ImageUploader';
 
 function App() {
 
@@ -38,7 +39,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/allprojects' element={<AllProject />} />
             <Route path='/addprojects' element={<h1>Add project</h1>} />
-            <Route path='/updateproject' element={<h1>Update Project</h1>} />
+            <Route path='/updateproject' element={<h1>Update</h1>} />
             <Route path='/logout' element={<h1>Logout</h1>} />
             <Route path='/profile' element={<h1>Profile</h1>} />
           </Route >
