@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, IconButton, Typography } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 
@@ -37,7 +37,7 @@ const ImageUploader = ({ pimages, setPimages }) => {
                         <IconButton size="small">
                             <img
                                 src={URL.createObjectURL(image)}
-                                alt={`Uploaded image ${index}`}
+                                alt={`Uploaded ${index}`}
                                 style={{ height: '30px', marginRight: '10px' }}
                             />
                         </IconButton>
