@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import MyButton from "./MyButton";
-import ApiURL from './GetUrl'
+import MyButton from "../widgets/MyButton";
+import ApiURL from '../GetUrl'
 
 const SignUp = () => {
     const [username, setName] = useState("");

@@ -1,9 +1,9 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel'
 import { Button, Box, Typography } from '@mui/material'
-import Car1Image from "../images/car1.jpeg"
-import Car2Image from "../images/car2.jpg"
-import BirdImage from "../images/bird.jpg"
+import Car1Image from "../../images/car1.jpeg"
+import Car2Image from "../../images/car2.jpg"
+import BirdImage from "../../images/bird.jpg"
  
 
 const styles = {

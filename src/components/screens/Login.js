@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ApiURL from "./GetUrl";
-import MyButton from "./MyButton";
+import ApiURL from "../GetUrl";
+import MyButton from "../widgets/MyButton";
 
 
 

@@ -1,5 +1,5 @@
 
-import NoticeBoardLogo from "../images/nb-logo.png"
+import NoticeBoardLogo from "../../images/nb-logo.png"
 
 // Todo : Change it later if wanted
 const statusColors = {

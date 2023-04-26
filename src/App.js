@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import NavBar from './components/NavBar';
+import NavBar from './components/widgets/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SignUp from './components/SignUp';
+import SignUp from './components/screens/SignUp';
 import PrivateComp from './components/PrivateComp';
-import Login from './components/Login';
-import Home from './components/Home';
-import AddProject from './components/AddProject';
-import AllProject from './components/AllProjects';
+import Login from './components/screens/Login';
+import Home from './components/screens/Home';
+import AddProject from './components/screens/AddProject';
+import AllProject from './components/screens/AllProjects';
 
 
 
