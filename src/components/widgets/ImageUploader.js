@@ -32,7 +32,7 @@ const ImageUploader = ({ pimages, setPimages }) => {
             </label>
 
             <div style={{ marginTop: '10px' }}>
-                {pimages.map((image, index) => (
+                {pimages && pimages.map((image, index) => (
                     <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                         <IconButton size="small">
                             <img
