@@ -21,7 +21,7 @@ const AllProject = () => {
       <>
          <Box sx={{ marginTop: '1rem' }}>
             <Typography variant="h4" sx={{ margin: 0 }}>
-               All ProjectDataProjectData
+               All Projects
             </Typography>
 
             <StyledTextField

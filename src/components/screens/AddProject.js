@@ -20,25 +20,25 @@ const AddProject = () => {
 
 
     const [pname, setPname] = useState("");
-    const [pimage, setPimage] = useState("");
-    const [plogo, setPlogo] = useState("");
+    // const [pimage, setPimage] = useState("");
+    // const [plogo, setPlogo] = useState("");
     const [pdesc, setPdesc] = useState("");
     const [stack, setStack] = useState([]);
     const [gitHub, setGithub] = useState("");
     const [pUrl, setPurl] = useState("");
-    const [ownerId, setOwnerid] = useState("");
+    // const [ownerId, setOwnerid] = useState("");
 
     //create a checkbox for this
     const [isPrivate, setIsprivate] = useState("");
 
     //check how to set isGroup value    
     let [isGroup, setIsgroup] = useState(false);
-    const [groupArray, setGroupArray] = useState([]);
+    // const [groupArray, setGroupArray] = useState([]);
     const [branch, setBranch] = useState("");
     const [domain, setDomain] = useState("");
     const [year, setYear] = useState("");
     const [status, setStatus] = useState("");
-    const [rating, setRating] = useState("");
+    // const [rating, setRating] = useState("");
 
 
     // const handleSetStack = (newStack) => {
@@ -91,7 +91,7 @@ const AddProject = () => {
           setIsgroup(false);
           console.log(isGroup);
         }
-      }, [teamsize]);
+      }, [teamsize, isGroup]);
   
 
     useEffect(()=>{

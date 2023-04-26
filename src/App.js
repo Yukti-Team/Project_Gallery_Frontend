@@ -1,22 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import NavBar from './components/widgets/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignUp from './components/screens/SignUp';
 import PrivateComp from './components/PrivateComp';
+
 import Login from './components/screens/Login';
 import Home from './components/screens/Home';
 import AddProject from './components/screens/AddProject';
 import AllProject from './components/screens/AllProjects';
+import ApiURL from './components/GetUrl'
 
 
 
 
 function App() {
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetch(`${ApiURL}/test`, {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      // do something with the result
+    };
+
+    fetchData();
+  }, []);
+
+
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar /> 
+        <NavBar />
         {/* <h1>Project Gallery</h1> */}
 
         <Routes>

@@ -7,7 +7,7 @@ const StyledCard = styled(Card)({
     margin: 'auto',
     marginTop: 50,
     marginBottom: 20,
-    backgroundColor: "#c6f5f0",
+    backgroundColor: "#f0e9e9",
     position: 'relative',
     borderRadius: "10px",
 
