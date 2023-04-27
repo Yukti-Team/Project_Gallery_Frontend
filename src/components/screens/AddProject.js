@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Paper, Typography } from '@mui/material'
 import MyButton from "../widgets/MyButton";
-
 import CustomTextField from "../widgets/CustomTextField";
 import CustomDropDown2 from "../widgets/CustomDropdown2";
 import LogoUploader from "../widgets/LogoUploader";
@@ -165,6 +164,40 @@ const AddProject = () => {
     };
 
 
+
+    //conversion to base64
+    const convertToBase64=(e)=>{
+        console.log(e);
+        // var reader= new FileReader();
+        return new Promise((resolve, reject)=>{
+            const fileReader= new FileReader();
+            fileReader.readAsDataURL(e);
+            fileReader.onload= ()=> {
+                resolve(fileReader.result)
+            };
+            fileReader.onerror = (error) =>{
+                reject(error)
+            } 
+        })
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
 
         <>
@@ -296,7 +329,8 @@ const AddProject = () => {
                 <div style={styles.uploadImage}>
                     <LogoUploader
                         plogo={plogo}
-                        setPlogo={setPlogo}
+                        // setPlogo={setPlogo}
+                        onChange={convertToBase64}
                     />
                     <ImageUploader
                         pimage={pimage}
