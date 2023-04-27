@@ -109,18 +109,16 @@ function ProjectCard({ logoSrc, projectName, createdBy, tags, ratingValue, statu
 
                     <Typography variant="subtitle1" sx={{ color: 'gray', display: 'flex', alignItems: 'center' }}>
                         Created By &nbsp;
-                        <Typography variant="h6">
-                            <Link href="#" underline="hover"> {createdBy}</Link>
-                        </Typography>
+                        <Link href="#" style={{ fontSize: "20px", fontWeight: "400" }} underline="hover"> {createdBy}</Link>
                     </Typography>
                 </Box>
             </Box>
-
+ 
             <CreatedBy>
                 <UserGroupIcon> <Person /> </UserGroupIcon>
 
                 <Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start">
-                    <Typography variant="h6">Rank #4 in</Typography>
+                    <Typography variant="h5">Rank #4 in</Typography>
                     <Typography>Individual Project</Typography>
                 </Box>
 

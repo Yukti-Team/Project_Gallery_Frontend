@@ -18,7 +18,7 @@ const randomColors = [
     "#8D99AE"
 ];
 
-const TagTextField = (tags, setTags) => {
+const TagTextField = ({ tags, setTags }) => {
     const [tagInput, setTagInput] = useState('');
 
     const handleTagInputChange = (e) => {
@@ -55,20 +55,26 @@ const TagTextField = (tags, setTags) => {
 
                 />
 
-                <Button style={{ marginLeft: "3%", backgroundColor: "black" }} variant="contained" onClick={handleAddTag}>
+                <Button
+                    style={{ marginLeft: "3%", backgroundColor: "black" }}
+                    variant="contained"
+                    onClick={handleAddTag}
+                >
                     Add
                 </Button>
             </div>
             <div style={{ marginTop: '10px' }}>
-                {tags.map((tag, index) => (
-                    <Chip 
-                        key={tag}
+                {Array.isArray(tags) && tags.map((tag, index) => (
+                    <Chip
+                        key={tag + index}
                         label={tag}
                         onDelete={() => handleDeleteTag(tag)}
                         style={{ marginRight: '10px', marginBottom: '10px', backgroundColor: randomColors[index % randomColors.length] }}
                     />
                 ))}
             </div>
+
+
         </div>
     );
 };
