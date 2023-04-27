@@ -18,12 +18,15 @@ const NavBar = () => {
     }
 
     return (
-        <div>
-            <img className="logo" src={PgLogo} alt="logo" style={{ marginTop: '2vh' }} />
+
+        <div className="navbar-ul"> 
+
+            <img className="logo" src={PgLogo} alt="logo" style={{ marginTop: '1vh' }} />
+
 
             {
                 auth ?
-                    <ul className="navbar-ul">
+                    <ul>
                         <li><Link to="/">Home</Link> </li>
                         <li><Link to="/allprojects">All Projects</Link> </li>
                         <li><Link to="/addprojects">Add Projects</Link> </li>
