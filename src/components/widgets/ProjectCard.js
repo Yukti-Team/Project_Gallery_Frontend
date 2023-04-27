@@ -1,6 +1,9 @@
 import { styled } from "@mui/material/styles";
-import { Card, Button, CardContent, Link, CardHeader, Avatar, Chip, Rating, Typography, Box } from '@mui/material';
+import { Card, Button, CardContent, CardHeader, Avatar, Chip, Rating, Typography, Box } from '@mui/material';
 import { Person } from '@mui/icons-material';
+import { useEffect, useState } from "react";
+import ApiURL from "../GetUrl";
+import { Link, useNavigate } from "react-router-dom";
 
 const StyledCard = styled(Card)({
     maxWidth: "90%",
@@ -89,19 +92,58 @@ const styles = {
 
 }
 
+const ProjectCard = ({
+    userId,
+    projectId,
+    logoSrc,
+    projectName,
+    tags,
+    ratingValue,
+    statusLabel,
+    statusColor,
+    createdAt,
+}) => {
+    const navigate = useNavigate();
 
-const today = new Date();
-const day = today.getDate().toString().padStart(2, '0');
-const month = (today.getMonth() + 1).toString().padStart(2, '0');
-const year = today.getFullYear().toString();
-const date = `${day}/${month}/${year}`;
+    const [ownerName, setOwnerName] = useState("");
 
+    useEffect(() => {
+        const getOwnerName = async () => {
+            const id = userId;
 
-function ProjectCard({ logoSrc, projectName, createdBy, tags, ratingValue, statusLabel, statusColor }) {
+            try {
+                let result = await fetch(`${ApiURL}/user/${id}`);
+                result = await result.json();
+
+                setOwnerName(result.username);
+            } catch (error) {
+                console.log("Error while fetching data:", error);
+            }
+        };
+
+        getOwnerName();
+    }, [userId]);
+
+    const handleButtonClick = () => {
+        navigate(`/project/get/${projectId}`);
+    }
+
     return (
-        <StyledCard>
+        <StyledCard >
 
-            <LogoImage src={logoSrc} alt="logo" />
+            <Box sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "70px",
+                height: "70px",
+                margin: "auto",
+                marginTop: "8%",
+                marginBottom: "8%",
+            }}>
+                <LogoImage src={logoSrc} alt="logo" sx={{ width: "100%", height: "100%" }} />
+            </Box>
+
 
             <Box display="flex" flexDirection="column" alignItems="center" mb={1}>
                 <ProjectName title={projectName} />
@@ -109,11 +151,13 @@ function ProjectCard({ logoSrc, projectName, createdBy, tags, ratingValue, statu
 
                     <Typography variant="subtitle1" sx={{ color: 'gray', display: 'flex', alignItems: 'center' }}>
                         Created By &nbsp;
-                        <Link href="#" style={{ fontSize: "20px", fontWeight: "400" }} underline="hover"> {createdBy}</Link>
+                        <Link to={`/user/${userId}`} target="_blank" style={{ fontSize: "20px", fontWeight: "400", color: "blue" }} underline="hover">
+                            {ownerName}
+                        </Link>
                     </Typography>
                 </Box>
             </Box>
- 
+
             <CreatedBy>
                 <UserGroupIcon> <Person /> </UserGroupIcon>
 
@@ -125,13 +169,15 @@ function ProjectCard({ logoSrc, projectName, createdBy, tags, ratingValue, statu
 
             </CreatedBy>
 
-            {tags && (
-                <Tags>
-                    {tags.map((tag, index) => (
-                        <Chip key={tag} label={tag} style={{ backgroundColor: randomColors[index % 10] }} />
-                    ))}
-                </Tags>
-            )}
+            {
+                tags && (
+                    <Tags>
+                        {tags.map((tag, index) => (
+                            <Chip key={tag + index} label={tag} style={{ backgroundColor: randomColors[index % 10] }} />
+                        ))}
+                    </Tags>
+                )
+            }
 
             <RatingField>
                 <Rating name="read-only" value={ratingValue} precision={0.1} readOnly />
@@ -140,14 +186,18 @@ function ProjectCard({ logoSrc, projectName, createdBy, tags, ratingValue, statu
             </RatingField>
 
 
-            <Button style={styles.buttonStyle} variant="contained">
+            <Button
+                style={styles.buttonStyle}
+                variant="contained"
+                onClick={handleButtonClick}
+            >
                 See Details
             </Button>
 
 
             <CreatedDate>
                 <Typography variant="h-5">
-                    {date}
+                    {createdAt}
                 </Typography>
             </CreatedDate>
             <StatusField style={{ backgroundColor: statusColor }}>
@@ -155,7 +205,7 @@ function ProjectCard({ logoSrc, projectName, createdBy, tags, ratingValue, statu
                     {statusLabel}
                 </Typography>
             </StatusField>
-        </StyledCard>
+        </StyledCard >
     );
 }
 

@@ -1,15 +1,15 @@
 import { TextField, Typography } from '@mui/material';
 
-function CustomTextField({ key, label, value, onChange, readOnly = false, errorMesssage = "", isReuired = false }) {
+function CustomTextField({ key, label, value, onChange, readOnly = false, errorMessage = "", isReuired = false }) {
     return (
         <>
-            <TextField
+            <TextField 
                 key={key} 
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                error={errorMesssage !== ''}
+                error={errorMessage !== ''}
                 id={label.toLowerCase()}
                 label={label}
                 name={label.toLowerCase()}
@@ -20,12 +20,14 @@ function CustomTextField({ key, label, value, onChange, readOnly = false, errorM
                     readOnly: readOnly,
                 }}
             />
-            <span style={{ display: 'block', color: 'red', textAlign: 'left', fontSize: "14px" }}>
-                {errorMesssage === '' ? null : errorMesssage}
+            <span style={{
+                display: 'block',
+                color: 'red',
+                textAlign: 'left',
+                fontSize: "14px"
+            }}>
+                {errorMessage === '' ? null : errorMessage}
             </span>
-
-
-
         </>
     );
 }

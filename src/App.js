@@ -10,6 +10,8 @@ import Home from './components/screens/Home';
 import AddProject from './components/screens/AddProject';
 import AllProject from './components/screens/AllProjects';
 import ApiURL from './components/GetUrl'
+import UserPage from './components/screens/UserProfile';
+import ProjectDetail from './components/screens/ProjectDetail';
 
 
 
@@ -46,6 +48,8 @@ function App() {
             <Route path='/updateproject' element={<h1>My Project</h1>} />
             <Route path='/logout' element={<h1>Logout</h1>} />
             <Route path='/profile' element={<h1>Profile</h1>} />
+            <Route path="/user/:userId" element={<UserPage />} />
+            <Route path="/project/get/:projectId" element={<ProjectDetail />} />
           </Route >
 
           <Route path='/signup' element={<SignUp />} />

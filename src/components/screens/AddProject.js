@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, CircularProgress, Grid, Paper, Typography } from '@mui/material'
+import { Alert, Button, CircularProgress, Grid, Paper, Snackbar, Typography } from '@mui/material'
 import { useNavigate } from "react-router-dom";
 
 import { storage } from "../FirebaseConfig.js"; // import your Firebase configuration here
@@ -69,9 +69,9 @@ const AddProject = () => {
 
     //extra details
     const [pimagesFile, setPimagesFile] = useState([]);
-    const [pimages, setPimages] = useState([]);
+    const [, setPimages] = useState([]);
     const [plogoFile, setPlogoFile] = useState(null);
-    const [plogo, setPlogo] = useState(null);
+    // const [plogo, setPlogo] = useState(null);
     const [tags, setTags] = useState([]);
     const [isPrivate, setIsPrivate] = useState(false);
     const [groupArray, setGroupArray] = useState(Array(4).fill(''));
@@ -88,7 +88,25 @@ const AddProject = () => {
     const [pUrl, setPurl] = useState("https://github.com/suyog73");
     const [selectedFilters, setSelectedFilters] = useState({});
     const [anchorEl, setAnchorEl] = useState({});
-
+    const [showError, setShowError] = useState(false);
+ 
+    const [errors, setErrors] = useState({
+        pname: "",
+        teamsize: "",
+        phoneno: "",
+        guide: "",
+        guideEmail: "",
+        department: "",
+        domain: "",
+        year: "",
+        status: "",
+        pdesc: "",
+        gitHubLink: "",
+        pUrl: "",
+        tags: "",
+        plogo: "",
+        pimages: "",
+    });
     const [loading, setLoading] = useState(false);
 
     const handleFilterClick = (event, label) => {
@@ -100,7 +118,6 @@ const AddProject = () => {
         setAnchorEl((prevState) => ({ ...prevState, [label]: null }));
     };
 
-
     // Team members list
     const handleChange = (index, value) => {
         const newgroupArray = [...groupArray];
@@ -108,22 +125,19 @@ const AddProject = () => {
         setGroupArray(newgroupArray);
     };
 
-    const handleSubmit = async (event) => {
+    const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+    };
 
-        event.preventDefault();
-        // console.log("plogo");
-        // console.log(plogoFile);
-
+    async function uploadLogo() {
         let img;
 
-        const options = {
-            maxSizeMB: 1,
-            maxWidthOrHeight: 1920,
-            useWebWorker: true,
-        };
+        if (!plogoFile)
+            return "";
 
         try {
-
             setLoading(true);
             img = await imageCompression(plogoFile, options);
 
@@ -136,15 +150,14 @@ const AddProject = () => {
             await uploadBytesResumable(storageRef, img, metadata);
             const urlC = await getDownloadURL(storageRef);
 
-            setPlogo(urlC);
-
-            // console.log(urlC);
+            return urlC;
         } catch (error) {
             setLoading(false);
             console.log(error);
         }
+    }
 
-
+    async function uploadProjectImages() {
         try {
             setLoading(true);
             const compressedImages = await Promise.all(
@@ -166,68 +179,163 @@ const AddProject = () => {
             const urls = await Promise.all(storagePromises);
             setPimages(urls);
 
-            // console.log(pimagesFile);
-            // console.log(urls);
-
+            return urls;
         } catch (error) {
             setLoading(false);
 
             console.log(error);
         }
+    }
 
-
-
-        const projectToUpload = {
-            pname,
-            pimages,
-            plogo,
-            pdesc,
-            tags,
-            gitHubLink,
-            pUrl,
-            ownerId,
-            isPrivate,
-            groupArray: (groupArray[0] !== '') ? groupArray : [],
-            branch: selectedFilters[filterOptions[0]["label"]],
-            domain: selectedFilters[filterOptions[1]["label"]],
-            year: selectedFilters[filterOptions[2]["label"]],
-            status: selectedFilters[filterOptions[3]["label"]],
-            sponsor,
-            sponsorEmail,
-            guide,
-            guideEmail,
-        };
-
-        try {
-            setLoading(true);
-            let result = await fetch(`${ApiURL}/project/create`, {
-                method: 'post',
-                body: JSON.stringify(projectToUpload),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-
-            result = await result.json();
-            const statusCode = result.statusCode;
-
-            if (statusCode === 200) {
-                setLoading(false);
-                navigate("/allprojects")
-            }
-
-        } catch (error) {
-            setLoading(false);
-            console.log(error.message);
-        }
-        setLoading(false);
-
+    const mapLabel = {
+        0: "department",
+        1: "domain",
+        2: "year",
+        3: "status",
     };
 
+    function handleErrors() {
+        let newErrors = {};
 
+        if (!pname) {
+            newErrors.pname = "Title is required"
+        }
+        if (!teamsize) {
+            newErrors.teamsize = "Team size is reuired"
+        } else if (teamsize < 1 || teamsize > 5) {
+            newErrors.teamsize = "Team size must be range of 1 to 4"
+        }
+
+        if (!phoneno) {
+            newErrors.phoneno = "Phone is required";
+        } else if (!/^\d{10}$/.test(phoneno)) {
+            newErrors.phoneno = "Phone must be 10 digits";
+        }
+
+        if (!guide) {
+            newErrors.guide = "Guide name is required";
+        }
+
+        if (!guideEmail) {
+            newErrors.guideEmail = "Guide email is required";
+        }
+
+        if (!selectedFilters[filterOptions[0]["label"]]) {
+            newErrors.department = "Select department from dropdown";
+        }
+
+        if (!selectedFilters[filterOptions[1]["label"]]) {
+            newErrors.domain = "Select Project Domain from dropdown";
+        }
+
+        if (!selectedFilters[filterOptions[2]["label"]]) {
+            newErrors.year = "Select Year from dropdown";
+        }
+
+        if (!selectedFilters[filterOptions[3]["label"]]) {
+            newErrors.status = "Select Status from dropdown";
+        }
+
+        if (!pdesc) {
+            newErrors.pdesc = "Description of project is required";
+        }
+
+        if (!tags) {
+            newErrors.tags = "Add at least 1 tag";
+        }
+
+        setErrors(newErrors);
+        if (Object.keys(newErrors).length === 0)
+            return false;
+
+        return true;
+    }
+
+    const handleSubmit = async (event) => {
+
+        event.preventDefault();
+        setShowError(handleErrors());
+
+        console.log(handleErrors());
+
+        if (!handleErrors()) {
+
+            let urlC = await uploadLogo();
+            const urls = await uploadProjectImages();
+
+            if (urlC === "")
+                urlC = "https://firebasestorage.googleapis.com/v0/b/project-gallery-bbc79.appspot.com/o/logo.jpg?alt=media&token=1e6bf98e-38c3-4225-95da-569614c2767e";
+
+            const today = new Date();
+            const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+
+            const projectToUpload = {
+                pname,
+                pimages: urls,
+                plogo: urlC,
+                pdesc,
+                tags,
+                gitHubLink,
+                pUrl,
+                ownerId,
+                isPrivate,
+                groupArray: (groupArray[0] !== '') ? groupArray : [],
+                branch: selectedFilters[filterOptions[0]["label"]],
+                domain: selectedFilters[filterOptions[1]["label"]],
+                year: selectedFilters[filterOptions[2]["label"]],
+                status: selectedFilters[filterOptions[3]["label"]],
+                sponsor,
+                sponsorEmail,
+                guide,
+                guideEmail,
+                createdAt: date,
+            };
+
+            console.log(projectToUpload);
+            try {
+                setLoading(true);
+                let result = await fetch(`${ApiURL}/project/create`, {
+                    method: 'post',
+                    body: JSON.stringify(projectToUpload),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+
+                result = await result.json();
+                const statusCode = result.statusCode;
+
+                if (statusCode === 200) {
+                    setLoading(false);
+                    navigate("/allprojects")
+                }
+
+            } catch (error) {
+                setLoading(false);
+                console.log(error.message);
+            }
+            setLoading(false);
+        }
+    };
 
     return (
-        <> 
+        <>
+            <Snackbar
+                open={showError}
+                autoHideDuration={2000}
+                onClose={() => setShowError(false)}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
+                <Alert
+                    elevation={6}
+                    variant="filled"
+                    onClose={() => setShowError(false)}
+                    severity="error"
+                >
+                    Please fill all mandatory fields
+                </Alert>
+            </Snackbar>
+
             {loading && <Popup isLoading={loading} />}
             <Typography variant="h5" align="center" style={{ marginTop: "2%" }}>
                 Let your creativity shine and inspire others to embark their journey of innovation
@@ -239,10 +347,20 @@ const AddProject = () => {
                 <Grid container spacing={2} marginTop={2}>
                     <Grid item xs={12} sm={6}>
 
-                        <CustomTextField label="Title" value={pname} onChange={(e) => setPname(e.target.value)} />
+                        <CustomTextField
+                            label="Title"
+                            value={pname}
+                            errorMessage={errors.pname}
+                            onChange={(e) => setPname(e.target.value)}
+                        />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <CustomTextField label="Team Size (Including leader)" value={teamsize} onChange={(e) => setTeamsize(e.target.value)} />
+                        <CustomTextField
+                            label="Team Size (Including leader)"
+                            value={teamsize}
+                            errorMessage={errors.teamsize}
+                            onChange={(e) => setTeamsize(e.target.value)}
+                        />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <CustomTextField
@@ -255,6 +373,7 @@ const AddProject = () => {
                         <CustomTextField
                             label="Phone No."
                             value={phoneno}
+                            errorMessage={errors.phoneno}
                             onChange={(e) => setPhoneNo(e.target.value)}
                         />
                     </Grid>
@@ -262,6 +381,7 @@ const AddProject = () => {
                         <CustomTextField
                             label="Project Guide"
                             value={guide}
+                            errorMessage={errors.guide}
                             onChange={(e) => setGuide(e.target.value)}
                         />
                     </Grid>
@@ -269,6 +389,7 @@ const AddProject = () => {
                         <CustomTextField
                             label="Guide Email"
                             value={guideEmail}
+                            errorMessage={errors.guideEmail}
                             onChange={(e) => setGuideEmail(e.target.value)}
                         />
                     </Grid>
@@ -309,7 +430,7 @@ const AddProject = () => {
                 </div>
 
             </Paper>
-            {teamsize > 1 && (
+            {teamsize > 1 && teamsize < 5 && (
                 <Paper elevation={3} style={styles.paper}>
                     <Typography variant="h5" align="left">Team Information</Typography>
                     <Grid container spacing={2}>
@@ -319,6 +440,7 @@ const AddProject = () => {
                                     label={`Team member ${index + 1} (Add username/email)`}
                                     value={value}
                                     onChange={(e) => handleChange(index, e.target.value)}
+                                    errorMessage={errors[mapLabel[index]]}
                                 />
                             </Grid>
                         ))}
@@ -336,6 +458,7 @@ const AddProject = () => {
                 <CustomTextField
                     label="Project Description"
                     value={pdesc}
+                    errorMessage={errors.pdesc}
                     onChange={(e) => setPdesc(e.target.value)}
                 />
                 <CustomTextField
