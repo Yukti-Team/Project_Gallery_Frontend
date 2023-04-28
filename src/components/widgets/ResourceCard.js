@@ -1,5 +1,5 @@
-import { Camera, CameraAltRounded, CloudUploadOutlined, RestoreOutlined, Source } from "@mui/icons-material";
-import { Box, Card, CardContent, Icon, Link, Paper, Typography } from "@mui/material"
+import { CloudUploadOutlined,  Source } from "@mui/icons-material";
+import { Box, Card, CardContent, Icon,  Paper, Typography } from "@mui/material"
 
 
 const styles = {

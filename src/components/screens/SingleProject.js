@@ -1,7 +1,6 @@
 
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
-import Plogo from '../../images/pglogo.jpg';
 import DescCard from '../widgets/DescCard';
 import DisplayTags from '../widgets/DisplayTags';
 import GroupCard from '../widgets/GroupCard';
@@ -13,17 +12,17 @@ import { useParams } from 'react-router-dom';
 import ApiURL from '../GetUrl';
 
 
-//static data
-const branch = "Information Technology";
-const domain = "Android Development ";
-const year = "2023";
-const status = "Inprogress";
+// //static data
+// const branch = "Information Technology";
+// const domain = "Android Development ";
+// const year = "2023";
+// const status = "Inprogress";
 const groupArray =['John Doe', 'Jane Smith', 'Bob Johnson','Bob Johnson','Bob Johnson'] ;
-const pname="PickNDrop"
-const gitHubLink = "https://github.com/suyog73" ;
-const pUrl= "https://www.holopin.io/@rutuja369" ;
-const pdesc= "Lorem jnAKJN SWQJKHSQWJK QSJKSWJ WKJWKL KJWJKDEWE WDJKWJK JKKJ JSJKW JKWKJ Integer at elit ullamcorper lacinia Sed condimentum quam vitae dui rutrum malesuadaAliquam luctus, justo nec posuere vestibulum, sapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdum sapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdum";
-const tags= ['Flutter', 'Firebase', 'Android'];
+// const pname="PickNDrop"
+// const gitHubLink = "https://github.com/suyog73" ;
+// const pUrl= "https://www.holopin.io/@rutuja369" ;
+// const pdesc= "Lorem jnAKJN SWQJKHSQWJK QSJKSWJ WKJWKL KJWJKDEWE WDJKWJK JKKJ JSJKW JKWKJ Integer at elit ullamcorper lacinia Sed condimentum quam vitae dui rutrum malesuadaAliquam luctus, justo nec posuere vestibulum, sapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdum sapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdumsapien lectus sollicitudin erat, id blandit eros purus vitae turpisNullam convallis leo quis purus facilisis, in suscipit nunc interdum";
+// const tags= ['Flutter', 'Firebase', 'Android'];
 
 
 
