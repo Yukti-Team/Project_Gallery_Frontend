@@ -8,7 +8,7 @@ const statusColors = {
     "Pending": "red"
 };
 
-const ProjectData = [
+const projectData = [
     {
         logoSrc: NoticeBoardLogo,
         projectName: "Digital Notice Board",
@@ -101,4 +101,4 @@ const ProjectData = [
     },
 ];
 
-export default ProjectData;
+export default projectData;

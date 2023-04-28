@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Box  } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import PgLogo from "../../images/pglogo.jpg"
 
 
@@ -24,7 +24,7 @@ const LogoUploader = ({ plogo, setPlogo }) => {
                     component="span"
                     style={{ backgroundColor: "black" }}
                 >
-                    Upload Logo
+                    Upload Logo*
                 </Button>
             </label>
 

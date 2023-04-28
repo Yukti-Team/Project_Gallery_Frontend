@@ -1,20 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyledTextField } from "../../styles/StyledTextField";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Grid, Typography } from "@mui/material";
 import FilterRow from "../widgets/FilterRow";
 import ProjectCard from "../widgets/ProjectCard";
-import ProjectData from "../widgets/ProjectData";
+import ApiURL from "../GetUrl";
 
+
+const statusColors = {
+   "Complete": "lightGreen",
+   "In-progress": "orange",
+   "Pending": "red"
+};
 
 const AllProject = () => {
+
+   const [projects, setProjects] = useState([]);
+
+
+   const getProjects = async () => {
+      try {
+         let result = await fetch(`${ApiURL}/project/get/all`);
+         result = await result.json();
+
+         console.log(result[0].ownerId);
+         setProjects(result);
+      } catch (error) {
+         console.log("Error while fetching data:", error);
+      }
+   };
+
+
+   useEffect(() => {
+      getProjects();
+   }, [])
+
    const searchHandle = async (event) => {
       try {
          console.log(event.target.value);
       } catch (error) {
          console.log("Error while searching product:", error);
       }
-
    };
 
    return (
@@ -37,41 +63,24 @@ const AllProject = () => {
             <FilterRow />
             <Grid container spacing={2}>
                {
-                  ProjectData.map((project, index) => (
-                     <React.Fragment key={project.projectName}>
-                        <Grid item xs={6} md={4} sm={12}>
-                           <ProjectCard
-                              logoSrc={project.logoSrc}
-                              projectName={project.projectName}
-                              createdBy={project.createdBy}
-                              tags={project.tags}
-                              ratingValue={project.ratingValue}
-                              statusLabel={project.statusLabel}
-                              statusColor={project.statusColor}
-                           />
- 
-                        </Grid>
-
-                        {index % 2 !== 0 && (
-                           <Grid item xs={6} md={4} sm={12}>
-                              <ProjectCard
-                                 logoSrc={ProjectData[index - 1].logoSrc}
-                                 projectName={ProjectData[index - 1].projectName}
-                                 createdBy={ProjectData[index - 1].createdBy}
-                                 tags={ProjectData[index - 1].tags}
-                                 ratingValue={ProjectData[index - 1].ratingValue}
-                                 statusLabel={ProjectData[index - 1].statusLabel}
-                                 statusColor={ProjectData[index - 1].statusColor}
-                              />
-                           </Grid>
-                        )}
-                     </React.Fragment>
-                  ))}
+                  projects.map((project) => (
+                     <Grid item key={project._id} xs={12} md={4}>
+                        <ProjectCard
+                           projectId={project._id}
+                           userId={project.ownerId}
+                           logoSrc={project.plogo}
+                           projectName={project.pname}
+                           tags={project.tags}
+                           ratingValue={4}
+                           statusLabel={project.status}
+                           statusColor={statusColors[project.status]}
+                           createdAt={project.createdAt}
+                        />
+                     </Grid>
+                  ))
+               }
             </Grid>
-
          </Box>
-
-
       </>
    )
 }

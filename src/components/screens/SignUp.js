@@ -39,8 +39,6 @@ const styles = {
     },
 };
 
-
-
 const SignUp = () => {
 
     const [username, setUserName] = useState("");
