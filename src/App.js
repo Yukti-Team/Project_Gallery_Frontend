@@ -10,6 +10,7 @@ import Home from './components/screens/Home';
 import AddProject from './components/screens/AddProject';
 import AllProject from './components/screens/AllProjects';
 import ApiURL from './components/GetUrl'
+import SingleProject from './components/screens/SingleProject';
 
 
 
@@ -43,7 +44,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/allprojects' element={<AllProject />} />
             <Route path='/addprojects' element={<AddProject />} />
-            <Route path='/updateproject' element={<h1>My Project</h1>} />
+            <Route path='/updateproject' element={<SingleProject/>} />
             <Route path='/logout' element={<h1>Logout</h1>} />
             <Route path='/profile' element={<h1>Profile</h1>} />
           </Route >

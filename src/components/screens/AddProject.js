@@ -178,8 +178,6 @@ const AddProject = () => {
             console.log(error);
         }
 
-
-
         const projectToUpload = {
             pname,
             pimages,
