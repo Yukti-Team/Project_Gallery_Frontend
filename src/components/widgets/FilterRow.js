@@ -5,11 +5,11 @@ import CustomDropDown2 from './CustomDropdown2';
 const filterOptions = [
     {
         label: 'Branch',
-        options: ['CSE', 'IT', 'Entc', 'Mech', 'Civil', 'Electrical'],
+        options: ['Computer Science ', 'Information Technology', 'Electronics ', 'Mechanical', 'Civil', 'Electrical'],
     },
     {
         label: 'Domain',
-        options: ['Web Dev', 'Android Dev', 'ML', 'AI'],
+        options:['Web Development', 'Android Development', 'Machine Learning', 'Artificial Intelligence'],
     },
     {
         label: 'Tech Stack',

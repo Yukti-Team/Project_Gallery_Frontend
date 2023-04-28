@@ -5,12 +5,12 @@ import Plogo from '../../images/pglogo.jpg';
 import DescCard from '../widgets/DescCard';
 import DisplayTags from '../widgets/DisplayTags';
 import GroupCard from '../widgets/GroupCard';
-// import {styled} from '@mui/material/styles';
-// import { Box } from '@mui/material';
 import ImageCard from '../widgets/Image_Card';
 import ProjectLabels from '../widgets/ProjectLabels';
 import ResourceCard from '../widgets/ResourceCard';
-
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import ApiURL from '../GetUrl';
 
 
 //static data
@@ -28,24 +28,50 @@ const tags= ['Flutter', 'Firebase', 'Android'];
 
 
 
-
-
-
-
-
 const SingleProject = () => {
+
+  const { projectId } = useParams();
+  const [project, setProject] = useState({});
+
+  useEffect(() => {
+      getProjectById(projectId);
+  }, [projectId])
+
+  const getProjectById = async (projectId) => {
+      const id = projectId;
+
+      try {
+          let result = await fetch(`${ApiURL}/project/get/${id}`);
+          result = await result.json();
+
+          setProject(result);
+      } catch (error) {
+          console.log("Error while fetching data:", error);
+      }
+  }
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div style={{ backgroundColor: "  rgb(242, 248, 253)", width:"100vw",    paddingTop:'30vh',} }>
       {/* //use   <CustomCarousel /> */}
 
-      <ImageCard image={Plogo} />
+      <ImageCard image={project.plogo} />
       <Typography variant="h4">
-        {pname}
+        {project.pname}
       </Typography>
-      <ProjectLabels branch={branch} domain={domain} year={year} status={status} />
+      <ProjectLabels branch={project.branch} domain={project.domain} year={project.year} status={project.status} />
 
 
-      <DisplayTags tags={tags}/>
+      <DisplayTags tags={project.tags}/>
 
 
       <Grid container my={8} rowSpacing={1} columnSpacing={0.1}sx={{marginBottom:'2vh'}} >
@@ -57,14 +83,14 @@ const SingleProject = () => {
         </Grid>
         <Grid item xs={5} sx={{marginBottom:'5vh'}} >
             <div style={{ marginRight:'0.4vw',width: '90%' }}>
-            <DescCard pdesc={pdesc}/>
+            <DescCard pdesc={project.pdesc}/>
             </div>
 
           {/* </div> */}
         </Grid>
       <Grid container sx={{display:'flex', alignItems:'center', justifyContent:'center', xs:'12', marginBottom:'2vh', marginTop:'13vh'}} >
         <div style={{ margin:'0 4vw', width: '92%' }}>
-                <ResourceCard SrcLink={gitHubLink} DeployLink={pUrl}/>
+                <ResourceCard SrcLink={project.gitHubLink} DeployLink={project.pUrl}/>
         </div>
       </Grid>
       </Grid>

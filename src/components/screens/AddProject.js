@@ -42,11 +42,11 @@ const styles = {
 const filterOptions = [
     {
         label: 'Department',
-        options: ['CSE', 'IT', 'Entc', 'Mech', 'Civil', 'Electrical'],
+        options: ['Computer Science', 'Information Technology', 'Electronics', 'Mechanical', 'Civil', 'Electrical'],
     },
     {
         label: 'Project Domain',
-        options: ['Web Dev', 'Android Dev', 'ML', 'AI'],
+        options: ['Web Development', 'Android Development', 'Machine Learning', 'Artificial Intelligence'],
     },
     {
         label: 'Year of study',
@@ -54,7 +54,7 @@ const filterOptions = [
     },
     {
         label: 'Project Status',
-        options: ['Pending', 'In-progress', 'Complete'],
+        options: ['Pending', 'In Progress', 'Completed'],
     },
 
 ];

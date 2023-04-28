@@ -125,6 +125,7 @@ const ProjectCard = ({
     }, [userId]);
 
     const handleButtonClick = () => {
+        // navigate(`/project/get/${projectId}`);
         navigate(`/project/get/${projectId}`);
     }
 
