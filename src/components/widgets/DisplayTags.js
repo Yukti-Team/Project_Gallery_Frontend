@@ -1,4 +1,4 @@
-import { AutoAwesome, Tag } from "@mui/icons-material";
+import { AutoAwesome} from "@mui/icons-material";
 import {  Chip, Stack } from "@mui/material";
 
 const randomColors = [

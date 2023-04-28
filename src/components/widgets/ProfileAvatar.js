@@ -1,5 +1,5 @@
 import { Person } from "@mui/icons-material";
-import { Avatar, Card, CardContent, styled, Typography } from "@mui/material";
+import { Avatar,  CardContent, styled, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
 
