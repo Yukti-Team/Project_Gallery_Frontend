@@ -89,7 +89,7 @@ const AddProject = () => {
     const [selectedFilters, setSelectedFilters] = useState({});
     const [anchorEl, setAnchorEl] = useState({});
     const [showError, setShowError] = useState(false);
- 
+
     const [errors, setErrors] = useState({
         pname: "",
         teamsize: "",
@@ -335,9 +335,9 @@ const AddProject = () => {
                     Please fill all mandatory fields
                 </Alert>
             </Snackbar>
-
             {loading && <Popup isLoading={loading} />}
-            <Typography variant="h5" align="center" style={{ marginTop: "2%" }}>
+
+            <Typography variant="h5" align="center" style={{ marginTop: "7%", color: "black" }}>
                 Let your creativity shine and inspire others to embark their journey of innovation
             </Typography>
 

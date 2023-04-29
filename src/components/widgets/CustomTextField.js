@@ -1,10 +1,12 @@
 import { TextField, Typography } from '@mui/material';
 
 function CustomTextField({ key, label, value, onChange, readOnly = false, errorMessage = "", isReuired = false }) {
+    console.log("errorMessage");
+    console.log(errorMessage);
     return (
         <>
-            <TextField 
-                key={key} 
+            <TextField
+                key={key}
                 variant="outlined"
                 margin="normal"
                 required

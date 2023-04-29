@@ -49,16 +49,6 @@ const SingleProject = () => {
       }
   }
 
-
-
-
-
-
-
-
-
-
-
   return (
     <div style={{ backgroundColor: "  rgb(242, 248, 253)", width:"100vw",    paddingTop:'30vh',} }>
       {/* //use   <CustomCarousel /> */}
@@ -87,7 +77,7 @@ const SingleProject = () => {
 
           {/* </div> */}
         </Grid>
-      <Grid container sx={{display:'flex', alignItems:'center', justifyContent:'center', xs:'12', marginBottom:'2vh', marginTop:'13vh'}} >
+      <Grid container sx={{display:'flex', alignItems:'center', justifyContent:'center', xs:'12', marginBottom:'2vh', marginTop:'23vh'}} >
         <div style={{ margin:'0 4vw', width: '92%' }}>
                 <ResourceCard SrcLink={project.gitHubLink} DeployLink={project.pUrl}/>
         </div>

@@ -12,6 +12,7 @@ import AllProject from './components/screens/AllProjects';
 import ApiURL from './components/GetUrl'
 import UserPage from './components/screens/UserProfile';
 import SingleProject from './components/screens/SingleProject';
+import MyProfile from './components/screens/MyProfile';
 
 
 function App() {
@@ -43,9 +44,9 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/allprojects' element={<AllProject />} />
             <Route path='/addprojects' element={<AddProject />} />
-            <Route path='/updateproject' element={<SingleProject/>} />
+            <Route path='/updateproject' element={<SingleProject />} />
             <Route path='/logout' element={<h1>Logout</h1>} />
-            <Route path='/profile' element={<h1>Profile</h1>} />
+            <Route path='/profile' element={<MyProfile />} />
             <Route path="/user/:userId" element={<UserPage />} />
             <Route path="/project/get/:projectId" element={<SingleProject />} />
           </Route >
