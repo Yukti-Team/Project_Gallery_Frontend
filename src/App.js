@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import NavBar from './components/widgets/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignUp from './components/screens/SignUp';
 import PrivateComp from './components/widgets/PrivateComp';
@@ -10,9 +9,10 @@ import Home from './components/screens/Home';
 import AddProject from './components/screens/AddProject';
 import AllProject from './components/screens/AllProjects';
 import ApiURL from './components/GetUrl'
-import UserPage from './components/screens/UserProfile';
 import SingleProject from './components/screens/SingleProject';
 import MyProfile from './components/screens/MyProfile';
+import NavbarDrawer from './components/screens/NavbarDrawer';
+import UserProfile from './components/screens/MyProfile';
 
 
 function App() {
@@ -35,7 +35,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar />
+        {/* <NavBar /> */}
+
+        <NavbarDrawer />
         {/* <h1>Project Gallery</h1> */}
 
         <Routes>
@@ -47,7 +49,7 @@ function App() {
             <Route path='/updateproject' element={<SingleProject />} />
             <Route path='/logout' element={<h1>Logout</h1>} />
             <Route path='/profile' element={<MyProfile />} />
-            <Route path="/user/:userId" element={<UserPage />} />
+            <Route path="/user/:userId" element={<UserProfile />} />
             <Route path="/project/get/:projectId" element={<SingleProject />} />
           </Route >
 

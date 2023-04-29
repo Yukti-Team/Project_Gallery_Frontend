@@ -1,6 +1,6 @@
 import { TextField, Typography } from '@mui/material';
 
-function CustomTextField({ key, label, value, onChange, readOnly = false, errorMessage = "", isReuired = false }) {
+function CustomTextField({ key, label, value, onChange, isRequired = true, readOnly = false, errorMessage = "", isReuired = false }) {
     console.log("errorMessage");
     console.log(errorMessage);
     return (
@@ -9,7 +9,6 @@ function CustomTextField({ key, label, value, onChange, readOnly = false, errorM
                 key={key}
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
                 error={errorMessage !== ''}
                 id={label.toLowerCase()}
@@ -17,6 +16,7 @@ function CustomTextField({ key, label, value, onChange, readOnly = false, errorM
                 name={label.toLowerCase()}
                 value={value}
                 onChange={onChange}
+                required={isRequired}
                 InputProps={{
                     startAdornment: isReuired ? <Typography>@</Typography> : null,
                     readOnly: readOnly,

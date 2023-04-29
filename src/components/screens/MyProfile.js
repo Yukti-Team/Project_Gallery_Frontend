@@ -1,192 +1,240 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider, makeStyles } from '@mui/material/styles';
-import { Paper } from '@mui/material';
+import React, { useEffect, useState } from "react"
+import { Grid, Avatar, Box, Typography, Button, Stack } from '@mui/material';
+import { AccountCircle, DateRange, Edit, Email, GitHub, LinkedIn, Numbers, People, Person, Phone, School, Share } from '@mui/icons-material';
+import { Link, useParams } from "react-router-dom";
+import CodeIcon from '@mui/icons-material/Code';
+import DisplayTags from "../widgets/DisplayTags";
+import ApiURL from "../GetUrl";
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
+
+const styles = {
+    pageStyle: {
+        marginTop: "2%",
+        marginLeft: "25%",
+        marginRight: "25%",
+
+    },
+    avatarStyle: {
+        width: 150,
+        height: 150,
+        borderRadius: 1,
+        marginBottom: "10px",
+        fontSize: "60px",
+    },
+    nameStyle: {
+        marginLeft: 50,
+    },
+    username: {
+        marginBottom: 20,
+    },
+    button: {
+        ml: 2,
+        backgroundColor: 'black',
+        '&:hover': {
+            backgroundColor: 'white',
+            color: "black",
+        },
+    },
+    customButton: {
+        backgroundColor: 'white',
+        color: 'black',
+        borderRadius: '10px',
+        padding: '5px 10px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        '&:hover': {
+            backgroundColor: 'black',
+            color: "white",
+        },
+    },
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const UserProfile = () => {
+    const { userId } = useParams();
+    const [user, setUser] = useState({});
 
-const theme = createTheme();
+    useEffect(() => {
+        getUserById(userId);
+    }, [userId])
 
-export default function MyProfile() {
+
+    const getUserById = async (userId) => {
+        const id = userId;
+        console.log("userId");
+        console.log(userId);
+
+        try {
+            let result = await fetch(`${ApiURL}/user/${id}`);
+            result = await result.json();
+
+            console.log(result);
+            setUser(result);
+        } catch (error) {
+            console.log("Error while fetching data:", error);
+        }
+    }
+
+    const isIncompleteProfile = (userModel) => {
+        return (userModel.name === '' || userModel.phone === '' || userModel.bio === '' || userModel.github === '' || userModel.linkedIn === '' || userModel.college === '' || userModel.branch === '' || userModel.batch === '');
+    }
+
+
+    const userModel = {
+        name: user.name ?? "User",
+        username: user.username,
+        email: user.email,
+        phone: user.phone ?? "--",
+        bio: user.bio ?? "Your bio is your chance to make a great first impression. Use this space to showcase your personality, your values, and what you stand for.",
+        github: user.github ?? "--",
+        linkedIn: user.linkedIn ?? "--",
+        tags: user.tags,
+        college: user.college ?? "--",
+        branch: user.branch ?? "--",
+        batch: user.batch ?? "--",
+        totalProjects: user.totalProjects ?? 0,
+    };
+
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
+        <>
+            {isIncompleteProfile(user)
+                ? (<Box sx={{ backgroundColor: 'red', color: 'white', p: 2 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Typography variant="h6">Complete your profile</Typography>
+                    </Box>
+                    <Typography>
+                        Please complete your profile to make the most of our platform.
+                    </Typography>
+                </Box>) : null
+            }
+            <Box style={styles.pageStyle}>
+                <Stack direction="row" alignItems="center" justifyContent="space-between">
+                    <Typography variant="h4" align="left">{userModel.name}'s Profile</Typography>
+                    <Stack direction="row" spacing={2}>
+                        <Edit />
+                        <Share />
+                    </Stack>
+                </Stack>
+                <hr style={{ marginBottom: "10%" }} />
+                <Grid container spacing={0}>
 
-            <main>
-                {/* Hero unit */}
-                <Box
-                    sx={{
-                        bgcolor: 'background.paper',
-                        pb: 3,
-                    }}
-                >
-                </Box>
-                <Container sx={{ py: 1 }} maxWidth="md">
-                    {/* End hero unit */}
-
-                    <card>
-                        <Grid container spacing={1}>
-                            <Grid item xs={5}>
-                                <Container
-                                    sx={{ height: '100%', flexDirection: 'column' }}
-                                >
-                                    <CardMedia
-                                        component="img"
-                                        sx={{
-                                            // 16:9
-                                            height: 250,
-                                            width: 250,
-                                            borderRadius: "100%",
-
-                                        }}
-                                        image="https://w0.peakpx.com/wallpaper/979/89/HD-wallpaper-purple-smile-design-eye-smily-profile-pic-face.jpg"
-                                        alt="random"
-
-                                    />
-                                    <CardContent sx={{ flexGrow: 1 }}>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            Shivaprasad Umshette
-                                        </Typography>
-                                        <Typography>
-                                            Walchand College of Engineering, Sangli
-                                        </Typography>
-                                    </CardContent>
-                                </Container>
-                            </Grid>
-                            <Grid item xs={7}>
-                                <Container
-                                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                                >
-                                    <CardContent sx={{ flexGrow: 1 }}>
-                                        <Grid container spacing={3}>
-                                            <Grid item>
-                                                <Typography gutterBottom variant="h7" component="h7">
-                                                    UserID:
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item>
-                                                <Typography gutterBottom variant="h7" component="h7">
-                                                    @shiivaprasad0141
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid container spacing={1}>
-                                            <Grid item>
-                                                <Typography gutterBottom variant="h7" component="h7">
-                                                    Email:
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item>
-                                                <Typography gutterBottom variant="h7" component="h7">
-                                                    umshetteshivaprasad@gmail.com
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                </Container>
-                            </Grid>
-                        </Grid>
-                    </card>
-                    <hr></hr>
-                    <h1> Bio</h1>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-
-                    <hr></hr>
-                    <h1> Tags</h1>
-                    {/* <div> */}
-                    {/* <fun tags={['react', 'material ui', 'javascript']} />
-                        {fun.map((tag) => (
-                            <Chip label={tag} key={tag} />
-                        ))}
-                    </div> */}
-                    <hr></hr>
-                    <h1>Projects</h1>
-                </Container>
-                <Container sx={{ py: 0 }} maxWidth="md">
-                    {/* End hero unit */}
-                    <Grid container spacing={4}>
-                        {cards.map((card) => (
-                            <Grid item key={card} xs={12} sm={6} md={4}>
-                                <Card
-                                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                                >
-                                    <CardMedia
-                                        component="img"
-                                        sx={{
-                                            // 16:9
-                                            pt: '56.25%',
-                                        }}
-                                        image="https://source.unsplash.com/random"
-                                        alt="random"
-                                    />
-                                    <CardContent sx={{ flexGrow: 1 }}>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            Heading
-                                        </Typography>
-                                        <Typography>
-                                            This is a media card. You can use this section to describe the
-                                            content.
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Button size="small">View</Button>
-                                        <Button size="small">Edit</Button>
-                                    </CardActions>
-                                </Card>
-                            </Grid>
-                        ))}
+                    {/* Profile Picture */}
+                    <Grid item xs={12} md={3}>
+                        <Avatar alt={userModel.name} src="/path/to/photo.jpg" sx={styles.avatarStyle} />
+                        <Typography style={styles.username}>@{userModel.username}</Typography>
                     </Grid>
-                </Container>
-            </main>
+
+                    {/* Profile information */}
+                    <Box style={styles.nameStyle}>
+                        <Grid container alignItems="center" spacing={1}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "10px" }}>
+                                    <AccountCircle sx={{ marginRight: 1 }} />
+                                    <Typography component="h3" sx={{ textAlign: 'left' }}>Name: {userModel.name}</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "10px" }}>
+                                    <Email sx={{ marginRight: 1 }} />
+                                    <Typography sx={{ textAlign: 'left' }}>Email: {userModel.email}</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "10px" }}>
+                                    <Phone sx={{ marginRight: 1 }} />
+                                    <Typography sx={{ textAlign: 'left' }}>Mobile No: {userModel.phone}</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "10px" }}>
+                                    <GitHub sx={{ marginRight: 1 }} />
+                                    <Typography sx={{ textAlign: 'left' }}> GitHub: <Link to="https://github.com/suyog73">{userModel.github}</Link> </Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "10px" }}>
+                                    <LinkedIn sx={{ marginRight: 1 }} />
+                                    <Typography sx={{ textAlign: 'left' }}> LinkedIn: <Link to="https://www.linkedin.com/in/suyog-patil7/">{userModel.linkedIn}</Link> </Typography>
+                                </Box>
+                            </Box>
+                        </Grid>
+                    </Box>
+
+                    <Grid item xs={12}>
+                        <hr />
+                    </Grid>
+
+                    <Typography variant="h5" align="left" style={{ margin: "10px 0 10px 0" }}>
+                        About @{user.username}
+                        <Typography variant="body2">
+                            &nbsp; &nbsp; &nbsp; &nbsp;
+                            {userModel.bio}
+                        </Typography>
+                    </Typography>
+
+                    <Grid item xs={12}>
+                        <hr />
+                    </Grid>
+
+                    {/* College */}
+                    <Box sx={{ marginBottom: "10px", marginTop: "10px" }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "10px" }}>
+                            <School sx={{ marginRight: 1 }} />
+                            <Typography sx={{ textAlign: 'left', display: 'flex', alignItems: 'center' }}>
+                                <span style={{ marginRight: "8px" }}>College:</span>{userModel.college}
+                            </Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "10px" }}>
+                            <CodeIcon sx={{ marginRight: 1 }} />
+                            <Typography sx={{ textAlign: 'left', display: 'flex', alignItems: 'center' }}>
+                                <span style={{ marginRight: "8px" }}>Branch:</span>{userModel.branch}
+                            </Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "10px" }}>
+                            <DateRange sx={{ marginRight: 1 }} />
+                            <Typography sx={{ textAlign: 'left', display: 'flex', alignItems: 'center' }}>
+                                <span style={{ marginRight: "8px" }}>Passout Year:</span>{userModel.batch}
+                            </Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "10px" }}>
+                            <Numbers sx={{ marginRight: 1 }} />
+                            <Typography sx={{ textAlign: 'left', display: 'flex', alignItems: 'center' }}>
+                                <span style={{ marginRight: "8px" }}>Total Projects:</span>{userModel.totalProjects}
+                            </Typography>
+                        </Box>
+                    </Box>
+
+                    <Grid item xs={12}>
+                        <hr />
+                    </Grid>
+
+                    {/* Tech Stack */}
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: "10px 0 10px 0" }}>
+                        <Typography variant="h5">
+                            Tech stack used by {userModel.name}
+                        </Typography>
+                        <DisplayTags tags={userModel.tags} />
+                    </Box>
+
+                    <Grid item xs={12}>
+                        <hr />
+                    </Grid>
+
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: "10px 0 10px 0" }}>
+                        <Typography variant="h5">Projects done by {userModel.name}</Typography>
+                        <Stack direction="column" spacing={2} marginTop="5%">
+                            <Button variant="contained" sx={styles.customButton}>
+                                <Person style={{ marginRight: "5px" }} />
+                                See individual projects
+                            </Button>
+
+                            <Button variant="contained" sx={styles.customButton}>
+                                <People style={{ marginRight: "5px" }} />
+                                See group projects
+                            </Button>
+
+                        </Stack>
+                    </Box>
 
 
+                </Grid>
+            </Box >
 
-
-
-
-
-
-            {/* Footer */}
-            <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-                <Typography variant="h6" align="center" gutterBottom>
-                    Footer
-                </Typography>
-                <Typography
-                    variant="subtitle1"
-                    align="center"
-                    color="text.secondary"
-                    component="p"
-                >
-                    Something here to give the footer a purpose!
-                </Typography>
-                <Copyright />
-            </Box>
-            {/* End footer */}
-        </ThemeProvider>
+        </>
     );
-}
+};
+
+
+export default UserProfile;

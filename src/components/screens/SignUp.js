@@ -98,9 +98,25 @@ const SignUp = () => {
             } else {
                 setUsernameError("");
 
+                const newUser = {
+                    username,
+                    password,
+                    email,
+                    name: "",
+                    phone: "",
+                    bio: "",
+                    github: "",
+                    linkedIn: "",
+                    tags: [],
+                    college: "",
+                    branch: "",
+                    batch: "",
+                    totalProjects: 0
+                }
+
                 let signUpResult = await fetch(`${ApiURL}/user/signup`, {
                     method: 'post',
-                    body: JSON.stringify({ username, email, password }),
+                    body: JSON.stringify(newUser),
                     headers: {
                         'Content-Type': 'application/json'
                     },
