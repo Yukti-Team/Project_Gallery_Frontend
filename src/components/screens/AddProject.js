@@ -76,20 +76,20 @@ const AddProject = () => {
     const [isPrivate, setIsPrivate] = useState(false);
     const [groupArray, setGroupArray] = useState(Array(4).fill(''));
 
-    const [phoneno, setPhoneNo] = useState("8326468462");
+    const [phoneno, setPhoneNo] = useState("8329763258");
     const [teamsize, setTeamsize] = useState(1);
-    const [guide, setGuide] = useState("DBK");
-    const [guideEmail, setGuideEmail] = useState("dbk@gmail.com");
-    const [sponsor, setSponsor] = useState("Rathi");
-    const [sponsorEmail, setSponsorEmail] = useState("rathi@gmail.com");
-    const [pname, setPname] = useState("Notice Board");
-    const [pdesc, setPdesc] = useState("Greate Project");
-    const [gitHubLink, setGithubLink] = useState("https://github.com/suyog73");
-    const [pUrl, setPurl] = useState("https://github.com/suyog73");
+    const [guide, setGuide] = useState("Dr. D.B. Kulkarni");
+    const [guideEmail, setGuideEmail] = useState("dinesh.kulkarni@walchandsangli.ac.in");
+    const [sponsor, setSponsor] = useState("");
+    const [sponsorEmail, setSponsorEmail] = useState("");
+    const [pname, setPname] = useState("Digital Notice Board");
+    const [pdesc, setPdesc] = useState("The application helps to digitalize the process of creating notices and circulating them among the students. Many teachers face problems with circulating the notices among students. One of the major problems the faculties face is keeping track of the number of students who have acknowledged the notice in offline mode. So our application helps to solve these problems and make the notice circulation among the targeted group hassle free for the students as well as the teachers.");
+    const [gitHubLink, setGithubLink] = useState("https://github.com/suyog73/Digital-Notice-Board");
+    const [pUrl, setPurl] = useState("https://drive.google.com/file/d/1RCTSzvuz-_hu6I0RTIIiE-aoUKezhraF/view?usp=sharing");
     const [selectedFilters, setSelectedFilters] = useState({});
     const [anchorEl, setAnchorEl] = useState({});
     const [showError, setShowError] = useState(false);
- 
+
     const [errors, setErrors] = useState({
         pname: "",
         teamsize: "",
@@ -335,9 +335,9 @@ const AddProject = () => {
                     Please fill all mandatory fields
                 </Alert>
             </Snackbar>
-
             {loading && <Popup isLoading={loading} />}
-            <Typography variant="h5" align="center" style={{ marginTop: "2%" }}>
+
+            <Typography variant="h5" align="center" style={{ marginTop: "2%", color: "black" }}>
                 Let your creativity shine and inspire others to embark their journey of innovation
             </Typography>
 
@@ -398,6 +398,7 @@ const AddProject = () => {
                             label="Project Sponsor"
                             value={sponsor}
                             onChange={(e) => setSponsor(e.target.value)}
+                            isRequired={false}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -405,6 +406,7 @@ const AddProject = () => {
                             label="Sponsor Email"
                             value={sponsorEmail}
                             onChange={(e) => setSponsorEmail(e.target.value)}
+                            isRequired={false}
                         />
                     </Grid>
                 </Grid>
@@ -470,6 +472,8 @@ const AddProject = () => {
                     label="Deployed Link"
                     value={pUrl}
                     onChange={(e) => setPurl(e.target.value)}
+                    isRequired={false}
+
                 />
 
                 <TagTextField tags={tags} setTags={setTags} />

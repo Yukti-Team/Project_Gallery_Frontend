@@ -90,7 +90,7 @@ const SignUp = () => {
             result = await result.json()
 
 
-
+            console.log(result.success);
             if (result.success === false) {
                 setLoading(false);
 
@@ -98,9 +98,25 @@ const SignUp = () => {
             } else {
                 setUsernameError("");
 
+                const newUser = {
+                    username,
+                    password,
+                    email,
+                    name: "",
+                    phone: "",
+                    bio: "",
+                    github: "",
+                    linkedIn: "",
+                    tags: [],
+                    college: "",
+                    branch: "",
+                    batch: "",
+                    totalProjects: 0
+                }
+
                 let signUpResult = await fetch(`${ApiURL}/user/signup`, {
                     method: 'post',
-                    body: JSON.stringify({ username, email, password }),
+                    body: JSON.stringify(newUser),
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -115,7 +131,7 @@ const SignUp = () => {
                     setErrorMessage(signUpResult.message);
                 }
                 else if (statusCode === 200) {
-                    setLoading(false); 
+                    setLoading(false);
 
                     localStorage.setItem("user", JSON.stringify(signUpResult.user));
                     if (signUpResult) {
