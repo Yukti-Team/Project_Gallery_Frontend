@@ -13,7 +13,8 @@ const ImageCard= ({image})=>{
                 width:'15vw',
                 margin:'0 auto',
                 marginBottom:'5vh',
-                boxShadow: '0px 10px 10px rgba(0, 0, 0, 0.16)'
+                boxShadow: '0px 10px 10px rgba(0, 0, 0, 0.16)',
+                borderRadius:'5px',
             }}
             >
                 <CardMedia 
