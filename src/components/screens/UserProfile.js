@@ -81,17 +81,19 @@ const UserProfile = () => {
 
 
     const userModel = {
-        name: user.name ?? "User",
+        name: (user.name === "") ? "User" : user.name,
         username: user.username,
         email: user.email,
-        phone: user.phone ?? "--",
-        bio: user.bio ?? "Your bio is your chance to make a great first impression. Use this space to showcase your personality, your values, and what you stand for.",
-        github: user.github ?? "--",
-        linkedIn: user.linkedIn ?? "--",
+        phone: (user.phone === "") ? "--" : user.phone,
+        bio: (user.bio === "")
+            ? "Your bio is your chance to make a great first impression. Use this space to showcase your personality, your values, and what you stand for."
+            : user.bio,
+        github: (user.github === "") ? "--" : user.github,
+        linkedIn: user.linkedIn === "" ? "--" : user.linkedIn,
         tags: user.tags,
-        college: user.college ?? "--",
-        branch: user.branch ?? "--",
-        batch: user.batch ?? "--",
+        college: user.college === "" ? "--" : user.college,
+        branch: user.branch === "" ? "--" : user.branch,
+        batch: user.batch === "" ? "--" : user.batch,
         totalProjects: user.totalProjects ?? 0,
     };
 
