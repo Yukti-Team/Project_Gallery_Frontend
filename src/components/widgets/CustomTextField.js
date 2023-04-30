@@ -1,8 +1,6 @@
 import { TextField, Typography } from '@mui/material';
 
 function CustomTextField({ key, label, value, onChange, isRequired = true, readOnly = false, errorMessage = "", isReuired = false }) {
-    console.log("errorMessage");
-    console.log(errorMessage);
     return (
         <>
             <TextField

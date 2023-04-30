@@ -10,9 +10,9 @@ import AddProject from './components/screens/AddProject';
 import AllProject from './components/screens/AllProjects';
 import ApiURL from './components/GetUrl'
 import SingleProject from './components/screens/SingleProject';
-import MyProfile from './components/screens/MyProfile';
+import MyProfile from './components/screens/UserProfile';
 import NavbarDrawer from './components/screens/NavbarDrawer';
-import UserProfile from './components/screens/MyProfile';
+import UserProfile from './components/screens/UserProfile';
 
 
 function App() {
@@ -31,12 +31,15 @@ function App() {
     fetchData();
   }, []);
 
+  // const auth = JSON.parse(localStorage.getItem('user'));
+
 
   return (
     <div className="App">
       <BrowserRouter>
         {/* <NavBar /> */}
 
+        {/* {auth ? <NavbarDrawer /> : null} */}
         <NavbarDrawer />
         {/* <h1>Project Gallery</h1> */}
 

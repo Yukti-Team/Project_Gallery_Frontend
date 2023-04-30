@@ -14,7 +14,7 @@ const NavBar = () => {
 
     const logout = () => {
         localStorage.clear();
-        navigate('/signup');
+        navigate('/signup'); 
     }
 
     return (
@@ -22,8 +22,6 @@ const NavBar = () => {
         <div className="navbar-ul"> 
 
             <img className="logo" src={PgLogo} alt="logo" style={{ marginTop: '1vh' }} />
-
-
             {
                 auth ?
                     <ul>

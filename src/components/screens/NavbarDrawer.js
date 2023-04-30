@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
-import { Menu, Home, Assignment, AddCircleOutline, Person, ExitToApp, Code } from '@mui/icons-material';
+import { Menu, Home, Assignment, AddCircleOutline, Person, Code, Login } from '@mui/icons-material';
 
 const NavbarDrawer = () => {
     const [open, setOpen] = useState(false);
@@ -11,7 +11,7 @@ const NavbarDrawer = () => {
     };
 
     const auth = JSON.parse(localStorage.getItem('user'));
-    const userId = auth._id;
+    const userId = auth && auth._id;
     const navigate = useNavigate();
 
     const logout = () => {
@@ -25,7 +25,7 @@ const NavbarDrawer = () => {
         { text: 'Add Projects', link: '/addprojects', icon: <AddCircleOutline /> },
         { text: 'My Projects', link: '/updateproject', icon: <Code /> },
         { text: 'Profile', link: `/user/${userId}`, icon: <Person /> },
-        { text: 'Logout', link: '/signup', icon: <ExitToApp />, onClick: logout },
+        { text: 'Logout', link: '/login', icon: <Login />, onClick: logout }
     ];
 
     const styles = {

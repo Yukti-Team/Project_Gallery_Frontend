@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ApiURL from '../GetUrl'
-
-
 import {
     Snackbar,
     Alert,
@@ -12,6 +10,7 @@ import {
     CssBaseline,
     Typography,
     CircularProgress,
+    Grid,
 } from '@mui/material';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -77,6 +76,10 @@ const SignUp = () => {
             return;
         }
 
+        if (usernameError !== "" || emailError !== "") {
+            return;
+        }
+
         setLoading(true);
         try {
             let result = await fetch(`${ApiURL}/user/check-username`, {
@@ -90,7 +93,6 @@ const SignUp = () => {
             result = await result.json()
 
 
-            console.log(result.success);
             if (result.success === false) {
                 setLoading(false);
 
@@ -151,20 +153,16 @@ const SignUp = () => {
         const usernameValue = e.target.value;
         setUserName(usernameValue);
 
+
         if (usernameValue.length < 4) {
             setUsernameError("Username should be at least 4 characters long");
         } else if (/[A-Z]/.test(usernameValue)) {
             setUsernameError("Username should not contain capital letters");
         } else if (/\s/.test(usernameValue)) {
             setUsernameError("Username should not contain spaces");
-        }
-        // else if (/[^\u0000-\u007F]+/.test(usernameValue)) {
-        //     setUsernameError("Username should not contain emojis");
-        // }
-        else {
+        } else {
             setUsernameError("");
         }
-
     }
 
     const validateEmail = (e) => {
@@ -212,13 +210,13 @@ const SignUp = () => {
                             label="Username"
                             value={username}
                             isReuired={true}
-                            errorMesssage={usernameError}
+                            errorMessage={usernameError}
                             onChange={validateUsername}
                         />
                         <CustomTextField
                             label="Email Address"
                             value={email}
-                            errorMesssage={emailError}
+                            errorMessage={emailError}
                             onChange={validateEmail}
                         />
                         <CustomTextField
@@ -226,8 +224,6 @@ const SignUp = () => {
                             value={password}
                             onChange={(e) => { setPassword(e.target.value); }}
                         />
-
-
 
                         <Button
                             type="submit"
@@ -241,6 +237,15 @@ const SignUp = () => {
                     </form>
                 </div>
             </Container>
+
+            <Grid container justifyContent="center" style={{ margin: "20px 0 0 0" }}>
+                <Grid item>
+                    <Link
+                        to="/login" variant="body2">
+                        Already have an account? Login
+                    </Link>
+                </Grid>
+            </Grid>
         </>
     )
 }
