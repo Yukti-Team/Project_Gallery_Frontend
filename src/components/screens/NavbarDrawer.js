@@ -34,6 +34,7 @@ const NavbarDrawer = () => {
             top: 5,
             left: 15,
             zIndex: 1100,
+            // color:'white'
         },
     };
 
