@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import { Card, Button, CardContent, CardHeader, Avatar, Chip, Rating, Typography, Box } from '@mui/material';
-import { Person } from '@mui/icons-material';
+import { AutoAwesome, Person } from '@mui/icons-material';
 import { useEffect, useState } from "react";
 import ApiURL from "../GetUrl";
 import { Link, useNavigate } from "react-router-dom";
@@ -174,7 +174,11 @@ const ProjectCard = ({
                 tags && (
                     <Tags>
                         {tags.map((tag, index) => (
-                            <Chip key={tag + index} label={tag} style={{ backgroundColor: randomColors[index % 10] }} />
+                            <Chip
+                             key={tag + index}
+                             label={tag} 
+                             icon={<AutoAwesome style={{ fontSize: 20, color: "white" }}/>}
+                             style={{ backgroundColor: randomColors[index % 10] }} />
                         ))}
                     </Tags>
                 )
