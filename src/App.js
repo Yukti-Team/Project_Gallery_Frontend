@@ -31,12 +31,15 @@ function App() {
     fetchData();
   }, []);
 
+  // const auth = JSON.parse(localStorage.getItem('user'));
+
 
   return (
     <div className="App">
       <BrowserRouter>
         {/* <NavBar /> */}
 
+        {/* {auth ? <NavbarDrawer /> : null} */}
         <NavbarDrawer />
         {/* <h1>Project Gallery</h1> */}
 

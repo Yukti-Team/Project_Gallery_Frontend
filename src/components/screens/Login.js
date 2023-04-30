@@ -7,18 +7,14 @@ import {
     CssBaseline,
     Typography,
     CircularProgress,
+    Grid,
 } from '@mui/material';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-
+import { Link, useNavigate } from "react-router-dom";
 import CustomTextField from "../widgets/CustomTextField";
 import ApiURL from '../GetUrl'
-
-
-
 
 const styles = {
     paper: {
@@ -42,7 +38,6 @@ const styles = {
     },
 };
 
-
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -62,10 +57,18 @@ const Login = () => {
     const handleLogin = async (event) => {
         event.preventDefault();
 
-        setLoading(true);
 
         console.log(email, password);
+        if (password === '') {
+            setErrorMessage("Password is required");
+            return;
+        }
+        if (email === '') {
+            setErrorMessage("Email is required");
+            return;
+        }
 
+        setLoading(true);
         try {
             let result = await fetch(`${ApiURL}/user/login`, {
                 method: 'post',
@@ -153,6 +156,15 @@ const Login = () => {
                     </form>
                 </div>
             </Container>
+
+            <Grid container justifyContent="center" style={{ margin: "20px 0 0 0" }}>
+                <Grid item>
+                    <Link
+                        to="/signup" variant="body2">
+                        Don't have an account? Sign Up
+                    </Link>
+                </Grid>
+            </Grid>
         </>
     )
 }
