@@ -122,14 +122,7 @@ function Item(props) {
     return (
         <Box position="relative">
             <img src={item.image} alt={item.name} style={styles.image} />
-            <div style={styles.overlay}
-            // sx={{
-            //     border:"55px solid transparent",
-            //     width:'100%',
-            //     height:'20%',
-            //     margin:"50px",
-            // }}
-            ></div>
+            <div style={styles.overlay} ></div>
             <Box style={styles.content}>
                 <Typography variant="h2" component="h3" align="center" sx={{ marginBottom: '1rem'}}>
                     {item.name}

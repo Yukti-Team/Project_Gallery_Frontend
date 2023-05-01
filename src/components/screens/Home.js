@@ -12,10 +12,11 @@ import Rover from "../../images/rover.jpeg"
 import Transistor from "../../images/transistors.jpeg"
 import Electrical from "../../images/bulb.jpg"
 import HPC from "../../images/hpc.jpeg"
+import { Typography } from "@mui/material";
 
 const Home = () => {
     const homeCards = [
-        {  
+        {
             imageUrl: `${flutterimage}`,
             imageAlt: 'FLutter',
         },
@@ -69,12 +70,13 @@ const Home = () => {
         },
     ]
 
-    const styles= {
+    const styles = {
         image: {
             width: '100%',
             height: '98vh',
             objectFit: 'cover',
             filter: 'blur(0px)',
+            
         },
         overlay: {
             // position: "absolute",
@@ -94,15 +96,16 @@ const Home = () => {
 
             position: "absolute",
             top: "18%",
-            right:0,
-            height:0,
+            right: 0,
+            height: 0,
             width: "40%",
             borderTop: "80vh solid transparent",
             borderRight: "70vw solid rgba(0, 0, 0, 0.5)",
             zIndex: 1,
-            padding: '0px 16px'
+            padding: '0px 16px',
+ 
         },
-        content:{
+        content: {
             // position:'absolute',
             // bottom:0,
             // left: "20%",
@@ -115,13 +118,13 @@ const Home = () => {
             // backgroundColor: "rgba(0, 0, 0, 0.5)",
             // color: "#fff",
             // padding: '0px 12px'
-            position:'absolute',
-            bottom:0,
-            right:0,
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
             width: "50%",
             margin: 'auto',
-            marginRight:'0',
-            marginBottom:'5%',
+            marginRight: '0',
+            marginBottom: '5%',
             textAlign: 'center',
             display: "flex",
             flexDirection: "column",
@@ -129,24 +132,32 @@ const Home = () => {
             alignItems: "center",
             color: "#fff",
             padding: '0px 10px',
-            zIndex:2
+            zIndex: 2
         },
         button: {
             margin: '1rem',
             backgroundColor: 'black',
             '&:hover': {
-                    backgroundColor: 'white',
-                    color: "black",
-                },
+                backgroundColor: 'white',
+                color: "black",
+            },
         }
     }
 
 
     return (
         <>
-            <CustomCarousel items={items} styles={styles}/>
+            <CustomCarousel items={items} styles={styles} />
 
-            
+            <div sx={{ margin: 0, marginTop: '30vh'}}>
+                <Typography variant="h1" sx={{fontFamily: 'Ubuntu',fontStyle: 'italic',textAlign: 'center' }}>
+                    PROJECT GALLERY
+                </Typography>
+                <Typography variant="h6" sx={{position:"absolute",right:"20%",fontStyle:'italic',textAlign: 'right' ,fontWeight:'normal'}}>
+                    CREATE COLLABORATE CONNECT
+                </Typography>
+            </div>
+
             <div className="homeGrid">
                 <div className="cardGrid">
                     {homeCards.map((homeCard, index) => (
