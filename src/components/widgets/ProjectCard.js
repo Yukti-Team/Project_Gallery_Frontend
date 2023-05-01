@@ -76,6 +76,7 @@ const RatingField = styled(CardContent)({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+
 });
 
 
@@ -188,7 +189,7 @@ const ProjectCard = ({
                 <Rating name="read-only" value={ratingValue} precision={0.1} readOnly />
                 &nbsp;
                 <Typography>{ratingValue.toFixed(1)}</Typography>
-            </RatingField>
+            </RatingField>  
 
 
             <Button

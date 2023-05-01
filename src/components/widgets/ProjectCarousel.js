@@ -5,9 +5,9 @@ function ProjectCarousel(props) {
     const { items, styles } = props;
     const breakPoints=[
         {width:1, itemsToShow: 1},
-        {width:25, itemsToShow: 2},
-        {width:50, itemsToShow: 3},
-        {width:75, itemsToShow: 4},
+        {width:550, itemsToShow: 2},
+        {width:768, itemsToShow: 3},
+        {width:1200, itemsToShow: 4},
 
     ]
 
