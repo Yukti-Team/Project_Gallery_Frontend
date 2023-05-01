@@ -15,7 +15,7 @@ const styles = {
     },
     content: {
         padding: "30px",
-        maxHeight: '23vh',
+        maxHeight: '19vh',
         overflowY: "auto",
     },
     rating: {
