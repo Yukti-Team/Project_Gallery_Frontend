@@ -122,11 +122,19 @@ function Item(props) {
     return (
         <Box position="relative">
             <img src={item.image} alt={item.name} style={styles.image} />
-            <Box style={styles.overlay}>
-                <Typography variant="h2" component="h2" align="center" sx={{ marginBottom: '1rem'}}>
+            <div style={styles.overlay}
+            // sx={{
+            //     border:"55px solid transparent",
+            //     width:'100%',
+            //     height:'20%',
+            //     margin:"50px",
+            // }}
+            ></div>
+            <Box style={styles.content}>
+                <Typography variant="h2" component="h3" align="center" sx={{ marginBottom: '1rem'}}>
                     {item.name}
                 </Typography>
-                <Typography variant="body1" align="center" sx={{ marginBottom: '1rem' }}>
+                <Typography variant="body" align="center" sx={{ marginBottom: '1rem' }}>
                     {item.description}
                 </Typography>
                 <Button variant="contained" color="primary" sx={styles.button}>

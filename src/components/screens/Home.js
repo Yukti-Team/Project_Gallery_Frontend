@@ -7,9 +7,11 @@ import kotlinimage from "../../images/kotlin.png"
 import pythonimage from "../../images/python.png"
 import nextjsimage from "../../images/nextjs.webp"
 import CustomCarousel from "../widgets/Carousel";
-import Car1Image from "../../images/car1.jpeg"
-import Car2Image from "../../images/car2.jpg"
-import BirdImage from "../../images/bird.jpg"
+import Tech from "../../images/tech.jpg"
+import Rover from "../../images/rover.jpeg"
+import Transistor from "../../images/transistors.jpeg"
+import Electrical from "../../images/bulb.jpg"
+import HPC from "../../images/hpc.jpeg"
 
 const Home = () => {
     const homeCards = [
@@ -41,20 +43,30 @@ const Home = () => {
 
     var items = [
         {
-            name: "Great Car",
-            description: "Probably the most random thing you have ever seen!",
-            image: Car1Image
+            name: "Innovation",
+            description: "Every once in a while, a new technology, an old problem, and a big idea turn into an innovation",
+            image: Tech
         },
         {
-            name: "Rolls Royce",
-            description: "Hello World!",
-            image: Car2Image
+            name: "Exploring Incredible",
+            description: "Rovers are the eyes and hands of scientists on other planets",
+            image: Rover
         },
         {
-            name: "Bird",
-            description: "This is a Beautiful bird",
-            image: BirdImage
-        }
+            name: "Continuing Moore's Law",
+            description: "The future of Electronics is all about integration and miniaturization",
+            image: Transistor
+        },
+        {
+            name: "Luminaire",
+            description: "Electricity is the universal language of energy",
+            image: Electrical
+        },
+        {
+            name: "Super Computing",
+            description: "Supercomputing is the backbone of scientific discovery and innovation",
+            image: HPC
+        },
     ]
 
     const styles= {
@@ -65,27 +77,67 @@ const Home = () => {
             filter: 'blur(0px)',
         },
         overlay: {
+            // position: "absolute",
+            // top: 0,
+            // left: 0,
+            // width: "50%",
+            // height: "50%",
+            // display: "flex",
+            // flexDirection: "column",
+            // justifyContent: "center",
+            // alignItems: "center",
+            // backgroundColor: "rgba(0, 0, 0, 0.5)",
+            // color: "#fff",
+            // zIndex: 1,
+            // padding: '0px 16px'
+
+
             position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
+            top: "18%",
+            right:0,
+            height:0,
+            width: "40%",
+            borderTop: "80vh solid transparent",
+            borderRight: "70vw solid rgba(0, 0, 0, 0.5)",
+            zIndex: 1,
+            padding: '0px 16px'
+        },
+        content:{
+            // position:'absolute',
+            // bottom:0,
+            // left: "20%",
+            // width: "50%",
+            // height: "20%",
+            // display: "flex",
+            // flexDirection: "column",
+            // justifyContent: "right",
+            // alignItems: "right",
+            // backgroundColor: "rgba(0, 0, 0, 0.5)",
+            // color: "#fff",
+            // padding: '0px 12px'
+            position:'absolute',
+            bottom:0,
+            right:0,
+            width: "50%",
+            margin: 'auto',
+            marginRight:'0',
+            marginBottom:'5%',
+            textAlign: 'center',
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
             color: "#fff",
-            zIndex: 1,
-            padding: '0px 16px'
+            padding: '0px 10px',
+            zIndex:2
         },
         button: {
             margin: '1rem',
             backgroundColor: 'black',
             '&:hover': {
-                backgroundColor: 'white',
-                color: "black",
-            },
+                    backgroundColor: 'white',
+                    color: "black",
+                },
         }
     }
 
