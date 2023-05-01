@@ -14,8 +14,8 @@ const Profiles = styled(CardContent)({
     margin: '0 15px',
     marginRight:'3vw',
     backgroundColor: "black",
-    width:'60px',
-    height:'60px'
+    width:'50px',
+    height:'50px'
 
 });
 
@@ -27,8 +27,8 @@ const ProfileAvatar = ({name}) => {
                 <UserGroupIcon> <Person/> </UserGroupIcon>
 
                 <Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start">
-                    <Typography variant="h5">{name}</Typography>
-                    <Typography>bio: About the team member skills and their interests</Typography>
+                    <Typography variant="body1"sx={{fontWeight:'bold', fontSize:'20px'}} >{name}</Typography>
+                    <Typography variant="body2" sx={{fontWeight:'lighter'}}>bio: About the team member skills and their interests</Typography>
                 </Box>
             </Profiles>
 

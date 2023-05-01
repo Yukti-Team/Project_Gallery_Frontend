@@ -7,14 +7,16 @@ const ImageCard= ({image})=>{
     return (
           <Card 
             sx={{
+                display:'flex',
                 alignItems:"center",
                 justifyContent:"center",    
                 height: '30vh',
                 width:'15vw',
-                margin:'0 auto',
+                margin:'0% 30%',
                 marginBottom:'5vh',
+                marginTop:'1%',
                 boxShadow: '0px 10px 10px rgba(0, 0, 0, 0.16)',
-                borderRadius:'5px',
+                borderRadius:'40px',
             }}
             >
                 <CardMedia 
