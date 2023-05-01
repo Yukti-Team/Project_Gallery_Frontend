@@ -14,6 +14,7 @@ const StyledCard = styled(Card)({
     position: 'relative',
     borderRadius: "10px",
 
+
 });
 
 const CreatedDate = styled(Typography)({
@@ -167,8 +168,6 @@ const ProjectCard = ({
                     <Typography variant="h5">Rank #4 in</Typography>
                     <Typography>Individual Project</Typography>
                 </Box>
-
-
             </CreatedBy>
 
             {

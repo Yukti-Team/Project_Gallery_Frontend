@@ -39,24 +39,9 @@ const SingleProject = () => {
   const styles = {
     image: {
       width: '20%',
-      height: '30%',
+      height: '60vh',
       objectFit: 'cover',
       filter: 'blur(0px)',
-    },
-    overlay: {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
-      color: "#fff",
-      zIndex: 1,
-      padding: '0px 16px'
     },
     rating: {
       display: 'flex',
