@@ -266,7 +266,7 @@ const AddProject = () => {
         const newArray = [...groupArray]; // make a copy of the original array
         newArray.splice(2, 1, username); // update 
         setGroupArray(newArray);
-    }, [username])
+    }, [username, groupArray])
 
     const handleSubmit = async (event) => {
 
