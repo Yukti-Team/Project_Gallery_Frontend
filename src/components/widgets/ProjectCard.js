@@ -1,8 +1,7 @@
 import { styled } from "@mui/material/styles";
 import { Card, Button, CardContent, CardHeader, Avatar, Chip, Rating, Typography, Box } from '@mui/material';
 import { AutoAwesome, Person } from '@mui/icons-material';
-import { useEffect, useState } from "react";
-import ApiURL from "../GetUrl";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const StyledCard = styled(Card)({
