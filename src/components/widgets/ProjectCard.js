@@ -127,7 +127,9 @@ const ProjectCard = ({
     }, []);
 
     const handleButtonClick = () => {
+
         // navigate(`/project/get/${projectId}`);
+        console.log(localStorage.getItem("token"));
         navigate(`/project/get/${projectId}`);
     }
 
@@ -175,10 +177,10 @@ const ProjectCard = ({
                     <Tags>
                         {tags.map((tag, index) => (
                             <Chip
-                             key={tag + index}
-                             label={tag} 
-                             icon={<AutoAwesome style={{ fontSize: 20, color: "white" }}/>}
-                             style={{ backgroundColor: randomColors[index % 10] }} />
+                                key={tag + index}
+                                label={tag}
+                                icon={<AutoAwesome style={{ fontSize: 20, color: "white" }} />}
+                                style={{ backgroundColor: randomColors[index % 10] }} />
                         ))}
                     </Tags>
                 )
@@ -188,7 +190,7 @@ const ProjectCard = ({
                 <Rating name="read-only" value={ratingValue} precision={0.1} readOnly />
                 &nbsp;
                 <Typography>{ratingValue.toFixed(1)}</Typography>
-            </RatingField>  
+            </RatingField>
 
 
             <Button

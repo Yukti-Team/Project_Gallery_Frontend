@@ -53,17 +53,23 @@ const SingleProject = () => {
   const { projectId } = useParams();
   const [project, setProject] = useState({});
 
-  
-  
-  
+
+
+
   useEffect(() => {
     const getProjectById = async (projectId) => {
       const id = projectId;
-      
+
       try {
-        let result = await fetch(`${ApiURL}/project/get/${id}`);
+        let result = await fetch(`${ApiURL}/project/get/${id}`, {
+          method: "get",
+          headers: {
+            authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+            "Content-Type": "application/json"
+          }
+        });
         result = await result.json();
-      
+
         setProject(result);
       } catch (error) {
         console.log("Error while fetching data:", error);
@@ -76,7 +82,7 @@ const SingleProject = () => {
     <div style={{ backgroundColor: "  rgb(242, 248, 253)", width: "99.1vw", paddingTop: '5%', }}>
 
 
-      <Grid container columnSpacing={8} >
+      <Grid container columnSpacing={8} style={{ marginTop: "3%", marginBottom: "5%" }}>
         <Grid item xs={3} sx={{ maxWidth: '5%' }}>
           <ImageCard image={project.plogo} />
         </Grid>
