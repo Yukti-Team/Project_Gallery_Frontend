@@ -1,177 +1,7 @@
-// import React, { useState } from 'react';
-// import {
-//     Avatar,
-//     Box,
-//     Button,
-//     Container,
-//     TextField,
-//     Typography,
-// } from '@mui/material';
-
-// const styles = {
-//     form: {
-//         display: 'flex',
-//         flexDirection: 'column',
-//         alignItems: 'center',
-//     },
-//     avatar: {
-//         width: 120,
-//         height: 120,
-//         marginBottom: 2,
-//     },
-//     input: {
-//         marginBottom: 2,
-//     },
-//     button: {
-//         marginTop: 2,
-//     },
-// };
-
-// const EditProfile = () => {
-//     const [values, setValues] = useState({
-//         username: '',
-//         name: '',
-//         email: '',
-//         phone: '',
-//         about: '',
-//         github: '',
-//         linkedIn: '',
-//         passoutYear: '',
-//         college: '',
-//         batch: '',
-//     });
-
-//     const handleChange = (prop) => (event) => {
-//         setValues({ ...values, [prop]: event.target.value });
-//     };
-
-//     const handleSubmit = (event) => {
-//         event.preventDefault();
-//         // Add logic to submit form data to backend
-//     };
-
-//     return (
-//         <Container maxWidth="xs">
-//             <Box
-//                 sx={{
-//                     display: 'flex',
-//                     flexDirection: 'column',
-//                     alignItems: 'center',
-//                     marginTop: 8,
-//                 }}
-//             >
-//                 <Avatar
-//                     alt="Profile Picture"
-//                     src="https://via.placeholder.com/150"
-//                     style={styles.avatar}
-//                 />
-//                 <Typography component="h1" variant="h5">
-//                     Edit Profile
-//                 </Typography>
-//                 <Box component="form" style={styles.form} onSubmit={handleSubmit}>
-//                     {/* <TextField
-//                         style={styles.input}
-//                         fullWidth
-//                         id="username"
-//                         label="Username"
-//                         value={values.username}
-//                         onChange={handleChange('username')}
-//                     /> */}
-//                     <TextField
-//                         style={styles.input}
-//                         fullWidth
-//                         id="name"
-//                         label="Name"
-//                         value={values.name}
-//                         onChange={handleChange('name')}
-//                     />
-//                     {/* <TextField
-//                         style={styles.input}
-//                         fullWidth
-//                         id="email"
-//                         label="Email"
-//                         value={values.email}
-//                         onChange={handleChange('email')}
-//                     /> */}
-//                     <TextField
-//                         style={styles.input}
-//                         fullWidth
-//                         id="phone"
-//                         label="Phone"
-//                         value={values.phone}
-//                         onChange={handleChange('phone')}    
-//                     />
-//                     <TextField
-//                         style={styles.input}
-//                         fullWidth
-//                         id="about"
-//                         label="About"
-//                         value={values.about}
-//                         onChange={handleChange('about')}
-//                     />
-//                     <TextField
-//                         style={styles.input}
-//                         fullWidth
-//                         id="github"
-//                         label="GitHub"
-//                         value={values.github}
-//                         onChange={handleChange('github')}
-//                     />
-//                     <TextField
-//                         style={styles.input}
-//                         fullWidth
-//                         id="linkedIn"
-//                         label="linkedIn"
-//                         value={values.linkedIn}
-//                         onChange={handleChange('linkedIn')}
-//                     />
-//                     <TextField
-//                         style={styles.input}
-//                         fullWidth
-//                         id="passout-year"
-//                         label="Passout Year"
-//                         value={values.passoutYear}
-//                         onChange={handleChange('passoutYear')}
-//                     />
-//                     <TextField
-//                         style={styles.input}
-//                         fullWidth
-//                         id="college"
-//                         label="College"
-//                         value={values.college}
-//                         onChange={handleChange('college')}
-//                     />
-//                     <TextField
-//                         style={styles.input}
-//                         fullWidth
-//                         id="batch"
-//                         label="Batch"
-//                         value={values.batch
-//                         }
-//                         onChange={handleChange('batch')}
-//                         variant="outlined"
-//                     />
-//                     <Button
-//                         style={styles.submitButton}
-//                         variant="contained"
-//                         color="primary"
-//                         onClick={handleSubmit}
-//                     >
-//                         Save Changes
-//                     </Button>
-//                 </Box>
-//             </Box>
-//         </Container>
-//     );
-// }
-
-// export default EditProfile;
-
-import React, { useEffect, useState } from 'react';
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 import ApiURL from "../GetUrl";
 import {
-    Avatar,
     Box,
     Button,
     CircularProgress,
@@ -179,6 +9,12 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
+import ProfilePhotoEdit from '../widgets/ProfilePhotoEdit';
+
+
+import { storage } from "../FirebaseConfig.js"; // import your Firebase configuration here
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import imageCompression from "browser-image-compression";
 
 const styles = {
     form: {
@@ -199,23 +35,20 @@ const styles = {
     button: {
         marginTop: 5,
     },
-    // about: {
-    //     width: 500,
-    //     height: 20,
-    //     margin: 3, 
-    //     marginBottom: 2, 
-    // }
+    submitButton: {
+        marginBottom: 15
+    }
 };
 
 const EditProfile = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
+    const [userId, setUserId] = useState("")
+    const [profileFile, setProfileFile] = useState(null)
     const { username } = useParams();
-    const [user, setUser] = useState({});
+
     const [values, setValues] = useState({
-        username: '',
         name: '',
-        email: '',
         phone: '',
         bio: '',
         github: '',
@@ -223,43 +56,88 @@ const EditProfile = () => {
         passoutYear: '',
         college: '',
         branch: '',
+        imageUrl: '',
     });
 
-    useEffect(() => {
-        getUserByUsername(username);
-    }, [username])
 
 
-    const getUserByUsername = async (username) => {
-        // console.log("username");
-        // console.log(username);
 
+    const getUserByUsername = useCallback(async (username) => {
         try {
             let result = await fetch(`${ApiURL}/user/${username}`);
             result = await result.json();
 
-            // console.log(result);
-            setUser(result);
-            setValues(result);
+            setUserId(result._id);
+
+            setValues({
+                ...values,
+                name: result.name,
+                phone: result.phone,
+                bio: result.bio,
+                github: result.github,
+                linkedIn: result.linkedIn,
+                college: result.college,
+                branch: result.branch,
+                passoutYear: result.passoutYear,
+                imageUrl: result.imageUrl,
+            });
         } catch (error) {
             console.log("Error while fetching data:", error);
         }
-    }
+    }, [setUserId, setValues, values]);
+
+    useEffect(() => {
+        getUserByUsername(username);
+    }, [getUserByUsername, username]);
 
 
     const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
+        if (values.hasOwnProperty(prop)) {
+            setValues({ ...values, [prop]: event.target.value });
+        }
     };
+
+
+    async function uploadProfilePhoto() {
+        let img;
+        const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true,
+        };
+        if (!(profileFile))
+            return "";
+
+        try {
+            setLoading(true);
+            img = await imageCompression(profileFile, options);
+
+            // Upload images to Firebase Storage
+            const storageRef = ref(
+                storage,
+                `profile/${Date.now().toString()}`
+            );
+            const metadata = { contentType: img.type };
+            await uploadBytesResumable(storageRef, img, metadata);
+            const urlC = await getDownloadURL(storageRef);
+
+            return urlC;
+        } catch (error) {
+            setLoading(false);
+            console.log(error);
+        }
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // Add logic to submit form data to backend
         setLoading(true);
+
+        let imageUrl = await uploadProfilePhoto();
+
         try {
-            console.log(JSON.stringify(values));
-            await fetch(`${ApiURL}/user/update/${values._id}`, {
+            await fetch(`${ApiURL}/user/update/${userId}`, {
                 method: "PATCH",
-                body: JSON.stringify(values),
+                body: JSON.stringify({ ...values, imageUrl }),
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -268,9 +146,9 @@ const EditProfile = () => {
             setLoading(false);
             navigate(`/user/${username}`)
         } catch (err) {
-            setLoading(false)
             console.log(err);
         }
+        setLoading(false)
     };
 
     return (
@@ -284,68 +162,92 @@ const EditProfile = () => {
 
                 }}
             >
-                <Avatar
-                    alt="Profile Picture"
-                    src="https://via.placeholder.com/150"
 
-                    style={styles.avatar}
-
+                <ProfilePhotoEdit
+                    imageUrl={values.imageUrl}
+                    profileFile={profileFile}
+                    setProfileFile={setProfileFile}
                 />
+
                 <Typography style={{ margin: 10 }} component="h1" variant="h5">
                     Edit Profile
                 </Typography>
                 <Box component="form" style={styles.form} onSubmit={handleSubmit}>
-                    <div style={{ display: 'flex' }}>
+                    {/* <div style={{ display: 'flex' }}>
                         <TextField
                             style={styles.input}
-                            
                             fullWidth
                             id="name"
                             label="Name"
                             value={values.name}
                             onChange={handleChange('name')}
                         />
-                    </div>
-                    {/*  */}
+                    </div> */}
                     <div style={{ display: 'flex' }}>
-                        <TextField
-                            style={styles.input}
-                            fullWidth
-                            id="username"
-                            disabled
-                            value={values.username}
-                        />
 
                         <TextField
                             style={styles.input}
                             fullWidth
-                            id="email"
-                            disabled
-                            // label='email'
-
-                            value={values.email}
-                        // onChange={handleChange('email')}
+                            id="name"
+                            label="Name"
+                            value={values.name || ''}
+                            onChange={handleChange('name')}
+                            InputLabelProps={{
+                                shrink: values.name !== ''
+                            }}
+                            autoFocus={true}
                         />
                     </div>
 
                     <div style={{ display: 'flex' }}>
+
                         <TextField
                             style={styles.input}
                             fullWidth
                             id="phone"
                             label="phone"
-                            value={values.phone}
+                            value={values.phone || ''}
                             onChange={handleChange('phone')}
+                            InputLabelProps={{
+                                shrink: values.phone !== ''
+                            }}
                         />
+
                         <TextField
                             style={styles.input}
                             fullWidth
                             id="branch"
-                            label='Branch'
-                            value={values.branch
-                            }
+                            label="Branch"
+                            value={values.branch || ''}
                             onChange={handleChange('branch')}
-                            variant="outlined"
+                            InputLabelProps={{
+                                shrink: values.branch !== ''
+                            }}
+                        />
+                    </div>
+                    <div style={{ display: 'flex' }}>
+
+                        <TextField
+                            style={styles.input}
+                            fullWidth
+                            id="github"
+                            label="GitHub"
+                            value={values.github || ''}
+                            onChange={handleChange('github')}
+                            InputLabelProps={{
+                                shrink: values.github !== ''
+                            }}
+                        />
+                        <TextField
+                            style={styles.input}
+                            fullWidth
+                            id="linkedIn"
+                            label="LinkedIn"
+                            value={values.linkedIn || ''}
+                            onChange={handleChange('linkedIn')}
+                            InputLabelProps={{
+                                shrink: values.linkedIn !== ''
+                            }}
                         />
 
                     </div>
@@ -353,48 +255,39 @@ const EditProfile = () => {
                         <TextField
                             style={styles.input}
                             fullWidth
-                            id="github"
-                            label="GitHub"
-                            value={values.github}
-                            onChange={handleChange('github')}
-                        />
-                        <TextField
-                            style={styles.input}
-                            fullWidth
-                            id="linkedIn"
-                            label="linkedIn"
-                            value={values.linkedIn}
-                            onChange={handleChange('linkedIn')}
-                        />
-                    </div>
-                    <div style={{ display: 'flex' }}>
-                        <TextField
-                            style={styles.input}
-                            fullWidth
-                            id="passout-year"
+                            id="passoutYear"
                             label="Passout Year"
-                            value={values.passoutYear}
-                            onChange={handleChange('passout-year')}
+                            value={values.passoutYear || ''}
+                            onChange={handleChange('passoutYear')}
+                            InputLabelProps={{
+                                shrink: values.passoutYear !== ''
+                            }}
                         />
                         <TextField
                             style={styles.input}
                             fullWidth
                             id="college"
                             label="College"
-                            value={values.college}
+                            value={values.college || ''}
                             onChange={handleChange('college')}
+                            InputLabelProps={{
+                                shrink: values.college !== ''
+                            }}
                         />
-                    </div>
 
+                    </div>
                     <TextField
                         style={{ width: 430, margin: 10 }}
-                        // style={{margin: 4}}
+                        fullWidth
                         id="bio"
-                        label="Bio"
                         multiline
                         rows={4}
-                        value={values.about}
+                        label="Bio"
+                        value={values.bio || ''}
                         onChange={handleChange('bio')}
+                        InputLabelProps={{
+                            shrink: values.bio !== ''
+                        }}
                     />
 
                     <div style={{ height: 39 }}>
