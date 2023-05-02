@@ -64,8 +64,8 @@ const AddProject = () => {
     const navigate = useNavigate();
 
     const auth = JSON.parse(localStorage.getItem("user"));
-    const userName = auth && auth.username;
-    const ownerId = auth && auth._id;
+    const username = auth && auth.username;
+    // const ownerId = auth && auth._id;
 
     //extra details
     const [pimagesFile, setPimagesFile] = useState([]);
@@ -264,7 +264,7 @@ const AddProject = () => {
             const urls = await uploadProjectImages();
 
             if (urlC === "")
-                urlC = "https://firebasestorage.googleapis.com/v0/b/project-gallery-bbc79.appspot.com/o/logo.jpg?alt=media&token=1e6bf98e-38c3-4225-95da-569614c2767e";
+                urlC = "https://firebasestorage.googleapis.com/v0/b/project-gallery-bbc79.appspot.com/o/logo.jpg?alt=media&token=7a1dfc47-f7ad-4398-96c4-0bee3835816c";
 
             const today = new Date();
             const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
@@ -277,7 +277,7 @@ const AddProject = () => {
                 tags,
                 gitHubLink,
                 pUrl,
-                ownerId,
+                username,
                 isPrivate,
                 groupArray: (groupArray[0] !== '') ? groupArray : [],
                 branch: selectedFilters[filterOptions[0]["label"]],
@@ -298,8 +298,9 @@ const AddProject = () => {
                     method: 'post',
                     body: JSON.stringify(projectToUpload),
                     headers: {
-                        'Content-Type': 'application/json'
-                    },
+                        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                        "Content-Type": "application/json"
+                     }
                 })
 
                 result = await result.json();
@@ -365,7 +366,7 @@ const AddProject = () => {
                     <Grid item xs={12} sm={6}>
                         <CustomTextField
                             label="Team Leader"
-                            value={userName}
+                            value={username}
                             readOnly={true}
                         />
                     </Grid>

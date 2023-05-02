@@ -20,10 +20,15 @@ const AllProject = () => {
 
    const getProjects = async () => {
       try {
-         let result = await fetch(`${ApiURL}/project/get/all`);
+         let result = await fetch(`${ApiURL}/project/get/all`, {
+            method: "get",
+            headers: {
+               authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+               "Content-Type": "application/json"
+            }
+         });
          result = await result.json();
 
-         console.log(result[0].ownerId);
          setProjects(result);
       } catch (error) {
          console.log("Error while fetching data:", error);
@@ -67,7 +72,7 @@ const AllProject = () => {
                      <Grid item key={project._id} xs={12} md={4}>
                         <ProjectCard
                            projectId={project._id}
-                           userId={project.ownerId}
+                           username={project.username}
                            logoSrc={project.plogo}
                            projectName={project.pname}
                            tags={project.tags}

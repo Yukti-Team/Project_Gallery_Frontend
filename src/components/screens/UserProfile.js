@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { Grid, Avatar, Box, Typography, Button, Stack } from '@mui/material';
+import { Grid, Avatar, Box, Typography, Button, Stack, IconButton } from '@mui/material';
 import { AccountCircle, DateRange, Edit, Email, GitHub, LinkedIn, Numbers, People, Person, Phone, School, Share } from '@mui/icons-material';
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CodeIcon from '@mui/icons-material/Code';
 import DisplayTags from "../widgets/DisplayTags";
 import ApiURL from "../GetUrl";
@@ -51,24 +51,24 @@ const styles = {
 }
 
 const UserProfile = () => {
-    const { userId } = useParams();
+    const navigate = useNavigate();
+    const { username } = useParams();
     const [user, setUser] = useState({});
 
     useEffect(() => {
-        getUserById(userId);
-    }, [userId])
+        getUserByUsername(username);
+    }, [username])
 
 
-    const getUserById = async (userId) => {
-        const id = userId;
-        console.log("userId");
-        console.log(userId);
+    const getUserByUsername = async (username) => {
+        // console.log("username");
+        // console.log(username);
 
         try {
-            let result = await fetch(`${ApiURL}/user/${id}`);
+            let result = await fetch(`${ApiURL}/user/${username}`);
             result = await result.json();
 
-            console.log(result);
+            // console.log(result);
             setUser(result);
         } catch (error) {
             console.log("Error while fetching data:", error);
@@ -113,8 +113,16 @@ const UserProfile = () => {
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
                     <Typography variant="h4" align="left">{userModel.name}'s Profile</Typography>
                     <Stack direction="row" spacing={2}>
-                        <Edit />
-                        <Share />
+                        <IconButton onClick={() => {
+                            navigate("/edit-profile");
+                        }}>
+                            <Edit />
+                        </IconButton>
+                        <IconButton onClick={() => {
+                            navigate("/share");
+                        }}>
+                            <Share />
+                        </IconButton>
                     </Stack>
                 </Stack>
                 <hr style={{ marginBottom: "10%" }} />

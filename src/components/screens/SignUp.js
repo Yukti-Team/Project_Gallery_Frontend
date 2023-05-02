@@ -136,6 +136,8 @@ const SignUp = () => {
                     setLoading(false);
 
                     localStorage.setItem("user", JSON.stringify(signUpResult.user));
+                    localStorage.setItem("token", JSON.stringify(result.token));
+
                     if (signUpResult) {
                         // navigate('/')
                     }

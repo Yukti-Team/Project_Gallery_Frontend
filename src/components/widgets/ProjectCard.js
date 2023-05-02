@@ -93,7 +93,7 @@ const styles = {
 }
 
 const ProjectCard = ({
-    userId,
+    username,
     projectId,
     logoSrc,
     projectName,
@@ -105,24 +105,24 @@ const ProjectCard = ({
 }) => {
     const navigate = useNavigate();
 
-    const [ownerName, setOwnerName] = useState("");
+    // const [ownerName, setOwnerName] = useState("");
 
     useEffect(() => {
-        const getOwnerName = async () => {
-            const id = userId;
+        // const getOwnerName = async () => {
+        //     const username = username;
 
-            try {
-                let result = await fetch(`${ApiURL}/user/${id}`);
-                result = await result.json();
+        //     try {
+        //         let result = await fetch(`${ApiURL}/user/${username}`);
+        //         result = await result.json();
 
-                setOwnerName(result.username);
-            } catch (error) {
-                console.log("Error while fetching data:", error);
-            }
-        };
+        //         setOwnerName(result.username);
+        //     } catch (error) {
+        //         console.log("Error while fetching data:", error);
+        //     }
+        // };
 
-        getOwnerName();
-    }, [userId]);
+        // getOwnerName();
+    }, []);
 
     const handleButtonClick = () => {
         // navigate(`/project/get/${projectId}`);
@@ -152,8 +152,8 @@ const ProjectCard = ({
 
                     <Typography variant="subtitle1" sx={{ color: 'gray', display: 'flex', alignItems: 'center' }}>
                         Created By &nbsp;
-                        <Link to={`/user/${userId}`} target="_blank" style={{ fontSize: "20px", fontWeight: "400", color: "blue" }} underline="hover">
-                            {ownerName}
+                        <Link to={`/user/${username}`} target="_blank" style={{ fontSize: "20px", fontWeight: "400", color: "blue" }} underline="hover">
+                            {username}
                         </Link>
                     </Typography>
                 </Box>

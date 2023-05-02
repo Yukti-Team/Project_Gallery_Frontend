@@ -11,7 +11,7 @@ const NavbarDrawer = () => {
     };
 
     const auth = JSON.parse(localStorage.getItem('user'));
-    const userId = auth && auth._id;
+    const username = auth && auth.username;
     const navigate = useNavigate();
 
     const logout = () => {
@@ -24,7 +24,7 @@ const NavbarDrawer = () => {
         { text: 'All Projects', link: '/allprojects', icon: <Assignment /> },
         { text: 'Add Projects', link: '/addprojects', icon: <AddCircleOutline /> },
         { text: 'My Projects', link: '/updateproject', icon: <Code /> },
-        { text: 'Profile', link: `/user/${userId}`, icon: <Person /> },
+        { text: 'Profile', link: `/user/${username}`, icon: <Person /> },
         { text: 'Logout', link: '/login', icon: <Login />, onClick: logout }
     ];
 

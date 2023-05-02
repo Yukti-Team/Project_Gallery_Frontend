@@ -13,6 +13,7 @@ import SingleProject from './components/screens/SingleProject';
 import MyProfile from './components/screens/UserProfile';
 import NavbarDrawer from './components/screens/NavbarDrawer';
 import UserProfile from './components/screens/UserProfile';
+import EditProfile from './components/screens/EditProfile';
 
 
 function App() {
@@ -52,7 +53,8 @@ function App() {
             <Route path='/updateproject' element={<SingleProject />} />
             <Route path='/logout' element={<h1>Logout</h1>} />
             <Route path='/profile' element={<MyProfile />} />
-            <Route path="/user/:userId" element={<UserProfile />} />
+            <Route path='/edit-profile' element={<EditProfile />} />
+            <Route path="/user/:username" element={<UserProfile />} />
             <Route path="/project/get/:projectId" element={<SingleProject />} />
           </Route >
 
