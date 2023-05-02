@@ -16,7 +16,7 @@ const randomColors = [
 
 const DisplayTags = ({ tags }) => {
   return (
-    <div style={{display:'flex', flexDirection:'row', alignItems:'center',justifyContent:'center', marginTop: "10px" }}>
+    <div style={{display:'flex', flexDirection:'row', alignItems:'left', maxWidth:'97%'}}>
       <Stack direction="row" spacing={3} sx={{ overflowX: "auto" ,maxWidth:"80vw" }}>
         {Array.isArray(tags) &&
           tags.map((tag, index) => {

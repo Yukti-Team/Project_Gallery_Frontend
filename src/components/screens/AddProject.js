@@ -123,6 +123,10 @@ const AddProject = () => {
         const newgroupArray = [...groupArray];
         newgroupArray[index] = value;
         setGroupArray(newgroupArray);
+
+        console.log(` Here is the groupArray ${groupArray}` );
+           
+ 
     };
 
     const options = {
@@ -178,6 +182,7 @@ const AddProject = () => {
 
             const urls = await Promise.all(storagePromises);
             setPimages(urls);
+      
 
             return urls;
         } catch (error) {
@@ -292,6 +297,7 @@ const AddProject = () => {
             };
 
             console.log(projectToUpload);
+
             try {
                 setLoading(true);
                 let result = await fetch(`${ApiURL}/project/create`, {

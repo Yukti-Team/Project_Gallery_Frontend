@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import { Card, Button, CardContent, CardHeader, Avatar, Chip, Rating, Typography, Box } from '@mui/material';
-import { Person } from '@mui/icons-material';
+import { AutoAwesome, Person } from '@mui/icons-material';
 import { useEffect, useState } from "react";
 import ApiURL from "../GetUrl";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ const StyledCard = styled(Card)({
     backgroundColor: "#f0e9e9",
     position: 'relative',
     borderRadius: "10px",
+
 
 });
 
@@ -76,6 +77,7 @@ const RatingField = styled(CardContent)({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+
 });
 
 
@@ -166,15 +168,17 @@ const ProjectCard = ({
                     <Typography variant="h5">Rank #4 in</Typography>
                     <Typography>Individual Project</Typography>
                 </Box>
-
-
             </CreatedBy>
 
             {
                 tags && (
                     <Tags>
                         {tags.map((tag, index) => (
-                            <Chip key={tag + index} label={tag} style={{ backgroundColor: randomColors[index % 10] }} />
+                            <Chip
+                             key={tag + index}
+                             label={tag} 
+                             icon={<AutoAwesome style={{ fontSize: 20, color: "white" }}/>}
+                             style={{ backgroundColor: randomColors[index % 10] }} />
                         ))}
                     </Tags>
                 )
@@ -184,7 +188,7 @@ const ProjectCard = ({
                 <Rating name="read-only" value={ratingValue} precision={0.1} readOnly />
                 &nbsp;
                 <Typography>{ratingValue.toFixed(1)}</Typography>
-            </RatingField>
+            </RatingField>  
 
 
             <Button
