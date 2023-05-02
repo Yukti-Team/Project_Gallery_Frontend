@@ -69,7 +69,7 @@ const AddProject = () => {
 
     //extra details
     const [pimagesFile, setPimagesFile] = useState([]);
-    const [, setPimages] = useState([]);
+    // const [, setPimages] = useState([]);
     const [plogoFile, setPlogoFile] = useState(null);
     // const [plogo, setPlogo] = useState(null);
     const [tags, setTags] = useState([]);
@@ -124,9 +124,9 @@ const AddProject = () => {
         newgroupArray[index] = value;
         setGroupArray(newgroupArray);
 
-        console.log(` Here is the groupArray ${groupArray}` );
-           
- 
+        console.log(` Here is the groupArray ${groupArray}`);
+
+
     };
 
     const options = {
@@ -165,14 +165,19 @@ const AddProject = () => {
         try {
             setLoading(true);
             const compressedImages = await Promise.all(
-                pimagesFile.map((image) => imageCompression(image, options))
+                pimagesFile.map((image) => {
+                    // console.log(image);
+                    return imageCompression(image, options);
+                })
             );
+
 
             const storagePromises = compressedImages.map(async (image) => {
                 const storageRef = ref(
                     storage,
-                    `appImages/${Date.now().toString()}`
+                    `appImages/${Date.now().toString() + Math.floor(Math.random() * 100) + 7}`
                 );
+                console.log(storageRef);
                 const metadata = { contentType: image.type };
 
                 await uploadBytesResumable(storageRef, image, metadata);
@@ -181,8 +186,7 @@ const AddProject = () => {
             });
 
             const urls = await Promise.all(storagePromises);
-            setPimages(urls);
-      
+            // setPimages(urls);
 
             return urls;
         } catch (error) {
@@ -306,7 +310,7 @@ const AddProject = () => {
                     headers: {
                         authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
                         "Content-Type": "application/json"
-                     }
+                    }
                 })
 
                 result = await result.json();
