@@ -114,7 +114,7 @@ const UserProfile = () => {
                     <Typography variant="h4" align="left">{userModel.name}'s Profile</Typography>
                     <Stack direction="row" spacing={2}>
                         <IconButton onClick={() => {
-                            navigate("/edit-profile");
+                            navigate(`/edit-profile/${ username }`);
                         }}>
                             <Edit />
                         </IconButton>

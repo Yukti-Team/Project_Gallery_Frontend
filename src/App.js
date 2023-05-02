@@ -53,7 +53,7 @@ function App() {
             <Route path='/updateproject' element={<SingleProject />} />
             <Route path='/logout' element={<h1>Logout</h1>} />
             <Route path='/profile' element={<MyProfile />} />
-            <Route path='/edit-profile' element={<EditProfile />} />
+            <Route path='/edit-profile/:username' element={<EditProfile  />} />
             <Route path="/user/:username" element={<UserProfile />} />
             <Route path="/project/get/:projectId" element={<SingleProject />} />
           </Route >
