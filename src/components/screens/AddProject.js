@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Button, CircularProgress, Grid, Paper, Snackbar, Typography } from '@mui/material'
 import { useNavigate } from "react-router-dom";
 
@@ -74,7 +74,7 @@ const AddProject = () => {
     // const [plogo, setPlogo] = useState(null);
     const [tags, setTags] = useState([]);
     const [isPrivate, setIsPrivate] = useState(false);
-    const [groupArray, setGroupArray] = useState(Array(4).fill(''));
+    const [groupArray, setGroupArray] = useState(Array(10).fill(''));
 
     const [phoneno, setPhoneNo] = useState("8329763258");
     const [teamsize, setTeamsize] = useState(1);
@@ -109,6 +109,7 @@ const AddProject = () => {
     });
     const [loading, setLoading] = useState(false);
 
+
     const handleFilterClick = (event, label) => {
         setAnchorEl((prevState) => ({ ...prevState, [label]: event.currentTarget }));
     };
@@ -118,15 +119,16 @@ const AddProject = () => {
         setAnchorEl((prevState) => ({ ...prevState, [label]: null }));
     };
 
+
     // Team members list
     const handleChange = (index, value) => {
-        const newgroupArray = [...groupArray];
-        newgroupArray[index] = value;
-        setGroupArray(newgroupArray);
+        const updatedArray = [...groupArray]; // make a copy of the array
 
-        console.log(` Here is the groupArray ${groupArray}`);
+        updatedArray[index + 3] = value;
+        setGroupArray(updatedArray); // set the state with the updated copy
 
 
+        console.log(` Here is the ${groupArray}`);
     };
 
     const options = {
@@ -260,6 +262,12 @@ const AddProject = () => {
         return true;
     }
 
+    useEffect(() => {
+        const newArray = [...groupArray]; // make a copy of the original array
+        newArray.splice(2, 1, username); // update 
+        setGroupArray(newArray);
+    }, [username])
+
     const handleSubmit = async (event) => {
 
         event.preventDefault();
@@ -268,6 +276,9 @@ const AddProject = () => {
         console.log(handleErrors());
 
         if (!handleErrors()) {
+
+
+            console.log(groupArray);
 
             let urlC = await uploadLogo();
             const urls = await uploadProjectImages();
@@ -288,7 +299,7 @@ const AddProject = () => {
                 pUrl,
                 username,
                 isPrivate,
-                groupArray: (groupArray[0] !== '') ? groupArray : [],
+                groupArray: groupArray,
                 branch: selectedFilters[filterOptions[0]["label"]],
                 domain: selectedFilters[filterOptions[1]["label"]],
                 year: selectedFilters[filterOptions[2]["label"]],
@@ -393,7 +404,13 @@ const AddProject = () => {
                             label="Project Guide"
                             value={guide}
                             errorMessage={errors.guide}
-                            onChange={(e) => setGuide(e.target.value)}
+                            onChange={(e) => {
+                                const newArray = [...groupArray]; // make a copy of the original array
+                                newArray.splice(0, 1, e.target.value); // update 
+                                setGroupArray(newArray);
+
+                                return setGuide(e.target.value)
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -408,7 +425,14 @@ const AddProject = () => {
                         <CustomTextField
                             label="Project Sponsor"
                             value={sponsor}
-                            onChange={(e) => setSponsor(e.target.value)}
+                            onChange={(e) => {
+
+                                const newArray = [...groupArray]; // make a copy of the original array
+                                newArray.splice(1, 1, e.target.value); // update 
+                                setGroupArray(newArray);
+
+                                return setSponsor(e.target.value)
+                            }}
                             isRequired={false}
                         />
                     </Grid>

@@ -19,7 +19,7 @@ import ProjectCarousel from '../widgets/ProjectCarousel';
 // const domain = "Android Development ";
 // const year = "2023";
 // const status = "Inprogress";
-const groupArray = ['John Doe'];
+// const groupArray = ['John Doe'];
 // const pname="PickNDrop"
 // const gitHubLink = "https://github.com/suyog73" ;
 // const pUrl= "https://www.holopin.io/@rutuja369" ;
@@ -52,7 +52,7 @@ const SingleProject = () => {
 
   const { projectId } = useParams();
   const [project, setProject] = useState({});
-
+  
 
 
 
@@ -70,6 +70,8 @@ const SingleProject = () => {
         });
         result = await result.json();
 
+        // console.log(result);
+
         setProject(result);
       } catch (error) {
         console.log("Error while fetching data:", error);
@@ -77,6 +79,7 @@ const SingleProject = () => {
     };
     getProjectById(projectId);
   }, [projectId])
+
 
   return (
     <div style={{ backgroundColor: "  rgb(242, 248, 253)", width: "99.1vw", paddingTop: '5%', }}>
@@ -118,14 +121,16 @@ const SingleProject = () => {
 
 
 
-      {/* Conditional Rendering for Group and individual  */}
+      {/* Conditional Rendering for Group and individual  */
+        console.log(project.groupArray)
+      }
       {
-        groupArray.length >=2 ?
+        (project && project.groupArray && project.groupArray[3]) !== '' ?
           (
             <Grid container my={3} columnSpacing={1.5} sx={{ marginBottom: '10px', maxHeight: '60vh' }} >
               <Grid item xs={5.5}>
                 <div style={{ margin: '0 4vw', width: '87%' }}>
-                  <GroupCard groupArray={groupArray} />
+                  <GroupCard groupArray={project.groupArray} />
                 </div>
                 {/* </div> */}
               </Grid>
@@ -149,7 +154,7 @@ const SingleProject = () => {
               </Grid>
               <Grid item xs={5.5}>
                 <div style={{ marginLeft: '1vw', width: '89%' }}>
-                  <GroupCard groupArray={groupArray} />
+                  <GroupCard groupArray={project.groupArray} />
                 </div>
                 {/* </div> */}
               </Grid>
