@@ -114,7 +114,7 @@ const SingleProject = () => {
 
       {/* Conditional Rendering for Group and individual  */}
       {
-        groupArray.length > 1 ?
+        groupArray.length >=2 ?
           (
             <Grid container my={3} columnSpacing={1.5} sx={{ marginBottom: '10px', maxHeight: '60vh' }} >
               <Grid item xs={5.5}>
