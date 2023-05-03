@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
+import { IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Box, Avatar } from '@mui/material';
 import { Menu, Home, Assignment, AddCircleOutline, Person, Code, Login } from '@mui/icons-material';
+import Logo from '../../images/logo.jpg';
 
 const NavbarDrawer = () => {
     const [open, setOpen] = useState(false);
@@ -36,6 +37,19 @@ const NavbarDrawer = () => {
             zIndex: 1100,
             // color:'white'
         },
+       avatar:{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: '0 15px',
+        marginRight: '3vw',
+        backgroundColor: 'black',
+        top: '20px',
+        left: '20px',
+        width: '70px',
+        height: '70px',
+        
+        }
     };
 
     return (
@@ -50,6 +64,7 @@ const NavbarDrawer = () => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                
                     }}
                 >
                     <Menu />
@@ -57,7 +72,9 @@ const NavbarDrawer = () => {
             </Box>
 
 
-            <Drawer anchor="left" open={open} onClose={handleToggleDrawer}>
+            <Drawer anchor="left" sx={{border:'1px solid green'}} open={open} onClose={handleToggleDrawer}>
+            <Avatar styles={styles.avatar} src={Logo} alt="Project Logo" />
+
                 <List>
                     {drawerItems.map((item, index) => (
                         <ListItem button key={index} component={Link} to={item.link} onClick={item.onClick}>

@@ -1,4 +1,5 @@
 import { Box, Card, CardContent, Stack, Typography } from "@mui/material"
+import { useEffect, useState } from "react";
 import ApiURL from "../GetUrl";
 import ProfileAvatar from "./ProfileAvatar";
 
@@ -34,6 +35,7 @@ const getUserByUsername = async (username) => {
 
         // console.log(result);
         return result;
+    
 
     } catch (error) {
         console.log("Error while fetching data:", error);
@@ -41,6 +43,25 @@ const getUserByUsername = async (username) => {
 }
 
 const GroupCard = ({ groupArray }) => {
+
+
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+          const promises = groupArray.map(async (member) => {
+            const user = await getUserByUsername(member);
+            return user;
+          });
+          const users = await Promise.all(promises);
+          setUsers(users);
+        };
+    
+        fetchUsers();
+      }, [groupArray]);
+
+
+
 
     return (
         groupArray ?
@@ -56,12 +77,9 @@ const GroupCard = ({ groupArray }) => {
 
                                     {/* //this was for name if i send and object -> modify it as member.name */}
 
-                                    {groupArray.map(async (member, index) => {
-                                        {
-                                            const user = await getUserByUsername(member);
+                                    {users.map( (member, index) => {
 
-                                            console.log(user);
-                                        }
+                                        
                                         // Guide
                                         if (index === 0 && member !== '') {
                                             return <ProfileAvatar key={index} name={member} property="Guide" />;

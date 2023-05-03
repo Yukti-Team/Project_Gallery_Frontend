@@ -22,6 +22,8 @@ const UserGroupIcon = styled(Avatar)({
 });
 
 const ProfileAvatar = ({ profileImage, name, bio, property, isOwner = false }) => {
+
+
     return (
 
         <Profiles>
@@ -44,3 +46,6 @@ const ProfileAvatar = ({ profileImage, name, bio, property, isOwner = false }) =
 
 }
 export default ProfileAvatar;
+
+
+
