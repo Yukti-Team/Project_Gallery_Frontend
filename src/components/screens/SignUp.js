@@ -112,7 +112,7 @@ const SignUp = () => {
                     tags: [],
                     college: "",
                     branch: "",
-                    batch: "",
+                    passoutYear: "",
                     totalProjects: 0
                 }
 

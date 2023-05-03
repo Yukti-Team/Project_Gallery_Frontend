@@ -11,7 +11,7 @@ const styles = {
         // backgroundColor: "transparent",
     },
     header: {
-        textAlign: 'center',
+        textAlign: 'center', 
         backgroundColor: "#f2f2f2",
         borderBottom: "1px solid #ccc",
         padding: "16px",

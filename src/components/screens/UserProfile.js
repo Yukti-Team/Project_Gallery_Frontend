@@ -61,14 +61,10 @@ const UserProfile = () => {
 
 
     const getUserByUsername = async (username) => {
-        // console.log("username");
-        // console.log(username);
-
-        try {
+         try {
             let result = await fetch(`${ApiURL}/user/${username}`);
             result = await result.json();
 
-            // console.log(result);
             setUser(result);
         } catch (error) {
             console.log("Error while fetching data:", error);
@@ -76,7 +72,7 @@ const UserProfile = () => {
     }
 
     const isIncompleteProfile = (userModel) => {
-        return (userModel.name === '' || userModel.phone === '' || userModel.bio === '' || userModel.github === '' || userModel.linkedIn === '' || userModel.college === '' || userModel.branch === '' || userModel.batch === '');
+        return (userModel.name === '' || userModel.phone === '' || userModel.bio === '' || userModel.github === '' || userModel.linkedIn === '' || userModel.college === '' || userModel.branch === '' || userModel.passoutYear === '');
     }
 
 
@@ -84,6 +80,7 @@ const UserProfile = () => {
         name: (user.name === "") ? "User" : user.name,
         username: user.username,
         email: user.email,
+        imageUrl: user.imageUrl === "" ? "/path/to/photo.jpg" : user.imageUrl,
         phone: (user.phone === "") ? "--" : user.phone,
         bio: (user.bio === "")
             ? "Your bio is your chance to make a great first impression. Use this space to showcase your personality, your values, and what you stand for."
@@ -93,7 +90,7 @@ const UserProfile = () => {
         tags: user.tags,
         college: user.college === "" ? "--" : user.college,
         branch: user.branch === "" ? "--" : user.branch,
-        batch: user.batch === "" ? "--" : user.batch,
+        passoutYear: user.passoutYear === "" ? "--" : user.passoutYear,
         totalProjects: user.totalProjects ?? 0,
     };
 
@@ -114,7 +111,7 @@ const UserProfile = () => {
                     <Typography variant="h4" align="left">{userModel.name}'s Profile</Typography>
                     <Stack direction="row" spacing={2}>
                         <IconButton onClick={() => {
-                            navigate("/edit-profile");
+                            navigate(`/edit-profile/${username}`);
                         }}>
                             <Edit />
                         </IconButton>
@@ -130,7 +127,7 @@ const UserProfile = () => {
 
                     {/* Profile Picture */}
                     <Grid item xs={12} md={3}>
-                        <Avatar alt={userModel.name} src="/path/to/photo.jpg" sx={styles.avatarStyle} />
+                        <Avatar alt={userModel.name} src={userModel.imageUrl} sx={styles.avatarStyle} />
                         <Typography style={styles.username}>@{userModel.username}</Typography>
                     </Grid>
 
@@ -195,7 +192,7 @@ const UserProfile = () => {
                         <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "10px" }}>
                             <DateRange sx={{ marginRight: 1 }} />
                             <Typography sx={{ textAlign: 'left', display: 'flex', alignItems: 'center' }}>
-                                <span style={{ marginRight: "8px" }}>Passout Year:</span>{userModel.batch}
+                                <span style={{ marginRight: "8px" }}>Passout Year:</span>{userModel.passoutYear}
                             </Typography>
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "10px" }}>
