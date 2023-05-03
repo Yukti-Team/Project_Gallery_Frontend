@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Stack, Typography } from "@mui/material"
+import { Box, Card, CardContent, CircularProgress, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import ApiURL from "../GetUrl";
 import ProfileAvatar from "./ProfileAvatar";
@@ -46,15 +46,20 @@ const GroupCard = ({ groupArray }) => {
 
 
     const [users, setUsers] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchUsers = async () => {
+
+        setIsLoading(true); // set loading to true
           const promises = groupArray.map(async (member) => {
             const user = await getUserByUsername(member);
             return user;
           });
           const users = await Promise.all(promises);
           setUsers(users);
+
+          setIsLoading(false); // set loading to false
         };
     
         fetchUsers();
@@ -71,14 +76,22 @@ const GroupCard = ({ groupArray }) => {
                     <CardContent style={styles.content}>
 
                         {
-                            // groupArray.length > 1 ?
-                            (
+                            isLoading ? (
+                                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                  <CircularProgress />
+                                </Box>
+                              ) 
+                              :
+                              (
                                 <Stack direction='column' spacing={1} sx={{ overflowY: "auto", scrollbarWidth: "none", maxHeight: "35.3vh" }}>
 
                                     {/* //this was for name if i send and object -> modify it as member.name */}
 
                                     {users.map( (member, index) => {
-
+                                        if(!member)
+                                        {
+                                            return null;
+                                        }
                                         
                                         // Guide
                                         if (index === 0 && member !== '') {

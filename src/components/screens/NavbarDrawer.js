@@ -39,16 +39,16 @@ const NavbarDrawer = () => {
         },
        avatar:{
         display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
-        margin: '0 15px',
-        marginRight: '3vw',
+        justifyContent: 'center',
+        margin: '0 ',
+        marginLeft:'30px',
+        marginBottom:'40px',
         backgroundColor: 'black',
         top: '20px',
         left: '20px',
-        width: '70px',
-        height: '70px',
-        
+        width: '80px',
+        height: '80px',
         }
     };
 
@@ -72,8 +72,13 @@ const NavbarDrawer = () => {
             </Box>
 
 
-            <Drawer anchor="left" sx={{border:'1px solid green'}} open={open} onClose={handleToggleDrawer}>
-            <Avatar styles={styles.avatar} src={Logo} alt="Project Logo" />
+            <Drawer anchor="left" sx={{border:'1px solid green', width:'100px'}} open={open} onClose={handleToggleDrawer}>
+            <Avatar 
+            sx={
+                styles.avatar
+            } 
+            src={Logo} alt="Project Logo" 
+            />
 
                 <List>
                     {drawerItems.map((item, index) => (

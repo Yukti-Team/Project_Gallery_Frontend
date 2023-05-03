@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyledTextField } from "../../styles/StyledTextField";
 import SearchIcon from "@mui/icons-material/Search";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import FilterRow from "../widgets/FilterRow";
 import ProjectCard from "../widgets/ProjectCard";
 import ApiURL from "../GetUrl";
@@ -16,9 +16,11 @@ const statusColors = {
 const AllProject = () => {
 
    const [projects, setProjects] = useState([]);
-
+   const [isLoading, setIsLoading] = useState(true);
 
    const getProjects = async () => {
+
+      setIsLoading(true); // set loading to true
       try {
          let result = await fetch(`${ApiURL}/project/get/all`, {
             method: "get",
@@ -28,8 +30,15 @@ const AllProject = () => {
             }
          });
          result = await result.json();
+         if (Array.isArray(result)) {
+            setProjects(result);
+         } else {
+            setProjects([]);
+         }
+         // setProjects(result);
+         setIsLoading(false); // set loading to false
+         // console.log(projects);
 
-         setProjects(result);
       } catch (error) {
          console.log("Error while fetching data:", error);
       }
@@ -38,6 +47,8 @@ const AllProject = () => {
 
    useEffect(() => {
       getProjects();
+
+
    }, [])
 
    const searchHandle = async (event) => {
@@ -66,25 +77,37 @@ const AllProject = () => {
             />
 
             <FilterRow />
-            <Grid container spacing={2}>
-               {
-                  projects.map((project) => (
-                     <Grid item key={project._id} xs={12} md={4}>
-                        <ProjectCard
-                           projectId={project._id}
-                           username={project.username}
-                           logoSrc={project.plogo}
-                           projectName={project.pname}
-                           tags={project.tags}
-                           ratingValue={4}
-                           statusLabel={project.status}
-                           statusColor={statusColors[project.status]}
-                           createdAt={project.createdAt}
-                        />
-                     </Grid>
-                  ))
-               }
-            </Grid>
+            {
+               isLoading?
+               (
+                  <Box sx={{ display: "flex",marginTop:"20vh", justifyContent: "center", alignItems: "center" }}>
+                  <CircularProgress />
+                  </Box>
+                  
+               ):
+               (
+                  <Grid container spacing={2}>
+                  {
+                     projects.map((project) => (
+                        <Grid item key={project._id} xs={12} md={4}>
+                           <ProjectCard
+                              projectId={project._id}
+                              username={project.username}
+                              logoSrc={project.plogo}
+                              projectName={project.pname}
+                              tags={project.tags}
+                              ratingValue={4}
+                              statusLabel={project.status}
+                              statusColor={statusColors[project.status]}
+                              createdAt={project.createdAt}
+                           />
+                        </Grid>
+                     ))
+                  }
+                  </Grid>
+               )
+            }
+           
          </Box>
       </>
    )

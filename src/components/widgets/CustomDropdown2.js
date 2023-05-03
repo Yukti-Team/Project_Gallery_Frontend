@@ -53,5 +53,4 @@ const CustomDropDown2 = ({
         </div>
     );
 }
-
 export default CustomDropDown2;
