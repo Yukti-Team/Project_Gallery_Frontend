@@ -52,7 +52,7 @@ const SingleProject = () => {
 
   const { projectId } = useParams();
   const [project, setProject] = useState({});
-  
+
 
 
 
@@ -130,7 +130,11 @@ const SingleProject = () => {
             <Grid container my={3} columnSpacing={1.5} sx={{ marginBottom: '10px', maxHeight: '60vh' }} >
               <Grid item xs={5.5}>
                 <div style={{ margin: '0 4vw', width: '87%' }}>
-                  <GroupCard groupArray={project.groupArray} />
+                  <GroupCard
+                    groupArray={project.groupArray}
+                    sponsorEmail={project.sponsorEmail}
+                    guideEmail={project.guideEmail}
+                  />
                 </div>
                 {/* </div> */}
               </Grid>
@@ -154,7 +158,12 @@ const SingleProject = () => {
               </Grid>
               <Grid item xs={5.5}>
                 <div style={{ marginLeft: '1vw', width: '89%' }}>
-                  <GroupCard groupArray={project.groupArray} />
+                  <GroupCard
+                    groupArray={project.groupArray}
+                    sponsorEmail={project.sponsorEmail}
+                    guideEmail={project.guideEmail}
+                  />
+
                 </div>
                 {/* </div> */}
               </Grid>

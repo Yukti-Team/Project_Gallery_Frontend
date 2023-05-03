@@ -14,32 +14,34 @@ const Profiles = styled(CardContent)({
 
 const UserGroupIcon = styled(Avatar)({
     margin: '0 15px',
-    marginRight: '3vw',
-    backgroundColor: "black",
     width: '50px',
-    height: '50px'
+    height: '50px',
+    border: "1px grey solid"
 
 });
 
-const ProfileAvatar = ({ profileImage, name, bio, property, isOwner = false }) => {
+const ProfileAvatar = ({ userObject, property, isOwner = false }) => {
 
 
     return (
-
+        userObject &&
         <Profiles>
 
-            <UserGroupIcon> {profileImage ? <img alt={name + Date.now()} src={profileImage}></img> : <Person />} </UserGroupIcon>
+            <UserGroupIcon style={{
+                backgroundColor: (userObject.imageUrl) ? "transparent" : "grey",
+            }}>
+                {userObject.imageUrl ? <Avatar alt={userObject.name + Date.now()} src={userObject.imageUrl}></Avatar> : <Person />}
+            </UserGroupIcon>
 
             <Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start">
                 <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: '20px' }} >
-                    {name} {property ? <span style={{ color: 'blue' }}>({property})</span> : null}
+                    {userObject.name} {property ? <span style={{ color: 'blue' }}>({property})</span> : null}
                     {isOwner ? <FontAwesomeIcon icon={faCrown} style={{ color: 'gold' }} />
                         : null}
                 </Typography>
 
-
                 <Typography variant="body2" sx={{ fontWeight: 'lighter', margin: 0, textAlign: 'left' }}>
-                    {bio ? bio : "bio: About the team member skills and their interests"}
+                    {userObject.email ? userObject.email : "Email"}
                 </Typography>
             </Box>
         </Profiles >
@@ -47,7 +49,5 @@ const ProfileAvatar = ({ profileImage, name, bio, property, isOwner = false }) =
     )
 
 }
+
 export default ProfileAvatar;
-
-
-

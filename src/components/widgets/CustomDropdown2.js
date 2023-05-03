@@ -1,20 +1,18 @@
+import { useState } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const CustomDropDown2 = ({
+const CustomDropdown2 = ({
     label,
     options,
     selectedFilters,
-    handleFilterClick,
-    handleFilterClose,
-    anchorEl,
-    setAnchorEl,
+    setSelectedFilters,
     height,
     width,
     color,
-    marginLeft = "20px",
-    marginRight = "20px",
-}) => { 
+    marginLeft,
+    marginRight,
+}) => {
 
     const styles = {
         buttonStyle: {
@@ -23,34 +21,62 @@ const CustomDropDown2 = ({
             height: height,
             width: width,
         },
+        clearButtonStyle: {
+            backgroundColor: 'red',
+            color: 'white',
+            marginLeft: '20px',
+            border: "none",
+            marginRight: '20px'
+        },
     };
 
-    return (
-        <div style={{ marginLeft: marginLeft, marginRight: marginRight }}>
-            <Button
-                style={styles.buttonStyle}
-                variant="outlined"
-                onClick={(event) => handleFilterClick(event, label)}
-                endIcon={<ExpandMoreIcon />}
-            >
-                {selectedFilters[label] ? selectedFilters[label] : label}
-            </Button>
 
-            <Menu
-                anchorEl={anchorEl[label]}
-                open={Boolean(anchorEl[label])}
-                onClose={() => setAnchorEl(prevState => ({ ...prevState, [label]: null }))}
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = (option) => {
+        setSelectedFilters((prevFilters) => ({
+            ...prevFilters,
+            [label]: option,
+        }));
+        setAnchorEl(null);
+    };
+
+    // const handleClearFilters = () => {
+    //     setSelectedFilters({});
+    //     setAnchorEl({});
+    // }
+
+
+
+    return (
+        <div style={{ marginLeft, marginRight }}>
+            <Button
+                variant="outlined"
+                onClick={handleClick}
+                endIcon={<ExpandMoreIcon />}
+                style={styles.buttonStyle}
             >
-                {options.map(option => (
-                    <MenuItem
-                        key={option}
-                        onClick={() => handleFilterClose(label, option)}
-                    >
+                {selectedFilters[label] || label}
+            </Button>
+            <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={() => setAnchorEl(null)}
+            >
+                {options.map((option) => (
+                    <MenuItem key={option} onClick={() => handleClose(option)}>
                         {option}
                     </MenuItem>
                 ))}
             </Menu>
+
+
         </div>
     );
-}
-export default CustomDropDown2;
+};
+
+export default CustomDropdown2;

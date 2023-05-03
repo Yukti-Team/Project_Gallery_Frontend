@@ -9,7 +9,7 @@ const filterOptions = [
     },
     {
         label: 'Domain',
-        options:['Web Development', 'Android Development', 'Machine Learning', 'Artificial Intelligence'],
+        options: ['Web Development', 'Android Development', 'Machine Learning', 'Artificial Intelligence'],
     },
     {
         label: 'Tech Stack',
@@ -57,29 +57,11 @@ const styles = {
 
 function FilterRow() {
     const [selectedFilters, setSelectedFilters] = useState({});
-    const [anchorEl, setAnchorEl] = useState({});
 
-    const handleFilterClick = (event, label) => {
-        setAnchorEl(prevState => ({
-            ...prevState,
-            [label]: event.currentTarget,
-        }));
-    };
-
-    const handleFilterClose = (label, option) => {
-        setAnchorEl(prevState => ({
-            ...prevState,
-            [label]: null,
-        }));
-        setSelectedFilters(prevState => ({
-            ...prevState,
-            [label]: option,
-        }));
-    };
 
     const handleClearFilters = () => {
         setSelectedFilters({});
-        setAnchorEl({});
+        // setAnchorEl({});
     }
 
     return (
@@ -90,13 +72,12 @@ function FilterRow() {
                     label={label}
                     options={options}
                     selectedFilters={selectedFilters}
-                    handleFilterClick={handleFilterClick}
-                    handleFilterClose={handleFilterClose}
-                    anchorEl={anchorEl}
-                    setAnchorEl={setAnchorEl}
+                    setSelectedFilters={setSelectedFilters}
+                    marginLeft="10px"
+                    marginRight="10px"
                 />
             ))}
- 
+
             {
                 (selectedFilters && Object.keys(selectedFilters).length > 0) ? (
                     <Button style={styles.clearButtonStyle} variant="outlined" onClick={handleClearFilters}>

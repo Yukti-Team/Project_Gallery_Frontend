@@ -41,23 +41,23 @@ const styles = {
 
 const filterOptions = [
     {
-        label: 'Information Technology',
-        // label: 'Department',
+        // label: 'Information Technology',
+        label: 'Department',
         options: ['Computer Science', 'Information Technology', 'Electronics', 'Mechanical', 'Civil', 'Electrical'],
     },
     {
-        label: 'Android Development',
-        // label: 'Project Domain',
+        // label: 'Android Development',
+        label: 'Project Domain',
         options: ['Web Development', 'Android Development', 'Machine Learning', 'Artificial Intelligence'],
     },
     {
-        label: '2023',
-        // label: 'Year of study',
+        // label: '2023',
+        label: 'Year of study',
         options: ['2023', '2022', '2021'],
     },
     {
-        // label: 'Project Status',
-        label: 'Completed',
+        label: 'Project Status',
+        // label: 'Completed',
         options: ['Pending', 'In Progress', 'Completed'],
     },
 
@@ -91,7 +91,6 @@ const AddProject = () => {
     const [gitHubLink, setGithubLink] = useState("https://github.com/suyog73/Digital-Notice-Board");
     const [pUrl, setPurl] = useState("https://drive.google.com/file/d/1RCTSzvuz-_hu6I0RTIIiE-aoUKezhraF/view?usp=sharing");
     const [selectedFilters, setSelectedFilters] = useState({});
-    const [anchorEl, setAnchorEl] = useState({});
     const [showError, setShowError] = useState(false);
 
     const [errors, setErrors] = useState({
@@ -114,14 +113,6 @@ const AddProject = () => {
     const [loading, setLoading] = useState(false);
 
 
-    const handleFilterClick = (event, label) => {
-        setAnchorEl((prevState) => ({ ...prevState, [label]: event.currentTarget }));
-    };
-
-    const handleFilterClose = (label, option) => {
-        setSelectedFilters((prevState) => ({ ...prevState, [label]: option }));
-        setAnchorEl((prevState) => ({ ...prevState, [label]: null }));
-    };
 
 
     // Team members list
@@ -235,21 +226,21 @@ const AddProject = () => {
             newErrors.guideEmail = "Guide email is required";
         }
 
-        // if (!selectedFilters[filterOptions[0]["label"]]) {
-        //     newErrors.department = "Select department from dropdown";
-        // }
+        if (!selectedFilters[filterOptions[0]["label"]]) {
+            newErrors.department = "Select department from dropdown";
+        }
 
-        // if (!selectedFilters[filterOptions[1]["label"]]) {
-        //     newErrors.domain = "Select Project Domain from dropdown";
-        // }
+        if (!selectedFilters[filterOptions[1]["label"]]) {
+            newErrors.domain = "Select Project Domain from dropdown";
+        }
 
-        // if (!selectedFilters[filterOptions[2]["label"]]) {
-        //     newErrors.year = "Select Year from dropdown";
-        // }
+        if (!selectedFilters[filterOptions[2]["label"]]) {
+            newErrors.year = "Select Year from dropdown";
+        }
 
-        // if (!selectedFilters[filterOptions[3]["label"]]) {
-        //     newErrors.status = "Select Status from dropdown";
-        // }
+        if (!selectedFilters[filterOptions[3]["label"]]) {
+            newErrors.status = "Select Status from dropdown";
+        }
 
         if (!pdesc) {
             newErrors.pdesc = "Description of project is required";
@@ -277,12 +268,12 @@ const AddProject = () => {
         event.preventDefault();
         setShowError(handleErrors());
 
-        console.log(handleErrors());
 
         if (!handleErrors()) {
 
 
             console.log(groupArray);
+            console.log(selectedFilters);
 
             let urlC = await uploadLogo();
             const urls = await uploadProjectImages();
@@ -304,14 +295,14 @@ const AddProject = () => {
                 username,
                 isPrivate,
                 groupArray: groupArray,
-                // branch: selectedFilters[filterOptions[0]["label"]],
-                // domain: selectedFilters[filterOptions[1]["label"]],
-                // year: selectedFilters[filterOptions[2]["label"]],
-                // status: selectedFilters[filterOptions[3]["label"]],
-                branch: "Information Technology",
-                domain: "Android Development",
-                year: "2024",
-                status: "Completed",
+                branch: selectedFilters[filterOptions[0]["label"]],
+                domain: selectedFilters[filterOptions[1]["label"]],
+                year: selectedFilters[filterOptions[2]["label"]],
+                status: selectedFilters[filterOptions[3]["label"]],
+                // branch: "Information Technology",
+                // domain: "Android Development",
+                // year: "2024",
+                // status: "Completed",
                 sponsor,
                 sponsorEmail,
                 guide,
@@ -455,22 +446,19 @@ const AddProject = () => {
                 </Grid>
 
                 <div style={styles.dropdownRow}>
-                    {filterOptions.map(({ label, options }) => (
-                        <div key={label} style={{ width: 'calc(50% - 10px)' }}>
-                            <CustomDropDown2
-                                key={label}
-                                label={label}
-                                options={options}
-                                selectedFilters={selectedFilters}
-                                handleFilterClick={handleFilterClick}
-                                handleFilterClose={handleFilterClose}
-                                anchorEl={anchorEl}
-                                setAnchorEl={setAnchorEl}
-                                width="100%"
-                                marginLeft="10px"
-                                marginRight="10px"
-                            />
-                        </div>
+                    {filterOptions.map((filter) => (
+                        <CustomDropDown2
+                            key={filter.label}
+                            label={filter.label}
+                            options={filter.options}
+                            selectedFilters={selectedFilters}
+                            setSelectedFilters={setSelectedFilters}
+                            height="50px"
+                            width="200px"
+                            color="transparent"
+                            marginLeft="10px"
+                            marginRight="10px"
+                        />
                     ))}
                 </div>
 
@@ -550,8 +538,6 @@ const AddProject = () => {
                 {!loading && 'Submit'}
 
             </Button>
-
-
 
         </>
     )

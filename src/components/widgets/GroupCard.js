@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import ApiURL from "../GetUrl";
 import ProfileAvatar from "./ProfileAvatar";
 
-
 const styles = {
     card: {
         margin: "3px",
@@ -25,16 +24,20 @@ const styles = {
 
 
 
-const getUserByUsername = async (username) => {
-    // console.log("username");
-    // console.log(username);
-
+const getUserByUsername = async (username, email) => {
     try {
         let result = await fetch(`${ApiURL}/user/${username}`);
         result = await result.json();
 
-        // console.log(result);
-        return result;
+        const statusCode = result.statusCode;
+
+        if (statusCode === 400) {
+            return { name: username, email: email }
+        }
+
+        else {
+            return result;
+        }
 
 
     } catch (error) {
@@ -42,28 +45,38 @@ const getUserByUsername = async (username) => {
     }
 }
 
-const GroupCard = ({ groupArray }) => {
+const GroupCard = ({ groupArray, guideEmail, sponsorEmail }) => {
 
+    const [users, setUsers] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-    // const [users, setUsers] = useState([]);
-    // const [isLoading, setIsLoading] = useState(false);
+    useEffect(() => {
 
-    // useEffect(() => {
-    //     const fetchUsers = async () => {
+        const fetchUsers = async () => {
 
-    //     setIsLoading(true); // set loading to true
-    //       const promises = groupArray.map(async (member) => {
-    //         const user = await getUserByUsername(member);
-    //         return user;
-    //       });
-    //       const users = await Promise.all(promises);
-    //       setUsers(users);
+            setIsLoading(true); // set loading to true
+            const promises = groupArray.map(async (username, index) => {
+                console.log(username);
+                if (username === '') {
+                    return {};
+                } else {
+                    const user = username &&
+                        await getUserByUsername(username, (index === 0) ? guideEmail : sponsorEmail);
 
-    //       setIsLoading(false); // set loading to false
-    //     };
+                    console.log(user);
+                    return user;
+                }
+            });
+            const userArray = await Promise.all(promises);
+            setUsers(userArray);
 
-    //     fetchUsers();
-    //   }, [groupArray]);
+            console.log(userArray);
+
+            setIsLoading(false); // set loading to false
+        };
+
+        groupArray && fetchUsers();
+    }, [groupArray, guideEmail, sponsorEmail]);
 
 
 
@@ -76,68 +89,54 @@ const GroupCard = ({ groupArray }) => {
                     <CardContent style={styles.content}>
 
                         {
-                            // isLoading ? (
-                            //     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            //         <CircularProgress />
-                            //     </Box>
-                            // )
-                            //     :
-                            (
-                                <Stack direction='column' spacing={1} sx={{ overflowY: "auto", scrollbarWidth: "none", maxHeight: "35.3vh" }}>
-
-                                    {/* //this was for name if i send and object -> modify it as member.name */}
-
-                                    {groupArray.map((member, index) => {
-                                        if (!member) {
-                                            return null;
-                                        }
-
-                                        // Guide
-                                        if (index === 0 && member !== '') {
-                                            return <ProfileAvatar key={index} name={member} property="Guide" />;
-                                        }
-                                        // Sponser
-                                        else if (index === 1 && member !== '') {
-                                            return <ProfileAvatar key={index} name={member} property="Sponsorer" />;
-                                        }
-                                        // Owner
-                                        else if (index === 2 && member !== '') {
-                                            return <ProfileAvatar key={index} name={member} isOwner={true} />;
-                                        }
-                                        // Team
-                                        else if (index > 2 && member !== '') {
-                                            return <ProfileAvatar key={index} name={member} />;
-                                        }
-                                        else {
-                                            return null;
-                                        }
-                                    })}
-
-                                    {/* {groupArray.map((member, index) => (
-                                        index === 0 ?
-                                            <ProfileAvatar key={index} name={member} /> :
-                                            (index > 2 && member != '') ?
-                                                <ProfileAvatar key={index} name={member} /> : null
-                                    ))} */}
-
-                                </Stack>
+                            isLoading ? (
+                                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <CircularProgress />
+                                </Box>
                             )
-                            //  :
-                            // (
-                            //     <Stack direction='column' spacing={1} sx={{ overflowY: "auto", scrollbarWidth: "none", maxHeight: "35.3vh" }}>
-                            //         {/* //this was for name if i send and object -> modify it as member.name */}
+                                :
+                                (
+                                    <Stack direction='column' spacing={1} sx={{ overflowY: "auto", scrollbarWidth: "none", maxHeight: "35.3vh" }}>
 
-                            //         {groupArray.map((member, index) => (
-                            //             <ProfileAvatar key={index} name={member} />
-                            //         ))}
-                            //     </Stack>
-                            //     //show something more in this section decorate -> Card
+                                        {/* //this was for name if i send and object -> modify it as userObject.name */}
 
-                            // )
+                                        {users && users.map((userObject, index) => {
+                                            console.log(userObject);
+                                            if (!userObject || Object.keys(userObject).length === 0) {
+                                                return null;
+                                            }
+
+                                            // Guide
+                                            if (index === 0) {
+                                                return <ProfileAvatar key={index} userObject={userObject} property="Guide" />;
+                                            }
+                                            // Sponser
+                                            else if (index === 1) {
+                                                return <ProfileAvatar key={index} userObject={userObject} property="Sponsorer" />;
+                                            }
+                                            // Owner
+                                            else if (index === 2) {
+                                                return <ProfileAvatar key={index} userObject={userObject} isOwner={true} />;
+                                            }
+                                            // Team
+                                            else if (index > 2) {
+                                                return <ProfileAvatar key={index} userObject={userObject} />;
+                                            }
+                                            else {
+                                                return null;
+                                            }
+                                        })}
+
+
+                                    </Stack>
+                                )
+
                         }
                     </CardContent>
                 </Card>
-            </Box> : <Typography>Nothing To Show</Typography>
+            </Box>
+            :
+            <Typography>Nothing To Show</Typography>
     )
 }
 export default GroupCard;
