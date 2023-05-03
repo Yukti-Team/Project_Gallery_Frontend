@@ -6,6 +6,7 @@ import PgLogo from "../../images/pglogo.jpg"
 const LogoUploader = ({ plogo, setPlogo }) => {
 
     const handleLogoChange = (event) => {
+        console.log(event);
         setPlogo(event.target.files[0]);
     };
 

@@ -41,19 +41,23 @@ const styles = {
 
 const filterOptions = [
     {
-        label: 'Department',
+        label: 'Information Technology',
+        // label: 'Department',
         options: ['Computer Science', 'Information Technology', 'Electronics', 'Mechanical', 'Civil', 'Electrical'],
     },
     {
-        label: 'Project Domain',
+        label: 'Android Development',
+        // label: 'Project Domain',
         options: ['Web Development', 'Android Development', 'Machine Learning', 'Artificial Intelligence'],
     },
     {
-        label: 'Year of study',
+        label: '2023',
+        // label: 'Year of study',
         options: ['2023', '2022', '2021'],
     },
     {
-        label: 'Project Status',
+        // label: 'Project Status',
+        label: 'Completed',
         options: ['Pending', 'In Progress', 'Completed'],
     },
 
@@ -231,21 +235,21 @@ const AddProject = () => {
             newErrors.guideEmail = "Guide email is required";
         }
 
-        if (!selectedFilters[filterOptions[0]["label"]]) {
-            newErrors.department = "Select department from dropdown";
-        }
+        // if (!selectedFilters[filterOptions[0]["label"]]) {
+        //     newErrors.department = "Select department from dropdown";
+        // }
 
-        if (!selectedFilters[filterOptions[1]["label"]]) {
-            newErrors.domain = "Select Project Domain from dropdown";
-        }
+        // if (!selectedFilters[filterOptions[1]["label"]]) {
+        //     newErrors.domain = "Select Project Domain from dropdown";
+        // }
 
-        if (!selectedFilters[filterOptions[2]["label"]]) {
-            newErrors.year = "Select Year from dropdown";
-        }
+        // if (!selectedFilters[filterOptions[2]["label"]]) {
+        //     newErrors.year = "Select Year from dropdown";
+        // }
 
-        if (!selectedFilters[filterOptions[3]["label"]]) {
-            newErrors.status = "Select Status from dropdown";
-        }
+        // if (!selectedFilters[filterOptions[3]["label"]]) {
+        //     newErrors.status = "Select Status from dropdown";
+        // }
 
         if (!pdesc) {
             newErrors.pdesc = "Description of project is required";
@@ -300,10 +304,14 @@ const AddProject = () => {
                 username,
                 isPrivate,
                 groupArray: groupArray,
-                branch: selectedFilters[filterOptions[0]["label"]],
-                domain: selectedFilters[filterOptions[1]["label"]],
-                year: selectedFilters[filterOptions[2]["label"]],
-                status: selectedFilters[filterOptions[3]["label"]],
+                // branch: selectedFilters[filterOptions[0]["label"]],
+                // domain: selectedFilters[filterOptions[1]["label"]],
+                // year: selectedFilters[filterOptions[2]["label"]],
+                // status: selectedFilters[filterOptions[3]["label"]],
+                branch: "Information Technology",
+                domain: "Android Development",
+                year: "2024",
+                status: "Completed",
                 sponsor,
                 sponsorEmail,
                 guide,

@@ -11,7 +11,7 @@ const styles = {
         // backgroundColor: "transparent",
     },
     header: {
-        textAlign: 'center', 
+        textAlign: 'center',
         backgroundColor: "#f2f2f2",
         borderBottom: "1px solid #ccc",
         padding: "16px",
@@ -35,7 +35,7 @@ const getUserByUsername = async (username) => {
 
         // console.log(result);
         return result;
-    
+
 
     } catch (error) {
         console.log("Error while fetching data:", error);
@@ -45,25 +45,25 @@ const getUserByUsername = async (username) => {
 const GroupCard = ({ groupArray }) => {
 
 
-    const [users, setUsers] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    // const [users, setUsers] = useState([]);
+    // const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        const fetchUsers = async () => {
+    // useEffect(() => {
+    //     const fetchUsers = async () => {
 
-        setIsLoading(true); // set loading to true
-          const promises = groupArray.map(async (member) => {
-            const user = await getUserByUsername(member);
-            return user;
-          });
-          const users = await Promise.all(promises);
-          setUsers(users);
+    //     setIsLoading(true); // set loading to true
+    //       const promises = groupArray.map(async (member) => {
+    //         const user = await getUserByUsername(member);
+    //         return user;
+    //       });
+    //       const users = await Promise.all(promises);
+    //       setUsers(users);
 
-          setIsLoading(false); // set loading to false
-        };
-    
-        fetchUsers();
-      }, [groupArray]);
+    //       setIsLoading(false); // set loading to false
+    //     };
+
+    //     fetchUsers();
+    //   }, [groupArray]);
 
 
 
@@ -76,23 +76,22 @@ const GroupCard = ({ groupArray }) => {
                     <CardContent style={styles.content}>
 
                         {
-                            isLoading ? (
-                                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                  <CircularProgress />
-                                </Box>
-                              ) 
-                              :
-                              (
+                            // isLoading ? (
+                            //     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            //         <CircularProgress />
+                            //     </Box>
+                            // )
+                            //     :
+                            (
                                 <Stack direction='column' spacing={1} sx={{ overflowY: "auto", scrollbarWidth: "none", maxHeight: "35.3vh" }}>
 
                                     {/* //this was for name if i send and object -> modify it as member.name */}
 
-                                    {users.map( (member, index) => {
-                                        if(!member)
-                                        {
+                                    {groupArray.map((member, index) => {
+                                        if (!member) {
                                             return null;
                                         }
-                                        
+
                                         // Guide
                                         if (index === 0 && member !== '') {
                                             return <ProfileAvatar key={index} name={member} property="Guide" />;

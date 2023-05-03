@@ -38,7 +38,9 @@ const ProfileAvatar = ({ profileImage, name, bio, property, isOwner = false }) =
                 </Typography>
 
 
-                <Typography variant="body2" sx={{ fontWeight: 'lighter' }}>{bio ? bio : "bio: About the team member skills and their interests"}</Typography>
+                <Typography variant="body2" sx={{ fontWeight: 'lighter', margin: 0, textAlign: 'left' }}>
+                    {bio ? bio : "bio: About the team member skills and their interests"}
+                </Typography>
             </Box>
         </Profiles >
 
